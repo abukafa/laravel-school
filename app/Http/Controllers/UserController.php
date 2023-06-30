@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\siswa;
+use App\Models\user;
 use Illuminate\Http\Request;
 
-class SiswaController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,9 +14,9 @@ class SiswaController extends Controller
      */
     public function index()
     {
-        $siswas = siswa::paginate(10);
+        $users = User::paginate(10);
         return response()->json([
-            'data' => $siswas
+            'data' => $users
         ]);
     }
 
@@ -38,38 +38,38 @@ class SiswaController extends Controller
      */
     public function store(Request $request)
     {
-        $siswas = siswa::create([
+        $users = User::create([
             'name' => $request->name,
-            'birth_place' => $request->birth_place,
-            'birth_date' => $request->birth_date,
-            'phone' => $request->phone,
-            'email' => $request->email
+            'username' => $request->username,
+            'password' => $request->password,
+            'account' => $request->account,
+            'description' => $request->description
         ]);
         return response()->json([
-            'data' => $siswas
+            'data' => $users
         ]);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\siswa  $siswa
+     * @param  \App\Models\user  $user
      * @return \Illuminate\Http\Response
      */
-    public function show(siswa $siswa)
+    public function show(user $user)
     {
         return response()->json([
-            'data' => $siswa
+            'data' => $user
         ]);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\siswa  $siswa
+     * @param  \App\Models\user  $user
      * @return \Illuminate\Http\Response
      */
-    public function edit(siswa $siswa)
+    public function edit(user $user)
     {
         //
     }
@@ -78,34 +78,34 @@ class SiswaController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\siswa  $siswa
+     * @param  \App\Models\user  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, siswa $siswa)
+    public function update(Request $request, user $user)
     {
-        $siswa->name = $request->name;
-        $siswa->birth_place = $request->birth_place;
-        $siswa->birth_date = $request->birth_date;
-        $siswa->phone = $request->phone;
-        $siswa->email = $request->email;
-        $siswa->save();
+        $user->name = $request->name;
+        $user->username = $request->username;
+        $user->password = $request->password;
+        $user->account = $request->account;
+        $user->description = $request->description;
+        $user->save();
 
         return response()->json([
-            'data' => $siswa
+            'data' => $user
         ]);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\siswa  $siswa
+     * @param  \App\Models\user  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy(siswa $siswa)
+    public function destroy(user $user)
     {
-        $siswa->delete();
+        $user->delete();
         return response()->json([
-            'message' => 'Data Siswa dihapus!'
+            'message' => 'Data User dihapus!'
         ], 204);
     }
 }

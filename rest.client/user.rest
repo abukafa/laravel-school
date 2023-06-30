@@ -1,0 +1,31 @@
+GET http://localhost:8000/api/user
+
+###
+GET http://localhost:8000/api/user/2
+
+###
+POST http://localhost:8000/api/user
+Content-Type: application/json
+
+{
+    "name": "Tia Selpiani",
+    "username": "tia28",
+    "password": "rahasia",
+    "account": "user",
+    "description": "pengguna"
+}
+
+###
+PUT http://localhost:8000/api/user/2
+Content-Type: application/json
+
+{
+    "name": "Bunda Hijjaz",
+    "username": "jaz02",
+    "password": "jangantau",
+    "account": "admin",
+    "description": "admin"
+}
+
+###
+DELETE http://localhost:8000/api/user/3
