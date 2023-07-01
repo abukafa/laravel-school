@@ -1,0 +1,41 @@
+GET http://localhost:8000/api/finance
+
+###
+GET http://localhost:8000/api/finance/2
+
+###
+POST http://localhost:8000/api/finance
+Content-Type: application/json
+
+{
+    "invoice": "FN9872435987",
+    "date": "2023-07-30",
+    "period_year": "2023",
+    "vendor": "CV. Angin Ribut",
+    "account": "009876",
+    "remark": "Pembayaran SPP",
+    "description": "-",
+    "debit": "350000",
+    "credit": "0",
+    "admin": "abudan"
+}
+
+###
+PUT http://localhost:8000/api/finance/2
+Content-Type: application/json
+
+{
+    "invoice": "PY00000000",
+    "date": "2024-07-30",
+    "period_year": "2023",
+    "vendor": "CV. Perkasa",
+    "account": "000000",
+    "remark": "Update Pembayaran SPP",
+    "description": "Updated",
+    "debit": "50000",
+    "credit": "0",
+    "admin": "abudan89"
+}
+
+###
+DELETE http://localhost:8000/api/finance/3

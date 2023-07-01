@@ -1,0 +1,39 @@
+GET http://localhost:8000/api/saving
+
+###
+GET http://localhost:8000/api/saving/2
+
+###
+POST http://localhost:8000/api/saving
+Content-Type: application/json
+
+{
+    "date": "2024-07-30",
+    "period_year": "2024",
+    "nis": "230212",
+    "name": "Kafa Billah",
+    "guardian": "Abu Kafa",
+    "debit": "10000",
+    "credit": "0",
+    "note": "",
+    "admin": "abudan"
+}
+
+###
+PUT http://localhost:8000/api/saving/2
+Content-Type: application/json
+
+{
+    "date": "2023-07-30",
+    "period_year": "2023",
+    "nis": "230212",
+    "name": "Mariyah",
+    "guardian": "Abu Mariyah",
+    "debit": "150000",
+    "credit": "0",
+    "note": "",
+    "admin": "abudan89"
+}
+
+###
+DELETE http://localhost:8000/api/saving/3
