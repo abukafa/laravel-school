@@ -1,0 +1,45 @@
+GET http://localhost:8000/api/payment
+
+###
+GET http://localhost:8000/api/payment/2
+
+###
+POST http://localhost:8000/api/payment
+Content-Type: application/json
+
+{
+    "invoice": "PY9872435987",
+    "date": "2023-07-30",
+    "nis": "230198",
+    "name": "Mariyah Alqibthiyah",
+    "guardian": "Abu Mariyah",
+    "period_month": "Jul-2023",
+    "period_year": "2023",
+    "account": "009876",
+    "remark": "Pembayaran SPP",
+    "description": "-",
+    "amount": "350000",
+    "admin": "abudan"
+}
+
+###
+PUT http://localhost:8000/api/payment/2
+Content-Type: application/json
+
+{
+    "invoice": "PY00000000",
+    "date": "2024-01-30",
+    "nis": "230000",
+    "name": "Kafa Billahi",
+    "guardian": "Abu Kafa",
+    "period_month": "Jan-2024",
+    "period_year": "2023",
+    "account": "000000",
+    "remark": "Update Pembayaran SPP",
+    "description": "Updated",
+    "amount": "550000",
+    "admin": "abudan89"
+}
+
+###
+DELETE http://localhost:8000/api/payment/3

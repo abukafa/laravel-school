@@ -13,13 +13,17 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('siswas', function (Blueprint $table) {
+        Schema::create('savings', function (Blueprint $table) {
             $table->id();
+            $table->date('date');
+            $table->integer('period_year');
+            $table->string('nis');
             $table->string('name');
-            $table->string('birth_place');
-            $table->string('birth_date');
-            $table->string('phone');
-            $table->string('email');
+            $table->string('guardian');
+            $table->integer('debit');
+            $table->integer('credit');
+            $table->string('note')->nullable();
+            $table->string('admin');
             $table->timestamps();
         });
     }
@@ -31,6 +35,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('siswas');
+        Schema::dropIfExists('savings');
     }
 };

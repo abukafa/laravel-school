@@ -1,0 +1,35 @@
+GET http://localhost:8000/api/billing
+
+###
+GET http://localhost:8000/api/billing/2
+
+###
+POST http://localhost:8000/api/billing
+Content-Type: application/json
+
+{
+    "period_year": "2023",
+    "class": "Regular",
+    "account": "009876",
+    "remark": "Pembayaran SPP",
+    "description": "-",
+    "amount": "350000",
+    "admin": "abudan"
+}
+
+###
+PUT http://localhost:8000/api/billing/2
+Content-Type: application/json
+
+{
+    "period_year": "2024",
+    "class": "Keluarga",
+    "account": "000000",
+    "remark": "Update Pembayaran SPP",
+    "description": "Updated",
+    "amount": "550000",
+    "admin": "abudan89"
+}
+
+###
+DELETE http://localhost:8000/api/billing/3

@@ -1,0 +1,72 @@
+GET http://localhost:8000/api/student
+
+###
+GET http://localhost:8000/api/student/2
+
+###
+POST http://localhost:8000/api/student
+Content-Type: application/json
+
+{
+    "nis": "220188",
+    "name": "Mariyah Alqibthiyah",
+    "nick_name": "de iah",
+    "gender": "Girl",
+    "rumble": "Awal",
+    "birth_place": "",
+    "birth_date": "",
+    "child_num": "",
+    "family_status": "",
+    "sibling_num": "",
+    "address": "",
+    "hamlet": "",
+    "village": "",
+    "district": "",
+    "city": "",
+    "postal_code": "",
+    "hobby": "",
+    "sport": "",
+    "ambition": "",
+    "height": "",
+    "weight": "",
+    "distance": "",
+    "time": "",
+    "father": "",
+    "father_birth_place": "",
+    "father_birth_date": "",
+    "father_education": "",
+    "father_note": "",
+    "mother": "",
+    "mother_birth_place": "",
+    "mother_birth_date": "",
+    "mother_education": "",
+    "mother_note": "",
+    "job": "",
+    "income": "",
+    "phone": "",
+    "guardian": "",
+    "guardian_relationship": "",
+    "guardian_phone": "",
+    "illness": "",
+    "performance": "",
+    "photo": "",
+    "graduation": "",
+    "next_school": "",
+    "next_school_address": "",
+    "last_activity": ""
+}
+
+###
+PUT http://localhost:8000/api/student/2
+Content-Type: application/json
+
+{
+    "nis": "220199",
+    "name": "Kafa Billahi",
+    "nick_name": "teteh",
+    "gender": "Girl 2",
+    "rumble": "Awal 2"
+}
+
+###
+DELETE http://localhost:8000/api/student/3

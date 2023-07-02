@@ -1,6 +1,11 @@
 <?php
 
-use App\Http\Controllers\SiswaController;
+use App\Http\Controllers\SavingController;
+use App\Http\Controllers\FinanceController;
+use App\Http\Controllers\BillingController;
+use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\StudentController;
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -19,4 +24,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::apiResource('siswa', SiswaController::class);
+Route::apiResource('user', UserController::class);
+Route::apiResource('student', StudentController::class);
+Route::apiResource('payment', PaymentController::class);
+Route::apiResource('billing', BillingController::class);
+Route::apiResource('finance', FinanceController::class);
+Route::apiResource('saving', SavingController::class);
