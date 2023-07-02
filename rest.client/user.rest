@@ -10,7 +10,7 @@ Content-Type: application/json
 {
     "name": "Tia Selpiani",
     "username": "tia28",
-    "password": "rahasia",
+    "password": "$2y$10$edyTeTL/Ftr9jMfbu8XQoOxXEQf.wlXVIi4qgRg983frf.rxUMacm",
     "account": "user",
     "description": "pengguna"
 }
@@ -22,7 +22,7 @@ Content-Type: application/json
 {
     "name": "Bunda Hijjaz",
     "username": "jaz02",
-    "password": "jangantau",
+    "password": "$2y$10$edyTeTL/Ftr9jMfbu8XQoOxXEQf.wlXVIi4qgRg983frf.rxUMacm",
     "account": "admin",
     "description": "admin"
 }
