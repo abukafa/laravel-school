@@ -44,10 +44,10 @@
     
                             <div class="row">
                                 <div class="col-md-12 mb-5 d-flex align-items-center">
-                                    <img src="/src/assets/img/favicon.ico" alt="auth-img" width="50" class="img-fluid">
-                                    <div class="ms-3">
-                                        <h2>Login</h2>
-                                        <p>Masukkan username dan password</p>
+                                    <img src="/src/assets/img/logo.png" alt="auth-img" width="100" class="img-fluid">
+                                    <div class="ms-4 mt-3">
+                                        <h2 class="mb-0">Login</h2>
+                                        <p>Masukan nama pengguna</p>
                                     </div>
                                 </div>
                                 
@@ -96,6 +96,7 @@
                                     <div class="">
                                         <div class="seperator">
                                             <hr>
+                                            <div class="text-center d-lg-none"><h3>Aplikasi Managemen Sekolah</h3></div>
                                             <div class="seperator-text"> <span>Homeschooling Alquran bina Insani</span></div>
                                             <div class="text-center">
                                                 <p class="text-muted mb-0">Code by <a href="javascript:void(0);" class="text-warning">Semangkamedia</a></p>

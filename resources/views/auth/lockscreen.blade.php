@@ -47,7 +47,7 @@
                                 <div class="col-md-12 mb-3">
                                     <div class="media mb-4">
                                         <div class="avatar avatar-lg me-3">
-                                            <img alt="avatar" src="../src/assets/img/profile-7.jpeg" class="rounded-circle">
+                                            <img alt="avatar" src="../src/assets/img/profile/no.png" class="rounded-circle">
                                         </div>
                                         <div class="media-body align-self-center">
                                             <h3 class="mb-0">Abdul Ghofur</h3>
@@ -80,6 +80,19 @@
                                         </div>
                                     </div>
                                 </form>
+                                
+                                <div class="col-12">
+                                    <div class="">
+                                        <div class="seperator">
+                                            <hr>
+                                            <div class="text-center d-lg-none"><h3>Aplikasi Managemen Sekolah</h3></div>
+                                            <div class="seperator-text"> <span>Homeschooling Alquran bina Insani</span></div>
+                                            <div class="text-center">
+                                                <p class="text-muted mb-0">Code by <a href="javascript:void(0);" class="text-warning">Semangkamedia</a></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
                             </div>
                             

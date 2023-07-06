@@ -466,13 +466,13 @@
                                             <span class="avatar-title">+6</span>
                                         </div>
                                         <div class="avatar translateY-axis">
-                                            <img alt="avatar" src="../src/assets/img/profile-8.jpeg"/>
+                                            <img alt="avatar" src="../src/assets/img/profile/no.png"/>
                                         </div>
                                         <div class="avatar translateY-axis">
-                                            <img alt="avatar" src="../src/assets/img/profile-12.jpeg"/>
+                                            <img alt="avatar" src="../src/assets/img/profile/no.png"/>
                                         </div>
                                         <div class="avatar translateY-axis">
-                                            <img alt="avatar" src="../src/assets/img/profile-19.jpeg"/>
+                                            <img alt="avatar" src="../src/assets/img/profile/no.png"/>
                                         </div>
                                         
                                     </div>
@@ -492,7 +492,7 @@
 
                                 <div class="media">
                                     <div class="w-img">
-                                        <img src="../src/assets/img/profile-19.jpeg" alt="avatar">
+                                        <img src="../src/assets/img/profile/no.png" alt="avatar">
                                     </div>
                                     <div class="media-body">
                                         <h6>Jimmy Turner</h6>
@@ -522,7 +522,7 @@
 
                                 <div class="media">
                                     <div class="w-img">
-                                        <img src="../src/assets/img/g-8.png" alt="avatar">
+                                        <img src="../src/assets/img/profile/no.png" alt="avatar">
                                     </div>
                                     <div class="media-body">
                                         <h6>Dev Summit - New York</h6>
@@ -533,10 +533,10 @@
                                 <div class="card-bottom-section">
                                     <h5>4 Members Going</h5>
                                     <div class="img-group">
-                                        <img src="../src/assets/img/profile-19.jpeg" alt="avatar">
-                                        <img src="../src/assets/img/profile-6.jpeg" alt="avatar">
-                                        <img src="../src/assets/img/profile-8.jpeg" alt="avatar">
-                                        <img src="../src/assets/img/profile-3.jpeg" alt="avatar">
+                                        <img src="../src/assets/img/profile/no.png" alt="avatar">
+                                        <img src="../src/assets/img/profile/no.png" alt="avatar">
+                                        <img src="../src/assets/img/profile/no.png" alt="avatar">
+                                        <img src="../src/assets/img/profile/no.png" alt="avatar">
                                     </div>
                                     <a href="javascript:void(0);" class="btn">View Details</a>
                                 </div>
@@ -552,13 +552,13 @@
         <!--  BEGIN FOOTER  -->
         <div class="footer-wrapper">
             <div class="footer-section f-section-1">
-                <p class="">Copyright © <span class="dynamic-year">2022</span> <a target="_blank" href="https://designreset.com/cork-admin/">DesignReset</a>, All rights reserved.</p>
+                <p class="">Copyright © <span class="dynamic-year">2023</span> Yayasan Bina Insani.</p>
             </div>
             <div class="footer-section f-section-2">
-                <p class="">Coded with <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-heart"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg></p>
+                <p class="">Code by Semangkamedia <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-heart"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg></p>
             </div>
         </div>
-        <!--  END FOOTER  -->
+        <!--  END CONTENT AREA  -->
     </div>
     <!--  END CONTENT AREA  -->
 

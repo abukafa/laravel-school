@@ -97,7 +97,7 @@
                     <a href="javascript:void(0);" class="nav-link dropdown-toggle user" id="userProfileDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <div class="avatar-container">
                             <div class="avatar avatar-sm avatar-indicators avatar-online">
-                                <img alt="avatar" src="/src/assets/img/profile-30.png" class="rounded-circle">
+                                <img alt="avatar" src="/src/assets/img/profile/no.png" class="rounded-circle">
                             </div>
                         </div>
                     </a>
@@ -117,11 +117,6 @@
                         <div class="dropdown-item">
                             <a href="/pengguna">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg> <span>pengguna</span>
-                            </a>
-                        </div>
-                        <div class="dropdown-item">
-                            <a href="/pesan">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-inbox"><polyline points="22 12 16 12 14 15 10 15 8 12 2 12"></polyline><path d="M5.45 5.11L2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"></path></svg> <span>pesan</span>
                             </a>
                         </div>
                         <div class="dropdown-item">
@@ -157,11 +152,11 @@
                     <div class="nav-logo">
                         <div class="nav-item theme-logo">
                             <a href="./index.html">
-                                <img src="../src/assets/img/logo.svg" class="navbar-logo" alt="logo">
+                                <img src="/src/assets/img/logo.png">
                             </a>
                         </div>
                         <div class="nav-item theme-text">
-                            <a href="./index.html" class="nav-link"> CORK </a>
+                            <a href="./index.html" class="nav-link"> HABI </a>
                         </div>
                     </div>
                     <div class="nav-item sidebar-toggle">
@@ -172,8 +167,8 @@
                 </div>
                 <div class="shadow-bottom"></div>
                 <ul class="list-unstyled menu-categories" id="accordionExample">
-                    <li class="menu active">
-                        <a href="#beranda" data-bs-toggle="collapse" aria-expanded="true" class="dropdown-toggle">
+                    <li class="menu {{ $title == 'Beranda Akademis' || $title == 'Beranda Keuangan' ? 'active' : '' }}">
+                        <a href="#beranda" data-bs-toggle="collapse" aria-expanded="{{ $title == 'Beranda Akademis' || $title == 'Beranda Keuangan' ? 'true' : 'false' }}" class="dropdown-toggle">
                             <div class="">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
                                 <span>Beranda</span>
@@ -182,7 +177,7 @@
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg>
                             </div>
                         </a>
-                        <ul class="collapse submenu list-unstyled show" id="beranda" data-bs-parent="#accordionExample">
+                        <ul class="collapse submenu list-unstyled {{ $title == 'Beranda Akademis' || $title == 'Beranda Keuangan' ? 'show' : '' }}" id="beranda" data-bs-parent="#accordionExample">
                             <li class="{{ $title == 'Beranda Akademis' ? 'active' : '' }}">
                                 <a href="/"> Akademis </a>
                             </li>
@@ -192,30 +187,39 @@
                         </ul>
                     </li>
 
+                    <li class="menu {{ $title == 'Data Pengguna' ? 'active' : '' }}">
+                        <a href="/pengguna" aria-expanded="false" class="dropdown-toggle">
+                            <div class="">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-users"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle></svg>
+                                <span>Pengguna</span>
+                            </div>
+                        </a>
+                    </li>
+
                     <li class="menu menu-heading">
                         <div class="heading"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-minus"><line x1="5" y1="12" x2="19" y2="12"></line></svg><span>ADMINISTRATOR</span></div>
                     </li>
 
-                    <li class="menu">
-                        <a href="" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                    <li class="menu {{ $title == 'Data Sekolah' ? 'active' : '' }}">
+                        <a href="/admin/sekolah" aria-expanded="false" class="dropdown-toggle">
                             <div class="">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-box"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
-                                <span>Master</span>
+                                <span>Sekolah</span>
                             </div>
                         </a>
                     </li>
 
-                    <li class="menu">
-                        <a href="" aria-expanded="false" class="dropdown-toggle">
-                            <div class="">
+                    <li class="menu {{ $title == 'Kalendar Pendidikan' ? 'active' : '' }}">
+                        <a href="/admin/kalendar" aria-expanded="false" class="dropdown-toggle">
+                            <div class="activ">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-                                <span>Kalender</span>
+                                <span>Kalendar</span>
                             </div>
                         </a>
                     </li>           
 
-                    <li class="menu">
-                        <a href="" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                    <li class="menu {{ $title == 'Akuntansi' ? 'active' : '' }}">
+                        <a href="/admin/akun" aria-expanded="false" class="dropdown-toggle">
                             <div class="">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clipboard"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>
                                 <span>Akun</span>
@@ -224,8 +228,8 @@
                         </a>
                     </li>
 
-                    <li class="menu">
-                        <a href="#member" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                    <li class="menu {{ $title == 'Data Guru' || $title == 'Data Siswa' || $title == 'Data Alumni' ? 'active' : '' }}">
+                        <a href="#member" data-bs-toggle="collapse" aria-expanded="{{ $title == 'Data Guru' || $title == 'Data Siswa' || $title == 'Data Alumni' ? 'true' : 'false' }}" class="dropdown-toggle">
                             <div class="">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-users"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
                                 <span>Member</span>
@@ -234,21 +238,21 @@
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg>
                             </div>
                         </a>
-                        <ul class="collapse submenu list-unstyled" id="member" data-bs-parent="#accordionExample">
-                            <li>
-                                <a href=""> Guru </a>
+                        <ul class="collapse submenu list-unstyled {{ $title == 'Data Guru' || $title == 'Data Siswa' || $title == 'Data Alumni' ? 'show' : '' }}" id="member" data-bs-parent="#accordionExample">
+                            <li class="{{ $title == 'Data Guru' ? 'active' : '' }}">
+                                <a href="/admin/guru"> Guru </a>
                             </li>
-                            <li>
-                                <a href=""> Siswa </a>
+                            <li class="{{ $title == 'Data Siswa' ? 'active' : '' }}">
+                                <a href="/admin/siswa"> Santri </a>
                             </li>
-                            <li>
-                                <a href=""> Alumni </a>
+                            <li class="{{ $title == 'Data Alumni' ? 'active' : '' }}">
+                                <a href="/admin/alumni"> Alumni </a>
                             </li>
                         </ul>
                     </li>
 
-                    <li class="menu">
-                        <a href="#pembayaran" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                    <li class="menu {{ $title == 'Data Pembayaran' || $title == 'Data Tagihan' || $title == 'Konfirmasi Pembayaran' ? 'active' : '' }}">
+                        <a href="#pembayaran" data-bs-toggle="collapse" aria-expanded="{{ $title == 'Data Pembayaran' || $title == 'Data Tagihan' || $title == 'Konfirmasi Pembayaran' ? 'true' : 'false' }}" class="dropdown-toggle">
                             <div class="">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
                                 <span>Pembayaran</span>
@@ -257,21 +261,21 @@
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg>
                             </div>
                         </a>
-                        <ul class="collapse submenu list-unstyled" id="pembayaran" data-bs-parent="#accordionExample">
-                            <li>
-                                <a href=""> Harian </a>
+                        <ul class="collapse submenu list-unstyled {{ $title == 'Data Pembayaran' || $title == 'Data Tagihan' || $title == 'Konfirmasi Pembayaran' ? 'show' : '' }}" id="pembayaran" data-bs-parent="#accordionExample">
+                            <li class="{{ $title == 'Data Pembayaran' ? 'active' : '' }}">
+                                <a href="/admin/pembayaran"> Harian </a>
                             </li>
-                            <li>
-                                <a href=""> Tagihan </a>
+                            <li class="{{ $title == 'Data Tagihan' ? 'active' : '' }}">
+                                <a href="/admin/tagihan"> Tagihan </a>
                             </li>       
-                            <li>
-                                <a href=""> Konfirmasi </a>
+                            <li class="{{ $title == 'Konfirmasi Pembayaran' ? 'active' : '' }}">
+                                <a href="/admin/konfirmasi"> Konfirmasi </a>
                             </li>                       
                         </ul>
                     </li>
 
-                    <li class="menu">
-                        <a href="#keuangan" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                    <li class="menu {{ $title == 'Data Pengeluaran' || $title == 'Data Pemasukan' ? 'active' : '' }}">
+                        <a href="#keuangan" data-bs-toggle="collapse" aria-expanded="{{ $title == 'Data Pengeluaran' || $title == 'Data Pemasukan' ? 'true' : 'false' }}" class="dropdown-toggle">
                             <div class="">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shopping-cart"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
                                 <span>Keuangan</span>
@@ -280,18 +284,18 @@
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg>
                             </div>
                         </a>
-                        <ul class="collapse submenu list-unstyled" id="keuangan" data-bs-parent="#accordionExample">
-                            <li>
-                                <a href=""> Pengeluaran </a>
+                        <ul class="collapse submenu list-unstyled {{ $title == 'Data Pengeluaran' || $title == 'Data Pemasukan' ? 'show' : '' }}" id="keuangan" data-bs-parent="#accordionExample">
+                            <li class="{{ $title == 'Data Pengeluaran' ? 'active' : '' }}">
+                                <a href="/admin/pengeluaran"> Pengeluaran </a>
                             </li>
-                            <li>
-                                <a href=""> Pemasukan </a>
+                            <li class="{{ $title == 'Data Pemasukan' ? 'active' : '' }}">
+                                <a href="/admin/pemasukan"> Pemasukan </a>
                             </li>                           
                         </ul>
                     </li>
 
-                    <li class="menu">
-                        <a href="#tabungan" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                    <li class="menu {{ $title == 'Data Tabungan' || $title == 'Saldo Tabungan' ? 'active' : '' }}">
+                        <a href="#tabungan" data-bs-toggle="collapse" aria-expanded="{{ $title == 'Data Tabungan' || $title == 'Saldo Tabungan' ? 'true' : 'false' }}" class="dropdown-toggle">
                             <div class="">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-dollar-sign"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
                                 <span>Tabungan</span>
@@ -300,12 +304,12 @@
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg>
                             </div>
                         </a>
-                        <ul class="collapse submenu list-unstyled" id="tabungan" data-bs-parent="#accordionExample">
-                            <li>
-                                <a href=""> Harian </a>
+                        <ul class="collapse submenu list-unstyled {{ $title == 'Data Tabungan' || $title == 'Saldo Tabungan' ? 'show' : '' }}" id="tabungan" data-bs-parent="#accordionExample">
+                            <li class="{{ $title == 'Data Tabungan' ? 'active' : '' }}">
+                                <a href="/admin/tabungan"> Harian </a>
                             </li>
-                            <li>
-                                <a href=""> Rekap </a>
+                            <li class="{{ $title == 'Saldo Tabungan' ? 'active' : '' }}">
+                                <a href="/admin/simpanan"> Simpanan </a>
                             </li>                     
                         </ul>
                     </li>
@@ -314,8 +318,8 @@
                         <div class="heading"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-minus"><line x1="5" y1="12" x2="19" y2="12"></line></svg><span>PENILAIAN</span></div>
                     </li>
 
-                    <li class="menu">
-                        <a href="" aria-expanded="false" class="dropdown-toggle">
+                    <li class="menu {{ $title == 'Data Pelajaran' ? 'active' : '' }}">
+                        <a href="/data/pelajaran" aria-expanded="false" class="dropdown-toggle">
                             <div class="">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-map"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"></polygon><line x1="8" y1="2" x2="8" y2="18"></line><line x1="16" y1="6" x2="16" y2="22"></line></svg>
                                 <span>Pelajaran</span>
@@ -323,8 +327,8 @@
                         </a>
                     </li>
 
-                    <li class="menu">
-                        <a href="#penilaian" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                    <li class="menu {{ $title == 'Data Nilai' || $title == 'Data Personal' ? 'active' : '' }}">
+                        <a href="#penilaian" data-bs-toggle="collapse" aria-expanded="{{ $title == 'Data Nilai' || $title == 'Data Personal' ? 'true' : 'false' }}" class="dropdown-toggle">
                             <div class="">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-pen-tool"><path d="M12 19l7-7 3 3-7 7-3-3z"></path><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path><path d="M2 2l7.586 7.586"></path><circle cx="11" cy="11" r="2"></circle></svg>
                                 <span>Penilaian</span>
@@ -333,15 +337,12 @@
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg>
                             </div>
                         </a>
-                        <ul class="collapse submenu list-unstyled" id="penilaian" data-bs-parent="#accordionExample">
-                            <li>
-                                <a href=""> Input </a>
+                        <ul class="collapse submenu list-unstyled {{ $title == 'Data Nilai' || $title == 'Data Personal' ? 'show' : '' }}" id="penilaian" data-bs-parent="#accordionExample">
+                            <li class="{{ $title == 'Data Nilai' ? 'active' : '' }}">
+                                <a href="/data/nilai"> Nilai </a>
                             </li>
-                            <li>
-                                <a href=""> Rekap </a>
-                            </li>
-                            <li>
-                                <a href=""> Laporan </a>
+                            <li class="{{ $title == 'Data Personal' ? 'active' : '' }}">
+                                <a href="/data/personal"> Personal </a>
                             </li>
                         </ul>
                     </li>

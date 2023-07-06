@@ -1,11 +1,11 @@
 <?php
 
-use App\Http\Controllers\SavingController;
-use App\Http\Controllers\FinanceController;
-use App\Http\Controllers\BillingController;
-use App\Http\Controllers\PaymentController;
-use App\Http\Controllers\StudentController;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\API\SavingAPI;
+use App\Http\Controllers\API\FinanceAPI;
+use App\Http\Controllers\API\BillingAPI;
+use App\Http\Controllers\API\PaymentAPI;
+use App\Http\Controllers\API\StudentAPI;
+use App\Http\Controllers\API\UserAPI;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -24,9 +24,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::apiResource('user', UserController::class);
-Route::apiResource('student', StudentController::class);
-Route::apiResource('payment', PaymentController::class);
-Route::apiResource('billing', BillingController::class);
-Route::apiResource('finance', FinanceController::class);
-Route::apiResource('saving', SavingController::class);
+Route::apiResource('user', UserAPI::class);
+Route::apiResource('student', StudentAPI::class);
+Route::apiResource('payment', PaymentAPI::class);
+Route::apiResource('billing', BillingAPI::class);
+Route::apiResource('finance', FinanceAPI::class);
+Route::apiResource('saving', SavingAPI::class);
