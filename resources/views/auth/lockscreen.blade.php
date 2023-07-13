@@ -47,10 +47,10 @@
                                 <div class="col-md-12 mb-3">
                                     <div class="media mb-4">
                                         <div class="avatar avatar-lg me-3">
-                                            <img alt="avatar" src="../src/assets/img/profile/no.png" class="rounded-circle">
+                                            <img alt="avatar" src="{{ session('user.image') ? asset('storage/' . session('user.image')) : '/src/assets/img/no.png' }}" class="rounded-circle">
                                         </div>
                                         <div class="media-body align-self-center">
-                                            <h3 class="mb-0">Abdul Ghofur</h3>
+                                            <h3 class="mb-0">{{ session('user.name') }}</h3>
                                             <p class="mb-0">Masukan kembali password anda</p>
                                         </div>
                                     </div>
@@ -59,7 +59,7 @@
                                 @if(session()->has('loginError'))
                                 <div class="col-md-12">
                                     <div class="alert alert-arrow-right alert-icon-right alert-light-danger mb-4" role="alert">
-                                        <svg> ... </svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-alert-circle"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12" y2="16"></line></svg>
                                         <strong>Password Salah..</strong> Coba lagi yah..
                                     </div> 
                                 </div> 

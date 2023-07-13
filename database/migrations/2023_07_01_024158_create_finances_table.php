@@ -17,13 +17,11 @@ return new class extends Migration
             $table->id();
             $table->string('invoice');
             $table->date('date');
-            $table->integer('period_year');
             $table->string('vendor');
             $table->string('account');
             $table->string('remark');
             $table->string('description');
-            $table->integer('debit');
-            $table->integer('credit');
+            $table->integer('amount');
             $table->string('admin');
             $table->timestamps();
         });

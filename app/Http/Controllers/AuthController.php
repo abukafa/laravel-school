@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class AuthController extends Controller
 {
@@ -29,14 +30,10 @@ class AuthController extends Controller
             'password' => 'required'
         ]);
         if (Auth::attempt($credentials)) {
-
-            // $user = Auth::user();
-            // if (!$user->is_approved) {
-            //     Auth::logout();
-            //     return back()->with('loginError', 'Your account is not approved yet!');
-            // }
-
-            $request->session()->regenerate();
+            $user = Auth::user();
+            $role = ($user->role == 5 ? 'Maintainer' : ($user->role == 4 ? 'Auditor' : ($user->role == 3 ? 'Supervisor' : ($user->role == 2 ? 'Administrator' : 'User'))));
+            session()->put('user', $user);
+            session()->put('rolename', $role);
             return redirect()->intended('/');
         }
         return back()->with('loginError', 'Login failed!');

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Models\user;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
 
 class UserAPI extends Controller
 {
@@ -32,9 +33,10 @@ class UserAPI extends Controller
         $users = User::create([
             'name' => $request->name,
             'username' => $request->username,
-            'password' => $request->password,
-            'account' => $request->account,
-            'description' => $request->description
+            'password' => Hash::make($request->password),
+            'division' => $request->division,
+            'position' => $request->position,
+            'role' => $request->role
         ]);
         return response()->json([
             'data' => $users
@@ -66,8 +68,9 @@ class UserAPI extends Controller
         $user->name = $request->name;
         $user->username = $request->username;
         $user->password = $request->password;
-        $user->account = $request->account;
-        $user->description = $request->description;
+        $user->division = $request->division;
+        $user->position = $request->position;
+        $user->role = $request->role;
         $user->save();
 
         return response()->json([

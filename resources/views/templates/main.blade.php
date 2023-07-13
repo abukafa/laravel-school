@@ -5,16 +5,21 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
     <title>{{ $title }}</title>
-    <link rel="icon" type="image/x-icon" href="/src/assets/img/logo.png"/>
-    <link href="/layouts/vertical-dark-menu/css/light/loader.css" rel="stylesheet" type="text/css" />
-    <link href="/layouts/vertical-dark-menu/css/dark/loader.css" rel="stylesheet" type="text/css" />
+    <link rel="icon" type="image/x-icon" href="{{ asset('src/assets/img/logo.png') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset('layouts/vertical-dark-menu/css/light/loader.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('layouts/vertical-dark-menu/css/dark/loader.css') }}" />
     <script src="/layouts/vertical-dark-menu/loader.js"></script>
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
-    <link href="https://fonts.googleapis.com/css?family=Nunito:400,600,700" rel="stylesheet">
-    <link href="../src/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-    <link href="../layouts/vertical-dark-menu/css/light/plugins.css" rel="stylesheet" type="text/css" />
-    <link href="../layouts/vertical-dark-menu/css/dark/plugins.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Nunito:400,600,700">
+    <link rel="stylesheet" type="text/css" href="{{ asset('src/bootstrap/css/bootstrap.min.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('layouts/vertical-dark-menu/css/light/plugins.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('layouts/vertical-dark-menu/css/dark/plugins.css') }}" />
     <!-- END GLOBAL MANDATORY STYLES -->
+    <link rel="stylesheet" href="{{ asset('src/plugins/src/font-icons/fontawesome/css/regular.css') }}">
+    <link rel="stylesheet" href="{{ asset('src/plugins/src/font-icons/fontawesome/css/fontawesome.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('src/assets/css/light/components/font-icons.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('src/assets/css/dark/components/font-icons.css') }}">
+
 </head>
 <body class="layout-boxed">
     
@@ -23,10 +28,10 @@
     
 
     <!-- BEGIN GLOBAL MANDATORY SCRIPTS -->
-    <script src="../src/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="../src/plugins/src/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-    <script src="../src/plugins/src/mousetrap/mousetrap.min.js"></script>
-    <script src="../layouts/vertical-dark-menu/app.js"></script>
+    <script src="{{ asset('src/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('src/plugins/src/perfect-scrollbar/perfect-scrollbar.min.js') }}"></script>
+    <script src="{{ asset('src/plugins/src/mousetrap/mousetrap.min.js') }}"></script>
+    <script src="{{ asset('layouts/vertical-dark-menu/app.js') }}"></script>
     <!-- END GLOBAL MANDATORY SCRIPTS -->
     
 </body>

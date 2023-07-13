@@ -3,30 +3,31 @@ var invoiceList = $('#invoice-list').DataTable({
         "<'table-responsive'tr>" +
         "<'inv-list-bottom-section d-sm-flex justify-content-sm-between text-center'<'inv-list-pages-count  mb-sm-0 mb-3'i><'inv-list-pagination'p>>",
 
-    headerCallback:function(e, a, t, n, s) {
-        e.getElementsByTagName("th")[0].innerHTML=`
-        <div class="form-check form-check-primary d-block new-control">
-            <input class="form-check-input chk-parent" type="checkbox" id="form-check-default">
-        </div>`
-    },
-    columnDefs:[{
-        targets:0,
-        width:"30px",
-        className:"",
-        orderable:!1,
-        render:function(e, a, t, n) {
-            return `
-            <div class="form-check form-check-primary d-block new-control">
-                <input class="form-check-input child-chk" type="checkbox" id="form-check-default">
-            </div>`
-        },
-    }],
+    // headerCallback:function(e, a, t, n, s) {
+    //     e.getElementsByTagName("th")[0].innerHTML=`
+    //     <div class="form-check form-check-primary d-block new-control">
+    //         <input class="form-check-input chk-parent" type="checkbox" id="form-check-default">
+    //     </div>`
+    // },
+    // columnDefs:[{
+    //     targets:0,
+    //     width:"30px",
+    //     className:"",
+    //     orderable:!1,
+    //     render:function(e, a, t, n) {
+    //         return `
+    //         <div class="form-check form-check-primary d-block new-control">
+    //             <input class="form-check-input child-chk" type="checkbox" id="form-check-default">
+    //         </div>`
+    //     },
+    // }],
+    
     buttons: [
         {
-            text: 'Add New',
+            text: 'Tambah',
             className: 'btn btn-primary',
             action: function(e, dt, node, config ) {
-                window.location = 'app-invoice-add.html';
+                window.location = '/admin/keuangan/inv/IN' + Math.floor((Math.random() * 1000000 + 9999999) + 1);
             }
         }
     ],
@@ -43,24 +44,23 @@ var invoiceList = $('#invoice-list').DataTable({
     "pageLength": 10
 });
 
-$("div.toolbar").html('<button class="dt-button dt-delete btn btn-danger" tabindex="0" aria-controls="invoice-list"><span>Delete</span></button>');
+// $("div.toolbar").html('<button class="dt-button dt-delete btn btn-danger" tabindex="0" aria-controls="invoice-list"><span>Delete</span></button>');
 
 multiCheck(invoiceList);
 
-
-$('.dt-delete').on('click', function() {
-      // Read all checked checkboxes
-    $(".select-customers-info:checked").each(function () {
-        if (this.classList.contains('chk-parent')) {
-            return;
-        } else {
-            $(this).parents('tr').remove();
-        }
-    });
+// $('.dt-delete').on('click', function() {
+//       // Read all checked checkboxes
+//     $(".select-customers-info:checked").each(function () {
+//         if (this.classList.contains('chk-parent')) {
+//             return;
+//         } else {
+//             $(this).parents('tr').remove();
+//         }
+//     });
     
-})
+// })
 
 
-$('.action-delete').on('click', function() {
-    $(this).parents('tr').remove();
-})
+// $('.action-delete').on('click', function() {
+//     $(this).parents('tr').remove();
+// })

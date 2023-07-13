@@ -1,9 +1,9 @@
 @extends('templates.navbar')
 
 <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM STYLES -->
-<link href="/src/plugins/src/apex/apexcharts.css" rel="stylesheet" type="text/css">
-<link href="/src/assets/css/light/dashboard/dash_1.css" rel="stylesheet" type="text/css" />
-<link href="/src/assets/css/dark/dashboard/dash_1.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="{{ asset('src/plugins/src/apex/apexcharts.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('src/assets/css/light/dashboard/dash_1.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('src/assets/css/dark/dashboard/dash_1.css') }}">
 <!-- END PAGE LEVEL PLUGINS/CUSTOM STYLES -->    
 
 @section('content')
@@ -466,13 +466,13 @@
                                             <span class="avatar-title">+6</span>
                                         </div>
                                         <div class="avatar translateY-axis">
-                                            <img alt="avatar" src="../src/assets/img/profile/no.png"/>
+                                            <img alt="avatar" src="{{ asset('src/assets/img/no.png') }}"/>
                                         </div>
                                         <div class="avatar translateY-axis">
-                                            <img alt="avatar" src="../src/assets/img/profile/no.png"/>
+                                            <img alt="avatar" src="{{ asset('src/assets/img/no.png') }}"/>
                                         </div>
                                         <div class="avatar translateY-axis">
-                                            <img alt="avatar" src="../src/assets/img/profile/no.png"/>
+                                            <img alt="avatar" src="{{ asset('src/assets/img/no.png') }}"/>
                                         </div>
                                         
                                     </div>
@@ -492,7 +492,7 @@
 
                                 <div class="media">
                                     <div class="w-img">
-                                        <img src="../src/assets/img/profile/no.png" alt="avatar">
+                                        <img src="{{ asset('src/assets/img/no.png') }}" alt="avatar">
                                     </div>
                                     <div class="media-body">
                                         <h6>Jimmy Turner</h6>
@@ -522,7 +522,7 @@
 
                                 <div class="media">
                                     <div class="w-img">
-                                        <img src="../src/assets/img/profile/no.png" alt="avatar">
+                                        <img src="{{ asset('src/assets/img/no.png') }}" alt="avatar">
                                     </div>
                                     <div class="media-body">
                                         <h6>Dev Summit - New York</h6>
@@ -533,10 +533,10 @@
                                 <div class="card-bottom-section">
                                     <h5>4 Members Going</h5>
                                     <div class="img-group">
-                                        <img src="../src/assets/img/profile/no.png" alt="avatar">
-                                        <img src="../src/assets/img/profile/no.png" alt="avatar">
-                                        <img src="../src/assets/img/profile/no.png" alt="avatar">
-                                        <img src="../src/assets/img/profile/no.png" alt="avatar">
+                                        <img src="{{ asset('src/assets/img/no.png') }}" alt="avatar">
+                                        <img src="{{ asset('src/assets/img/no.png') }}" alt="avatar">
+                                        <img src="{{ asset('src/assets/img/no.png') }}" alt="avatar">
+                                        <img src="{{ asset('src/assets/img/no.png') }}" alt="avatar">
                                     </div>
                                     <a href="javascript:void(0);" class="btn">View Details</a>
                                 </div>
@@ -563,8 +563,8 @@
     <!--  END CONTENT AREA  -->
 
     <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM SCRIPTS -->
-    <script src="/src/plugins/src/apex/apexcharts.min.js"></script>
-    <script src="/src/assets/js/dashboard/dash_1.js"></script>
+    <script src="{{ asset('src/plugins/src/apex/apexcharts.min.js') }}"></script>
+    <script src="{{ asset('src/assets/js/dashboard/dash_1.js') }}"></script>
     <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM SCRIPTS -->
 
 @endsection

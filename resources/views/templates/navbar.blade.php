@@ -1,5 +1,10 @@
 @extends('templates.main')
     
+    <!--  BEGIN CUSTOM STYLE FILE  -->
+    <link rel="stylesheet" type="text/css" href="{{ asset('src/assets/css/light/elements/alert.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('src/assets/css/dark/elements/alert.css') }}">
+    <!--  END CUSTOM STYLE FILE  -->
+
 @section('body')
 
     <!-- BEGIN LOADER -->
@@ -97,7 +102,7 @@
                     <a href="javascript:void(0);" class="nav-link dropdown-toggle user" id="userProfileDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <div class="avatar-container">
                             <div class="avatar avatar-sm avatar-indicators avatar-online">
-                                <img alt="avatar" src="/src/assets/img/profile/no.png" class="rounded-circle">
+                                <img alt="avatar" src="{{ session('user.image') ? asset('storage/' . session('user.image')) : asset('src/assets/img/no.png') }}" class="rounded-circle">
                             </div>
                         </div>
                     </a>
@@ -109,14 +114,14 @@
                                     &#x1F44B;
                                 </div>
                                 <div class="media-body">
-                                    <h5>Abdul Ghofur</h5>
-                                    <p>Supervisor</p>
+                                    <h5>{{ session('user.name') }}</h5>
+                                    <p>{{ session('rolename') }}</p>
                                 </div>
                             </div>
                         </div>
                         <div class="dropdown-item">
-                            <a href="/pengguna">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg> <span>pengguna</span>
+                            <a href="/profile">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg> <span>Edit Profil</span>
                             </a>
                         </div>
                         <div class="dropdown-item">
@@ -151,12 +156,12 @@
                 <div class="navbar-nav theme-brand flex-row  text-center">
                     <div class="nav-logo">
                         <div class="nav-item theme-logo">
-                            <a href="./index.html">
+                            <a href="/">
                                 <img src="/src/assets/img/logo.png">
                             </a>
                         </div>
                         <div class="nav-item theme-text">
-                            <a href="./index.html" class="nav-link"> HABI </a>
+                            <a href="/" class="nav-link"> HABI </a>
                         </div>
                     </div>
                     <div class="nav-item sidebar-toggle">
@@ -218,16 +223,6 @@
                         </a>
                     </li>           
 
-                    <li class="menu {{ $title == 'Akuntansi' ? 'active' : '' }}">
-                        <a href="/admin/akun" aria-expanded="false" class="dropdown-toggle">
-                            <div class="">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clipboard"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>
-                                <span>Akun</span>
-                            </div>
-                            <div>
-                        </a>
-                    </li>
-
                     <li class="menu {{ $title == 'Data Guru' || $title == 'Data Siswa' || $title == 'Data Alumni' ? 'active' : '' }}">
                         <a href="#member" data-bs-toggle="collapse" aria-expanded="{{ $title == 'Data Guru' || $title == 'Data Siswa' || $title == 'Data Alumni' ? 'true' : 'false' }}" class="dropdown-toggle">
                             <div class="">
@@ -274,8 +269,8 @@
                         </ul>
                     </li>
 
-                    <li class="menu {{ $title == 'Data Pengeluaran' || $title == 'Data Pemasukan' ? 'active' : '' }}">
-                        <a href="#keuangan" data-bs-toggle="collapse" aria-expanded="{{ $title == 'Data Pengeluaran' || $title == 'Data Pemasukan' ? 'true' : 'false' }}" class="dropdown-toggle">
+                    <li class="menu {{ $title == 'Data Akun' || $title == 'Data Keuangan' ? 'active' : '' }}">
+                        <a href="#keuangan" data-bs-toggle="collapse" aria-expanded="{{ $title == 'Data Akun' || $title == 'Data Keuangan' ? 'true' : 'false' }}" class="dropdown-toggle">
                             <div class="">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shopping-cart"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
                                 <span>Keuangan</span>
@@ -284,18 +279,18 @@
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg>
                             </div>
                         </a>
-                        <ul class="collapse submenu list-unstyled {{ $title == 'Data Pengeluaran' || $title == 'Data Pemasukan' ? 'show' : '' }}" id="keuangan" data-bs-parent="#accordionExample">
-                            <li class="{{ $title == 'Data Pengeluaran' ? 'active' : '' }}">
-                                <a href="/admin/pengeluaran"> Pengeluaran </a>
+                        <ul class="collapse submenu list-unstyled {{ $title == 'Data Akun' || $title == 'Data Keuangan' ? 'show' : '' }}" id="keuangan" data-bs-parent="#accordionExample">
+                            <li class="{{ $title == 'Data Akun' ? 'active' : '' }}">
+                                <a href="/admin/akun"> Akun </a>
                             </li>
-                            <li class="{{ $title == 'Data Pemasukan' ? 'active' : '' }}">
-                                <a href="/admin/pemasukan"> Pemasukan </a>
+                            <li class="{{ $title == 'Data Keuangan' ? 'active' : '' }}">
+                                <a href="/admin/keuangan"> Entri </a>
                             </li>                           
                         </ul>
                     </li>
 
-                    <li class="menu {{ $title == 'Data Tabungan' || $title == 'Saldo Tabungan' ? 'active' : '' }}">
-                        <a href="#tabungan" data-bs-toggle="collapse" aria-expanded="{{ $title == 'Data Tabungan' || $title == 'Saldo Tabungan' ? 'true' : 'false' }}" class="dropdown-toggle">
+                    <li class="menu {{ $title == 'Data Tabungan' ? 'active' : '' }}">
+                        <a href="#tabungan" data-bs-toggle="collapse" aria-expanded="{{ $title == 'Data Tabungan' ? 'true' : 'false' }}" class="dropdown-toggle">
                             <div class="">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-dollar-sign"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
                                 <span>Tabungan</span>
@@ -304,13 +299,10 @@
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg>
                             </div>
                         </a>
-                        <ul class="collapse submenu list-unstyled {{ $title == 'Data Tabungan' || $title == 'Saldo Tabungan' ? 'show' : '' }}" id="tabungan" data-bs-parent="#accordionExample">
+                        <ul class="collapse submenu list-unstyled {{ $title == 'Data Tabungan' ? 'show' : '' }}" id="tabungan" data-bs-parent="#accordionExample">
                             <li class="{{ $title == 'Data Tabungan' ? 'active' : '' }}">
-                                <a href="/admin/tabungan"> Harian </a>
-                            </li>
-                            <li class="{{ $title == 'Saldo Tabungan' ? 'active' : '' }}">
-                                <a href="/admin/simpanan"> Simpanan </a>
-                            </li>                     
+                                <a href="/admin/tabungan"> Entri </a>
+                            </li>        
                         </ul>
                     </li>
 
@@ -352,8 +344,10 @@
         </div>
         <!--  END SIDEBAR  -->
         
+
         @yield('content')
         
+
     </div>
     <!-- END MAIN CONTAINER -->      
 

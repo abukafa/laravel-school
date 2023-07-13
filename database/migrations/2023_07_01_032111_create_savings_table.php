@@ -16,12 +16,10 @@ return new class extends Migration
         Schema::create('savings', function (Blueprint $table) {
             $table->id();
             $table->date('date');
-            $table->integer('period_year');
             $table->string('nis');
             $table->string('name');
-            $table->string('guardian');
-            $table->integer('debit');
-            $table->integer('credit');
+            $table->integer('credit')->default(0);
+            $table->integer('debit')->default(0);
             $table->string('note')->nullable();
             $table->string('admin');
             $table->timestamps();

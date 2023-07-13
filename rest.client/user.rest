@@ -8,11 +8,12 @@ POST http://localhost:8000/api/user
 Content-Type: application/json
 
 {
-    "name": "Tia Selpiani",
-    "username": "tia28",
-    "password": "$2y$10$edyTeTL/Ftr9jMfbu8XQoOxXEQf.wlXVIi4qgRg983frf.rxUMacm",
-    "account": "user",
-    "description": "pengguna"
+    "name": "Semangkamedia",
+    "username": "abu.kafa",
+    "password": "rahasia",
+    "division": "Programmer",
+    "position": "Lead Developer",
+    "role": "5"
 }
 
 ###
@@ -20,11 +21,12 @@ PUT http://localhost:8000/api/user/2
 Content-Type: application/json
 
 {
-    "name": "Bunda Hijjaz",
-    "username": "jaz02",
-    "password": "$2y$10$edyTeTL/Ftr9jMfbu8XQoOxXEQf.wlXVIi4qgRg983frf.rxUMacm",
-    "account": "admin",
-    "description": "admin"
+    "name": "Hijaz Abdullah",
+    "username": "jaz1453",
+    "password": "rahasia",
+    "division": "Management",
+    "position": "CEO",
+    "role": "4"
 }
 
 ###
