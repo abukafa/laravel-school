@@ -22,7 +22,7 @@
             </a>
 
             <div class="mt-2 ms-2 d-none d-lg-block">
-                <p class="text-muted">Homeschooling Alquran Bina Insani</p>
+                <p class="text-muted">{{ session('school.name') }}</p>
             </div>
 
             <ul class="navbar-item flex-row ms-lg-auto ms-0">
@@ -157,11 +157,11 @@
                     <div class="nav-logo">
                         <div class="nav-item theme-logo">
                             <a href="/">
-                                <img src="/src/assets/img/logo.png">
+                                <img src="{{ session('school.logo') ? asset('storage/logo.png') : '/src/assets/img/logo.png' }}">    
                             </a>
                         </div>
                         <div class="nav-item theme-text">
-                            <a href="/" class="nav-link"> HABI </a>
+                            <a href="/" class="nav-link"> {{ session('school.nickname') }} </a>
                         </div>
                     </div>
                     <div class="nav-item sidebar-toggle">

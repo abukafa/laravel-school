@@ -26,7 +26,7 @@
                                 </div>
                             </div>
                             <div class="widget-content widget-content-area">
-                                <form class="row g-3" action="/admin/sekolah" method="POST">
+                                <form class="row g-3" action="/admin/sekolah" method="POST" enctype="multipart/form-data">
                                     @csrf
                                     <div class="col-md-6">
                                         <label for="name" class="form-label">Nama Sekolah</label>
@@ -76,11 +76,17 @@
                                         <label for="contact" class="form-label">Kontak Admin</label>
                                         <input type="text" class="form-control" id="contact" name="contact" value="{{ $school ? $school->contact : '' }}">
                                     </div>
-                                    <div class="col-12">
+                                    <div class="col-6">
                                         <label for="notes" class="form-label">Catatan</label>
-                                        <input type="text" class="form-control" id="notes" name="notes" value="{{ $school ? $school->notes : '' }}">
+                                        <textarea class="form-control" name="notes" id="notes" cols="30" rows="10"></textarea>
+                                        {{-- <input type="text" class="form-control" id="notes" name="notes" value="{{ $school ? $school->notes : '' }}"> --}}
                                     </div>
-                                    <div class="col-12 mt-4">
+                                    <div class="col-6">
+                                        <label for="logo" class="form-label">Logo</label>
+                                        <input type="file" class="form-control" id="logo" name="logo" value="{{ $school ? $school->logo : '' }}">
+                                            <img src="{{ $school && $school->logo ? asset('storage/logo.png') : 'src/assets/img/logo.png' }}" width="250" alt="logo" id="imgPreview">    
+                                    </div>
+                                    <div class="col-12 mt-2">
                                         <button type="submit" class="btn btn-primary">Simpan</button>
                                     </div>
                                 </form>

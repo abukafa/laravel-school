@@ -29,6 +29,7 @@ return new class extends Migration
             $table->string('head')->nullable();
             $table->string('contact')->nullable();
             $table->string('notes')->nullable();
+            $table->string('logo')->nullable();
             $table->timestamps();
         });
         DB::table('schools')->insert([

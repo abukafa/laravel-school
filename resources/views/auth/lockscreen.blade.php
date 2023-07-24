@@ -31,8 +31,8 @@
 
                             <img src="../src/assets/img/auth-cover.svg" alt="auth-img">
     
-                            <h3 class="mt-5 text-white font-weight-bolder px-2">Aplikasi Managemen Sekolah</h3>
-                            <p class="text-white px-2">Homeschooling Alquran Bina Insani</p>
+                            <h4 class="mt-5 text-white font-weight-bolder px-2">Aplikasi Managemen Sekolah</h4>
+                            <p class="text-white px-2">{{ session('school.name') }}</p>
                         </div>
                         
                     </div>
@@ -86,9 +86,9 @@
                                         <div class="seperator">
                                             <hr>
                                             <div class="text-center d-lg-none"><h3>Aplikasi Managemen Sekolah</h3></div>
-                                            <div class="seperator-text"> <span>Homeschooling Alquran bina Insani</span></div>
+                                            <div class="seperator-text"> <span>{{ session('school.organization') }}</span></div>
                                             <div class="text-center">
-                                                <p class="text-muted mb-0">Code by <a href="javascript:void(0);" class="text-warning">Semangkamedia</a></p>
+                                                <p class="text-muted mb-0">Code by <a href="https://abukafa.github.io" target="_blank" class="text-warning">Semangkamedia</a></p>
                                             </div>
                                         </div>
                                     </div>

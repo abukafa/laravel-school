@@ -20,6 +20,11 @@ class SchoolController extends Controller
     {
         $school = School::first();
         $data = $request->all();
+
+        if ($request->file('logo')) {
+            $data['logo'] = $request->file('logo')->storeAs('public', 'logo.png');
+        }
+
         if($school){
             $school->update($data);
             return back()->with('success', 'Data Sekolah Berhasil diperbarui.');
