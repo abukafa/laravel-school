@@ -36,10 +36,13 @@ Route::resource('/admin/akun', AccountController::class)->middleware('auth');
 Route::resource('/admin/keuangan', FinanceController::class)->middleware('auth');
 Route::resource('/admin/tabungan', SavingController::class)->middleware('auth');
 Route::resource('/admin/siswa', StudentController::class)->middleware('auth');
+Route::post('/admin/siswa/image/{id}', [StudentController::class, 'image_upload'])->middleware('auth');
+Route::get('/admin/alumni', [StudentController::class, 'alumni'])->middleware('auth');
 
 Route::get('/admin/akun/no/{num}', [AccountController::class, 'search'])->middleware('auth');
 Route::get('/admin/keuangan/inv/{inv}', [FinanceController::class, 'detail'])->middleware('auth');
 Route::get('/admin/keuangan/view/{inv}', [FinanceController::class, 'preview'])->middleware('auth');
+Route::get('/admin/tabungan/view/{ids}', [SavingController::class, 'preview'])->middleware('auth');
 
 Route::get('/', [AuthController::class, 'home1'])->middleware('auth');
 Route::get('/home', [AuthController::class, 'home2'])->middleware('auth');
@@ -61,13 +64,10 @@ Route::get('/admin/kalendar', [CalendarController::class, 'index'])->middleware(
 
 // Route::get('/admin/guru', [TeacherController::class, 'index'])->middleware('auth');
 
-// Route::get('/admin/alumni', [StudentController::class, 'alumni'])->middleware('auth');
-
 // Route::get('/admin/tagihan', [BillingController::class, 'index'])->middleware('auth');
 
 // Route::get('/admin/pembayaran', [PaymentController::class, 'index'])->middleware('auth');
 // Route::get('/admin/konfirmasi', [PaymentController::class, 'confirm'])->middleware('auth');
-
 
 // Route::get('/data/pelajaran', [LessonController::class, 'index'])->middleware('auth');
 

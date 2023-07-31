@@ -1,14 +1,20 @@
 @extends('templates.navbar')
 
-<!-- BEGIN PAGE LEVEL CUSTOM STYLES -->
-<link rel="stylesheet" type="text/css" href="{{ asset('src/plugins/src/table/datatable/datatables.css') }}">
+    <!-- BEGIN PAGE LEVEL CUSTOM STYLES -->
+    <link rel="stylesheet" type="text/css" href="{{ asset('src/plugins/src/table/datatable/datatables.css') }}">
 
-<link rel="stylesheet" type="text/css" href="{{ asset('src/plugins/css/light/table/datatable/dt-global_style.css') }}">
-<link rel="stylesheet" type="text/css" href="{{ asset('src/assets/css/light/apps/invoice-list.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('src/plugins/css/light/table/datatable/dt-global_style.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('src/assets/css/light/apps/invoice-list.css') }}">
 
-<link rel="stylesheet" type="text/css" href="{{ asset('src/plugins/css/dark/table/datatable/dt-global_style.css') }}">
-<link rel="stylesheet" type="text/css" href="{{ asset('src/assets/css/dark/apps/invoice-list.css') }}">
-<!-- END PAGE LEVEL CUSTOM STYLES -->
+    <link rel="stylesheet" type="text/css" href="{{ asset('src/plugins/css/dark/table/datatable/dt-global_style.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('src/assets/css/dark/apps/invoice-list.css') }}">
+    <!-- END PAGE LEVEL CUSTOM STYLES -->
+
+    <!-- BEGIN THEME GLOBAL STYLES -->
+    {{-- <link rel="stylesheet" type="text/css" href="{{ asset('src/plugins/src/flatpickr/flatpickr.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('src/plugins/css/light/flatpickr/custom-flatpickr.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('src/plugins/css/dark/flatpickr/custom-flatpickr.css') }}"> --}}
+    <!--  END CUSTOM STYLE FILE  -->
 
 @section('content')
 
@@ -52,9 +58,9 @@
                                         <td>{{ number_format($saving->credit,0) }}</td>
                                         <td>{{ number_format($saving->debit,0) }}</td>
                                         <td>
-                                            <button class="btn btn-outline-primary btn-icon btn-rounded" href="/admin/tabungan/view/{{ $saving->nis }}">
+                                            <a class="btn btn-outline-primary btn-icon btn-rounded" href="/admin/tabungan/view/{{ $saving->ids }}">
                                                 <span class="far fa-eye"></span>
-                                            </button>
+                                            </a>
                                             <button class="btn btn-outline-secondary btn-icon btn-rounded editSaving" data-id="{{ $saving->id }}" data-bs-toggle="modal" data-bs-target="#savingModal">
                                                 <span class="far fa-edit"></span>
                                             </button>
@@ -93,16 +99,16 @@
                             <div class="row mb-3">
                                 <label for="date" class="col-sm-3 col-form-label"><p>Tanggal</p></label>
                                 <div class="col-sm-9">
-                                <input type="text" class="form-control" name="date" id="date" readonly>
+                                <input type="date" class="form-control" name="date" id="date" required>
                                 </div>
                             </div>
                             <div class="row mb-3" id="optional">
-                                <label for="nis" class="col-sm-3 col-form-label"><p>Nomor Induk</p></label>
+                                <label for="ids" class="col-sm-3 col-form-label"><p>Nomor Induk</p></label>
                                 <div class="col-sm-9">
-                                    <select class="form-select" id="nis" name="nis">
+                                    <select class="form-select" id="ids" name="ids" required>
                                         <option selected disabled value="">Pilih...</option>
-                                        @foreach ($users as $user)
-                                            <option value="{{ $user->nis }}">{{ $user->nis . ' - ' . $user->name }}</option>
+                                        @foreach ($students as $student)
+                                            <option value="{{ $student->id }}">{{ $student->nis . ' - ' . $student->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -163,6 +169,10 @@
     <script src="{{ asset('src/plugins/src/table/datatable/button-ext/dataTables.buttons.min.js') }}"></script>
     <!-- END PAGE LEVEL SCRIPTS -->     
 
+    <!-- BEGIN PAGE LEVEL SCRIPTS -->
+    {{-- <script src="{{ asset('src/plugins/src/flatpickr/flatpickr.js') }}"></script>
+    <script src="{{ asset('src/plugins/src/flatpickr/custom-flatpickr.js') }}"></script> --}}
+    <!-- END PAGE LEVEL SCRIPTS -->
     <script>
         var invoiceList = $('#invoice-list').DataTable({
             "dom": "<'inv-list-top-section'<'row'<'col-sm-12 col-md-6 d-flex justify-content-md-start justify-content-center'l<'dt-action-buttons align-self-center'B>><'col-sm-12 col-md-6 d-flex justify-content-md-end justify-content-center mt-md-0 mt-3'f<'toolbar align-self-center'>>>>" +
@@ -187,6 +197,22 @@
             "lengthMenu": [7, 10, 20, 50],
             "pageLength": 10
         });
+        
+        // var f1 = flatpickr(document.getElementById('date'));
+
+        document.getElementById('ids').addEventListener('change', function() {
+            var ids = this.value;
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    var data = JSON.parse(xhr.responseText);
+                    document.getElementById('name').value = data.student.name;
+                }
+            };
+            xhr.open('GET', '/admin/siswa/' + ids, true);
+            xhr.send();
+        });
+
         const button = document.querySelector('.btn-tambah');
         button.setAttribute('data-bs-toggle', 'modal');
         button.setAttribute('data-bs-target', '#savingModal');
@@ -201,12 +227,11 @@
                     if (xhr.status === 200) {
                         var data = JSON.parse(xhr.responseText);
                         document.getElementById('date').value = data.saving.date;
-                        document.getElementById('nis').value = data.saving.nis;
+                        document.getElementById('ids').value = data.saving.ids;
                         document.getElementById('name').value = data.saving.name;
                         document.getElementById('credit').value = data.saving.credit;
                         document.getElementById('debit').value = data.saving.debit;
                         document.getElementById('note').value = data.saving.note;
-                        document.getElementById('admin').value = data.saving.admin;
                         document.getElementById('methodField').value = 'PATCH';
                     }
                 };
@@ -219,12 +244,11 @@
                 document.getElementById('savingModalLabel').innerHTML = 'Input Data <b>Tabungan</b>';
                 document.querySelector('.modal-content form').setAttribute('action', '/admin/tabungan');
                 document.getElementById('date').value = '';
-                document.getElementById('nis').value = '';
+                document.getElementById('ids').value = '';
                 document.getElementById('name').value = '';
                 document.getElementById('credit').value = '';
                 document.getElementById('debit').value = '';
                 document.getElementById('note').value = '';
-                document.getElementById('admin').value = '';
                 document.getElementById('methodField').value = '';
             });
         });

@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('remark');
             $table->string('description');
             $table->integer('amount');
-            $table->string('admin');
+            $table->string('admin')->nullable();
             $table->timestamps();
         });
     }

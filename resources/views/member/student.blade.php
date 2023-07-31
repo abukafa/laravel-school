@@ -22,6 +22,18 @@
         </div>
 
         <div class="layout-px-spacing">
+        
+            <!-- FLASH ALERT -->
+            @if (session()->has('success') || session()->has('danger'))
+            <div class="col-12 mt-4">
+                <div class="alert alert-icon-left alert-light-{{ session('success') ? 'success' : 'danger' }} alert-dismissible fade show mb-4" role="alert">
+                    <button type="button" class="btn-close mt-1" data-bs-dismiss="alert" aria-label="Close"> <svg xmlns="http://www.w3.org/2000/svg" data-bs-dismiss="alert" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x close"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-alert-triangle"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12" y2="17"></line></svg>
+                    <strong>{{ session('success') ?: session('danger') }}.</strong>
+                </div>
+            </div>
+            @endif
+
             <div class="middle-content container-xxl p-0">
                 <div class="row layout-spacing mt-4">
                     <div class="col-lg-12">
@@ -47,23 +59,21 @@
                                             <td>{{ $student->nis }}</td>
                                             <td class="">
                                                 <a class="profile-img" href="javascript: void(0);">
-                                                    <img src="{{ asset('src/assets/img/profile/no.png') }}" alt="product">
+                                                    <img src="{{ $student->image ? asset('storage/member/' . $student->image) : '/src/assets/img/no.png' }}" alt="avatar">
                                                 </a>
                                             </td>
                                             <td>{{ $student->name }}</td>
                                             <td>{{ $student->rumble }}</td>
                                             <td class="text-center">
-                                                <div class="dropdown">
-                                                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink1" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-horizontal"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>
+                                                <div class="action-btns">
+                                                    <a href="/admin/siswa/{{ $student->id }}/edit" class="btn btn-outline-secondary btn-icon btn-rounded">
+                                                        <span class="far fa-edit"></span>
                                                     </a>
-
-                                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink1">
-                                                        <a class="dropdown-item" href="javascript:void(0);">View</a>
-                                                        <a class="dropdown-item" href="/admin/siswa/1/edit">Edit</a>
-                                                        <a class="dropdown-item" href="javascript:void(0);">View Response</a>
-                                                        <a class="dropdown-item" href="javascript:void(0);">Delete</a>
-                                                    </div>
+                                                    <form action="/admin/siswa/{{ $student->id }}" method="POST" class="d-inline">
+                                                        @csrf
+                                                        @method('delete')
+                                                        <button type="submit" class="btn btn-outline-danger btn-icon btn-rounded" onclick="return confirm('Apakah anda yakin?')" {{ session('user.role') < 3 ? 'disabled' : '' }}><i class="far fa-trash-alt"></i></button>
+                                                    </form>
                                                 </div>
                                             </td>
                                         </tr>

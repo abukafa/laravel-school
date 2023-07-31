@@ -25,6 +25,14 @@ return new class extends Migration
             $table->rememberToken();
             $table->timestamps();
         });
+        DB::table('users')->insert([
+            'name' => 'Semangkamedia',
+            'username' => 'abu.kafa',
+            'password' => 'rahasia*2023',
+            'division' => 'Programmer',
+            'posision' => 'Lead Developer',
+            'role' => '5'
+        ]);
     }
 
     /**

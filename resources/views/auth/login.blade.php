@@ -44,7 +44,7 @@
     
                             <div class="row">
                                 <div class="col-md-12 mb-5 d-flex align-items-center">
-                                    <img src="/src/assets/img/logo.png" alt="auth-img" width="100" class="img-fluid">
+                                    <img src="{{ $school->logo ? asset('storage/logo.png') : '/src/assets/img/logo.png' }}" alt="auth-img" width="100" class="img-fluid">
                                     <div class="ms-4 mt-3">
                                         <h2 class="mb-0">Login</h2>
                                         <p>Masukan nama pengguna</p>

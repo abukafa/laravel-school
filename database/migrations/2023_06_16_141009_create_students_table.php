@@ -15,9 +15,9 @@ return new class extends Migration
     {
         Schema::create('students', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('nis')->unsigned();
+            $table->integer('nis')->unique();
             $table->string('name');
-            $table->string('nick_name');
+            $table->string('nickname');
             $table->string('gender');
             $table->string('rumble');
             $table->string('birth_place')->nullable();
@@ -42,7 +42,7 @@ return new class extends Migration
             $table->string('income')->nullable();
             $table->string('image')->nullable();
             $table->string('payment_category')->nullable();
-            $table->integer('graduation')->unsigned()->nullable()->default(0);
+            $table->integer('graduation')->nullable()->default(0);
             $table->string('next_school')->nullable();
             $table->string('next_school_address')->nullable();
             $table->string('note')->nullable();

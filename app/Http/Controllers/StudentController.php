@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\student;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 
 class StudentController extends Controller
 {
@@ -11,7 +13,7 @@ class StudentController extends Controller
     {
         return view('member.alumni', [
             'title' => 'Data Alumni',
-            'students' => Student::where('rumble', 'Alumni')->orderBy('rumble')->get()
+            'students' => Student::where('graduation', '!=', '')->orderBy('graduation')->get()
         ]);
     }
 
@@ -19,7 +21,7 @@ class StudentController extends Controller
     {
         return view('member.student', [
             'title' => 'Data Siswa',
-            'students' => Student::whereNotIn('rumble', ['Alumni'])->orderBy('rumble')->get()
+            'students' => Student::whereNull('graduation')->orderBy('rumble')->get()
         ]);
     }
 
@@ -33,10 +35,18 @@ class StudentController extends Controller
 
     public function store(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'nis' => 'required|unique:students',
+        ]);
+    
+        if ($validator->fails()) {
+            return back()->with('danger', 'NIS sudah terdaftar');
+        }
+
         $data = $request->all();
         $saved = Student::create($data);
         if($saved){
-            return back()->with('success', 'Data berhasil disimpan');
+            return redirect('/admin/siswa/' . $saved->id . '/edit')->with('success', 'Data berhasil disimpan');
         }else{
             return back()->with('danger', 'Data gagal disimpan');
         }
@@ -78,5 +88,23 @@ class StudentController extends Controller
         }else{
             return back()->with('danger', 'Data gagal dihapus');
         }
+    }
+
+    public function image_upload(Request $request, $id)
+    {
+        $data = $request->input('image');
+        $image_parts = explode(";base64,", $data);
+        $image_data = base64_decode($image_parts[1]);
+
+        $imageName = $id . '.png';
+        $imagePath = 'member/' . $imageName;
+
+        Storage::disk('public')->put($imagePath, $image_data);
+
+        $student = Student::find($id);
+        $student->image = $imageName;
+        $student->save();
+
+        return response()->json(['image_path' => Storage::url($imagePath)]);
     }
 }

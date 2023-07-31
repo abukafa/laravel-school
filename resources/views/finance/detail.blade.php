@@ -185,22 +185,22 @@
     <!-- END PAGE LEVEL SCRIPTS -->
     <script>
         var f1 = flatpickr(document.getElementById('date'));
-        function searchAccount(acc)
-        {
-            var xhr = new XMLHttpRequest();
-            xhr.open('GET', '/admin/akun/no/' + acc);
-            console.log(acc);
-            xhr.onload = function() {
-                console.log('ok');
-                if (xhr.status === 200) {
-                    var data = JSON.parse(xhr.responseText);
-                    console.log(data);
-                    document.getElementById('remark').value = data.account.description;
-                }else{
-                    console.log(xhr.status);
-                }
-            }
-        }
+        // function searchAccount(acc)
+        // {
+        //     var xhr = new XMLHttpRequest();
+        //     xhr.open('GET', '/admin/akun/no/' + acc);
+        //     console.log(acc);
+        //     xhr.onload = function() {
+        //         console.log('ok');
+        //         if (xhr.status === 200) {
+        //             var data = JSON.parse(xhr.responseText);
+        //             console.log(data);
+        //             document.getElementById('remark').value = data.account.description;
+        //         }else{
+        //             console.log(xhr.status);
+        //         }
+        //     }
+        // }
         document.getElementById('account').addEventListener('change', function() {
             var number = this.value;
             var xhr = new XMLHttpRequest();

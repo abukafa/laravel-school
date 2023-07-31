@@ -27,7 +27,7 @@ var invoiceList = $('#invoice-list').DataTable({
             text: 'Tambah',
             className: 'btn btn-primary',
             action: function(e, dt, node, config ) {
-                window.location = '/admin/keuangan/inv/IN' + Math.floor((Math.random() * 1000000 + 9999999) + 1);
+                window.location = '/admin/keuangan/inv/FN' + Math.floor((Math.random() * 1000000 + 9999999) + 1);
             }
         }
     ],

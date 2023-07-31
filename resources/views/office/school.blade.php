@@ -49,8 +49,12 @@
                                         <input type="text" class="form-control" id="permit" name="permit" value="{{ $school ? $school->permit : '' }}">
                                     </div>
                                     <div class="col-12">
+                                        <label for="address" class="form-label">Alamat Sekolah</label>
+                                        <input type="text" class="form-control" id="address" name="address" value="{{ $school ? $school->address : '' }}">
+                                    </div>
+                                    <div class="col-12">
                                         <label for="map" class="form-label">Tautan Lokasi Sekolah</label>
-                                        <input type="text" class="form-control" id="map" name="map" value="{{ $school ? $school->map : '' }}">
+                                        <input type="url" class="form-control" id="map" name="map" value="{{ $school ? $school->map : '' }}">
                                     </div>
                                     <div class="col-md-6">
                                         <label for="phone" class="form-label">Telepon</label>
@@ -84,7 +88,7 @@
                                     <div class="col-6">
                                         <label for="logo" class="form-label">Logo</label>
                                         <input type="file" class="form-control" id="logo" name="logo" value="{{ $school ? $school->logo : '' }}">
-                                            <img src="{{ $school && $school->logo ? asset('storage/logo.png') : 'src/assets/img/logo.png' }}" width="250" alt="logo" id="imgPreview">    
+                                        <img src="{{ $school->logo ? asset('storage/logo.png') : '/src/assets/img/logo.png' }}" width="250" alt="logo" id="imgPreview">    
                                     </div>
                                     <div class="col-12 mt-2">
                                         <button type="submit" class="btn btn-primary">Simpan</button>

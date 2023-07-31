@@ -4,17 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Saving;
+use App\Models\School;
+use App\Models\Student;
 use Illuminate\Http\Request;
 
 class SavingController extends Controller
 {
     public function index()
     {
-        $users = User::select('nis')->select('name')->orderBy('name')->get();
         return view('saving.index', [
             'title' => 'Data Tabungan',
             'savings' => Saving::all(),
-            'users' => $users
+            'students' => Student::all()
         ]);
     }
 
@@ -59,11 +60,31 @@ class SavingController extends Controller
         }
     }
     
-    public function search($nis)
+    public function search($ids)
     {
-        $saving = Saving::where('number', $nis)->first();
+        $saving = Saving::where('ids', $ids)->first();
         return response()->json([
             'saving' => $saving
+        ]);
+    }
+    
+    public function preview($ids)
+    {
+        $school = School::first();
+        $items = Saving::where('ids', $ids)->get();
+        $debit = 0;
+        $credit = 0;
+        foreach($items as $i){ 
+            $debit += $i->debit; 
+            $credit += $i->credit; 
+        }
+        return view('saving.preview', [
+            'title' => 'Data Keuangan',
+            'debit' => $debit,
+            'credit' => $credit,
+            'saldo' => $credit - $debit,
+            'items' => $items,
+            'school' => $school
         ]);
     }
 }

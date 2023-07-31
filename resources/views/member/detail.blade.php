@@ -10,6 +10,12 @@
     <!--  END CUSTOM STYLE FILE  -->
     <link rel="stylesheet" type="text/css" href="{{ asset('src/plugins/src/croppie/croppie.css') }}">
 
+    <!--  BEGIN CUSTOM STYLE FILE  -->
+    <link rel="stylesheet" type="text/css" href="{{ asset('src/plugins/src/flatpickr/flatpickr.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('src/plugins/css/light/flatpickr/custom-flatpickr.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('src/plugins/css/dark/flatpickr/custom-flatpickr.css') }}">
+    <!--  END CUSTOM STYLE FILE  -->
+
 @section('content')
 
     <!-- Content -->
@@ -40,17 +46,17 @@
                                         <form action="/image" method="post" enctype="multipart/form-data">
                                             <a href="javascript:void(0);" id="uploaded_image">
                                                 @if ($student)
-                                                    <img src="{{ $student->image ? 'storage/' . $student->image : '/src/assets/img/no.png' }}" id="imgPreview" alt="avatar">
+                                                    <img src="{{ $student->image ? asset('storage/member/' . $student->image) : '/src/assets/img/no.png' }}" id="imgPreview" alt="avatar">
                                                 @else
                                                     <img src="/src/assets/img/no.png" id="imgPreview" alt="avatar">
                                                 @endif
                                             </a>
                                             <input type='file' class='form-control d-none p-1' name='upload_image' id='upload_image' accept='.jpg'>
                                         </form>
-                                        <p class="mb-0">{{ $student ? optional($student->name) : '.. nama ..' }}</p>
+                                        <p class="mb-0">{{ $student ? $student->name : '.. nama ..' }}</p>
                                         <ul class="contacts-block list-unstyled mb-4">
                                             <li class="contacts-block__item">
-                                                {{ $student ? optional($student->rumble) : '.. kelas ..' }}
+                                                {{ $student ? $student->rumble : '.. kelas ..' }}
                                             </li>
                                         </ul> 
                                     </div>            
@@ -60,35 +66,41 @@
                             <div class="col-xl-7 col-lg-12 col-md-12 col-sm-12">
                                 <div class="usr-tasks ">
                                     <div class="widget-content widget-content-area">
-                                        <form action="/password" method="post">
+                                        <form action="{{ $student ? '/admin/siswa/' . $student->id : '/admin/siswa' }}" method="post">
                                             <div class="row">
                                             <h3 class="">Biodata</h3>
                                             @csrf
+                                            <input type="hidden" name="_method" id="methodField" value="{{ $student ? 'PATCH' : '' }}">
                                             <div class="col-md-6 mb-4">
                                                 <label for="nis" class="form-label">NIS</label>
-                                                <input type="text" class="form-control form-control" name="nis" id="nis">
+                                                <input type="hidden" class="form-control form-control" name="id" id="id" value="{{ $student ? $student->id : '' }}">
+                                                <input type="text" class="form-control form-control" name="nis" id="nis" value="{{ $student ? $student->nis : '' }}" required>
                                             </div>
                                             <div class="col-md-6 mb-4">
                                                 <label for="name" class="form-label">Nama</label>
-                                                <input type="text" class="form-control form-control" name="name" id="name">
+                                                <input type="text" class="form-control form-control" name="name" id="name" value="{{ $student ? $student->name : '' }}" required>
                                             </div>
                                             <div class="col-md-6 mb-4">
                                                 <label for="nickname" class="form-label">Panggilan</label>
-                                                <input type="text" class="form-control form-control" name="nickname" id="nickname">
+                                                <input type="text" class="form-control form-control" name="nickname" id="nickname" value="{{ $student ? $student->nickname : '' }}" required>
                                             </div>
-                                            <div class="col-md-6">
+                                            <div class="col-md-6 mb-4">
                                                 <label for="gender" class="form-label">Gender</label>
-                                                <input type="text" class="form-control form-control" name="gender" id="gender">
+                                                <select type="text" class="form-select form-select" name="gender" id="gender" required>
+                                                    <option selected disabled value="{{ $student ? $student->gender : '' }}">{{ $student ? $student->gender : 'Pilih...' }}</option>
+                                                    <option>Laki-laki</option>
+                                                    <option>Perempuan</option>
+                                                </select>
                                             </div>
-                                            <div class="col-md-6">
-                                                <label for="rumble" class="form-label">Kelas</label>
-                                                <input type="text" class="form-control form-control" name="rumble" id="rumble">
+                                            <div class="col-md-6 mb-4">
+                                                <label for="rumble" class="form-label">Kelas</label required>
+                                                <input type="text" class="form-control form-control" name="rumble" id="rumble" value="{{ $student ? $student->rumble : '' }}">
                                             </div>
-                                            <div class="col-md-6">
-                                                <label for="father_birth" class="form-label">Tempat & Tgl Lahir</label>
+                                            <div class="col-md-6 mb-4">
+                                                <label for="birth_place" class="form-label">Tempat & Tgl Lahir</label>
                                                 <div class="input-group mb-3">
-                                                    <input type="text" class="form-control form-control" name="father_birth" id="birth_place">
-                                                    <input type="text" class="form-control form-control" name="birth_date" id="birth_date">
+                                                    <input type="text" class="form-control form-control" name="birth_place" id="birth_place" value="{{ $student ? $student->birth_place : '' }}" required>
+                                                    <input type="text" class="form-control form-control" name="birth_date" id="birth_date" value="{{ $student ? $student->birth_date : '' }}" required>
                                                 </div>
                                             </div>
                                         </div>
@@ -101,53 +113,54 @@
                                         <div class="row">
                                             <div class="col-md-4 mb-4">
                                                 <label for="address" class="form-label">Alamat</label>
-                                                <input type="text" class="form-control form-control" name="address" id="address">
+                                                <input type="text" class="form-control form-control" name="address" id="address" value="{{ $student ? $student->address : '' }}">
                                             </div>
                                             <div class="col-md-4 mb-4">
                                                 <label for="hamlet" class="form-label">Kampung</label>
-                                                <input type="text" class="form-control form-control" name="hamlet" id="hamlet">
+                                                <input type="text" class="form-control form-control" name="hamlet" id="hamlet" value="{{ $student ? $student->hamlet : '' }}">
                                             </div>
                                             <div class="col-md-4 mb-4">
-                                                <label for="Village" class="form-label">Desa</label>
-                                                <input type="text" class="form-control form-control" name="Village" id="Village">
+                                                <label for="village" class="form-label">Desa</label>
+                                                <input type="text" class="form-control form-control" name="village" id="village" value="{{ $student ? $student->village : '' }}">
                                             </div>
                                             <div class="col-md-4 mb-4">
                                                 <label for="district" class="form-label">Kecamatan</label>
-                                                <input type="text" class="form-control form-control" name="district" id="district">
+                                                <input type="text" class="form-control form-control" name="district" id="district" value="{{ $student ? $student->district : '' }}">
                                             </div>
                                             <div class="col-md-4 mb-4">
                                                 <label for="city" class="form-label">Kabupaten</label>
-                                                <input type="text" class="form-control form-control" name="city" id="city">
+                                                <input type="text" class="form-control form-control" name="city" id="city" value="{{ $student ? $student->city : '' }}">
                                             </div>
                                             <div class="col-md-4 mb-4">
                                                 <label for="postal_code" class="form-label">Kode Pos</label>
-                                                <input type="text" class="form-control form-control" name="postal_code" id="postal_code">
+                                                <input type="number" class="form-control form-control" name="postal_code" id="postal_code" value="{{ $student ? $student->postal_code : '' }}">
                                             </div>
                                             <hr>
                                             <div class="col-md-4 mb-4">
                                                 <label for="hobby" class="form-label">Hobby</label>
-                                                <input type="text" class="form-control form-control" name="hobby" id="hobby">
+                                                <input type="text" class="form-control form-control" name="hobby" id="hobby" value="{{ $student ? $student->hobby : '' }}">
                                             </div>
                                             <div class="col-md-4 mb-4">
                                                 <label for="sport" class="form-label">Olahraga</label>
-                                                <input type="text" class="form-control form-control" name="sport" id="sport">
+                                                <input type="text" class="form-control form-control" name="sport" id="sport" value="{{ $student ? $student->sport : '' }}">
                                             </div>
                                             <div class="col-md-4 mb-4">
                                                 <label for="ambition" class="form-label">Cita-cita</label>
-                                                <input type="text" class="form-control form-control" name="ambition" id="ambition">
+                                                <input type="text" class="form-control form-control" name="ambition" id="ambition" value="{{ $student ? $student->ambition : '' }}">
                                             </div>
                                             <hr>
                                             <div class="col-md-4 mb-4">
                                                 <label for="father" class="form-label">Nama Ayah</label>
-                                                <input type="text" class="form-control form-control" name="father" id="father">
+                                                <input type="text" class="form-control form-control" name="father" id="father" value="{{ $student ? $student->father : '' }}">
                                             </div>
                                             <div class="col-md-4 mb-4">
                                                 <label for="father_birth" class="form-label">Tgl Lahir</label>
-                                                <input type="text" class="form-control form-control" name="father_birth" id="father_birth">
+                                                <input type="text" class="form-control form-control" name="father_birth" id="father_birth" value="{{ $student ? $student->father_birth : '' }}">
                                             </div>
                                             <div class="col-md-4 mb-4">
                                                 <label for="father_note" class="form-label">Ket</label>
                                                 <select type="text" class="form-select form-select" name="father_note" id="father_note">
+                                                    <option selected disabled value="{{ $student ? $student->father_note : '' }}">{{ $student ? $student->father_note : 'Pilih...' }}</option>
                                                     <option>Tinggal bersama</option>
                                                     <option>Bekerja di luar kota</option>
                                                     <option>Sudah meninggal</option>
@@ -155,15 +168,16 @@
                                             </div>
                                             <div class="col-md-4 mb-4">
                                                 <label for="mother" class="form-label">Nama Ibu</label>
-                                                <input type="text" class="form-control form-control" name="mother" id="mother">
+                                                <input type="text" class="form-control form-control" name="mother" id="mother" value="{{ $student ? $student->mother : '' }}">
                                             </div>
                                             <div class="col-md-4 mb-4">
                                                 <label for="mother_birth" class="form-label">Tgl Lahir</label>
-                                                <input type="text" class="form-control form-control" name="mother_birth" id="mother_birth">
+                                                <input type="text" class="form-control form-control" name="mother_birth" id="mother_birth" value="{{ $student ? $student->mother_birth : '' }}">
                                             </div>
                                             <div class="col-md-4 mb-4">
                                                 <label for="mother_note" class="form-label">Ket</label>
                                                 <select type="text" class="form-select form-select" name="mother_note" id="mother_note">
+                                                    <option selected disabled value="{{ $student ? $student->mother_note : '' }}">{{ $student ? $student->mother_note : 'Pilih...' }}</option>
                                                     <option>Tinggal bersama</option>
                                                     <option>Bekerja di luar kota</option>
                                                     <option>Sudah meninggal</option>
@@ -171,40 +185,45 @@
                                             </div>
                                             <div class="col-md-4 mb-4">
                                                 <label for="phone" class="form-label">Telepon</label>
-                                                <input type="text" class="form-control form-control" name="phone" id="phone">
+                                                <input type="phone" class="form-control form-control" name="phone" id="phone" value="{{ $student ? $student->phone : '' }}">
                                             </div>
                                             <div class="col-md-4 mb-4">
                                                 <label for="job" class="form-label">Pekerjaan</label>
-                                                <input type="text" class="form-control form-control" name="job" id="job">
+                                                <input type="text" class="form-control form-control" name="job" id="job" value="{{ $student ? $student->job : '' }}">
                                             </div>
                                             <div class="col-md-4 mb-4">
                                                 <label for="income" class="form-label">Penghasilan</label>
-                                                <input type="text" class="form-control form-control" name="income" id="income">
+                                                <select type="text" class="form-select form-select" name="income" id="income">
+                                                    <option selected disabled value="{{ $student ? $student->income : '' }}">{{ $student ? $student->income : 'Pilih...' }}</option>
+                                                    <option>< 1.000.000</option>
+                                                    <option>> 1.000.000</option>
+                                                    <option>> 3.000.000</option>
+                                                    <option>> 5.000.000</option>
+                                                </select>
                                             </div>
                                             <hr>
                                             <div class="col-md-4 mb-4">
-                                                <label for="image" class="form-label">Foto Profil</label>
-                                                <input type="text" class="form-control form-control" name="image" id="image">
-                                            </div>
-                                            <div class="col-md-4 mb-4">
-                                                <label for="payment_category" class="form-label">Pembayaran</label>
-                                                <input type="text" class="form-control form-control" name="payment_category" id="payment_category">
+                                                <label for="payment_category" class="form-label">Kategori Pembayaran</label>
+                                                <select type="text" class="form-select form-select" name="payment_category" id="payment_category">
+                                                    <option selected disabled value="{{ $student ? $student->payment_category : '' }}">{{ $student ? $student->payment_category : 'Pilih...' }}</option>
+                                                    <option>Regular</option>
+                                                </select>
                                             </div>
                                             <div class="col-md-4 mb-4">
                                                 <label for="graduation" class="form-label">Kelulusan</label>
-                                                <input type="text" class="form-control form-control" name="graduation" id="graduation">
+                                                <input type="number" class="form-control form-control" name="graduation" id="graduation" value="{{ $student ? $student->graduation : '' }}">
                                             </div>
                                             <div class="col-md-4 mb-4">
                                                 <label for="next_school" class="form-label">Sekolah Lanjutan</label>
-                                                <input type="text" class="form-control form-control" name="next_school" id="next_school">
+                                                <input type="text" class="form-control form-control" name="next_school" id="next_school" value="{{ $student ? $student->next_school : '' }}">
                                             </div>
                                             <div class="col-md-4 mb-4">
                                                 <label for="next_school_address" class="form-label">Alamat Sekolah</label>
-                                                <input type="text" class="form-control form-control" name="next_school_address" id="next_school_address">
+                                                <input type="text" class="form-control form-control" name="next_school_address" id="next_school_address" value="{{ $student ? $student->next_school_address : '' }}">
                                             </div>
-                                            <div class="col-md-4 mb-4">
+                                            <div class="col-md-8 mb-4">
                                                 <label for="note" class="form-label">Catatan</label>
-                                                <input type="text" class="form-control form-control" name="note" id="note">
+                                                <input type="text" class="form-control form-control" name="note" id="note" value="{{ $student ? $student->note : '' }}">
                                             </div>
                                             <div class="mb-2">
                                                 <button class="btn btn-primary" type="submit">Simpan</button>
@@ -242,7 +261,17 @@
     </div>
     <script src="{{ asset('src/assets/js/jquery.min.js') }}"></script>
     <script src="{{ asset('src/plugins/src/croppie/croppie.js') }}"></script>
+    
+    <!-- BEGIN PAGE LEVEL SCRIPTS -->
+    <script src="{{ asset('src/plugins/src/global/vendors.min.js') }}"></script>
+    <script src="{{ asset('src/plugins/src/flatpickr/flatpickr.js') }}"></script>
+    <!-- END PAGE LEVEL SCRIPTS -->
+
     <script>
+        var f1 = flatpickr(document.getElementById('birth_date'));
+        var f1 = flatpickr(document.getElementById('father_birth'));
+        var f1 = flatpickr(document.getElementById('mother_birth'));
+
         $('#uploaded_image').click(function() {
             $('#upload_image').trigger('click')
         });
@@ -282,8 +311,9 @@
                     size: 'viewport'
                 }).then(function(response) {
                     console.log('response ok');
+                    const id = $('#id').val();
                     $.ajax({
-                        url: "/image",
+                        url: "/admin/siswa/image/" + id,
                         headers: {
                             "X-CSRF-TOKEN": "{{ csrf_token() }}"
                         },
@@ -295,6 +325,10 @@
                             $('#uploadimageModal').modal('hide');
                             $('#imgPreview').attr('src', data.image_path);
                             console.log(data);
+                        },
+                        error: function(xhr, status, error) {
+                            // Handle the error here
+                            alert(error + ' : Isi data terlebih dulu.');
                         }
                     });
                 })

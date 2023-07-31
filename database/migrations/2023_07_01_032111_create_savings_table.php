@@ -15,13 +15,14 @@ return new class extends Migration
     {
         Schema::create('savings', function (Blueprint $table) {
             $table->id();
+            $table->string('invoice')->nullable();
             $table->date('date');
-            $table->string('nis');
+            $table->integer('ids');
             $table->string('name');
-            $table->integer('credit')->default(0);
-            $table->integer('debit')->default(0);
+            $table->integer('credit')->nullable()->default(0);
+            $table->integer('debit')->nullable()->default(0);
             $table->string('note')->nullable();
-            $table->string('admin');
+            $table->string('admin')->nullable();
             $table->timestamps();
         });
     }
