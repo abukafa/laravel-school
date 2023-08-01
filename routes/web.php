@@ -31,11 +31,17 @@ Route::get('/laravel', function () {
     return view('welcome');
 });
 
+Route::get('/maintenance', function () {
+    return view('error.maintenance', ['title' => 'Semangkamedia']);
+});
+
 Route::resource('/pengguna', UserController::class)->middleware('auth');
 Route::resource('/admin/akun', AccountController::class)->middleware('auth');
 Route::resource('/admin/keuangan', FinanceController::class)->middleware('auth');
 Route::resource('/admin/tabungan', SavingController::class)->middleware('auth');
 Route::resource('/admin/siswa', StudentController::class)->middleware('auth');
+Route::resource('/admin/guru', TeacherController::class)->middleware('maintenance');
+
 Route::post('/admin/siswa/image/{id}', [StudentController::class, 'image_upload'])->middleware('auth');
 Route::get('/admin/alumni', [StudentController::class, 'alumni'])->middleware('auth');
 
@@ -59,17 +65,15 @@ Route::post('/password', [ProfileController::class, 'password_change'])->middlew
 Route::get('/admin/sekolah', [SchoolController::class, 'index'])->middleware('auth');
 Route::post('/admin/sekolah', [SchoolController::class, 'save'])->middleware('auth');
 
-Route::get('/admin/kalendar', [CalendarController::class, 'index'])->middleware('auth');
 
 
-// Route::get('/admin/guru', [TeacherController::class, 'index'])->middleware('auth');
 
-// Route::get('/admin/tagihan', [BillingController::class, 'index'])->middleware('auth');
+Route::get('/admin/kalendar', [CalendarController::class, 'index'])->middleware('auth', 'maintenance');
 
-// Route::get('/admin/pembayaran', [PaymentController::class, 'index'])->middleware('auth');
-// Route::get('/admin/konfirmasi', [PaymentController::class, 'confirm'])->middleware('auth');
+Route::get('/admin/tagihan', [BillingController::class, 'index'])->middleware('auth');
+Route::get('/admin/pembayaran', [PaymentController::class, 'index'])->middleware('auth');
+Route::get('/admin/konfirmasi', [PaymentController::class, 'confirm'])->middleware('auth');
 
 // Route::get('/data/pelajaran', [LessonController::class, 'index'])->middleware('auth');
-
 // Route::get('/data/nilai', [AssessController::class, 'index'])->middleware('auth');
 // Route::get('/data/personal', [AssessController::class, 'detail'])->middleware('auth');

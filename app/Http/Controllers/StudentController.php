@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\student;
+use App\Models\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
@@ -70,6 +70,14 @@ class StudentController extends Controller
 
     public function update(Request $request, $id)
     {
+        $validator = Validator::make($request->all(), [
+            'nis' => 'required|unique:students',
+        ]);
+    
+        if ($validator->fails()) {
+            return back()->with('danger', 'NIS sudah terdaftar');
+        }
+
         $student = Student::find($id);
         $data = $request->all();
         $updated = $student->update($data);
