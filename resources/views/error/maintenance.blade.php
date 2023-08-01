@@ -32,7 +32,7 @@
         <div class="container-fluid maintanence-content">
             <div class="">
                 <div class="maintanence-hero-img mb-4">
-                    <a href="./index.html">
+                    <a href="https://abukafa.github.io">
                         <img alt="logo" src="../src/assets/img/logo.svg" class="dark-element theme-logo">
                         <img alt="logo" src="../src/assets/img/logo2.svg" class="light-element theme-logo">
                         <br>
