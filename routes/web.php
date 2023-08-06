@@ -60,8 +60,11 @@ Route::delete('/admin/tagihan/{year}/{category}', [BillingController::class, 'de
 Route::get('/admin/tagihan/search/ids/{ids}', [BillingController::class, 'billing_search'])->middleware('auth');
 
 Route::get('/admin/pembayaran', [PaymentController::class, 'index'])->middleware('auth');
+Route::post('/admin/pembayaran', [PaymentController::class, 'store'])->middleware('auth');
+Route::delete('/admin/pembayaran/{id}', [PaymentController::class, 'destroy'])->middleware('auth');
 Route::get('/admin/pembayaran/inv/{inv}', [PaymentController::class, 'detail'])->middleware('auth');
 Route::get('/admin/pembayaran/view/{inv}', [PaymentController::class, 'preview'])->middleware('auth');
+Route::get('/admin/pembayaran/index/{ids}', [PaymentController::class, 'rekap'])->middleware('auth');
 
 Route::get('/', [AuthController::class, 'home1'])->middleware('auth');
 Route::get('/home', [AuthController::class, 'home2'])->middleware('auth');

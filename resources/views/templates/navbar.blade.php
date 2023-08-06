@@ -263,10 +263,12 @@
                                 </li>
                                 <li class="{{ $title == 'Data Tagihan' ? 'active' : '' }}">
                                     <a href="/admin/tagihan"> Tagihan </a>
-                                </li>       
-                                <li class="{{ $title == 'Konfirmasi Pembayaran' ? 'active' : '' }}">
-                                    <a href="/admin/konfirmasi"> Konfirmasi </a>
-                                </li>                       
+                                </li>     
+                                @if (auth()->user()->role == 5)
+                                    <li class="{{ $title == 'Konfirmasi Pembayaran' ? 'active' : '' }}">
+                                        <a href="/admin/konfirmasi"> Konfirmasi </a>
+                                    </li>                       
+                                @endif  
                             </ul>
                         </li>
                     @endif

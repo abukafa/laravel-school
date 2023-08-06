@@ -261,14 +261,14 @@
             </div>
         </div>
     </div>
-    <script src="{{ asset('src/assets/js/jquery.min.js') }}"></script>
-    <script src="{{ asset('src/plugins/src/croppie/croppie.js') }}"></script>
     
     <!-- BEGIN PAGE LEVEL SCRIPTS -->
     <script src="{{ asset('src/plugins/src/global/vendors.min.js') }}"></script>
     <script src="{{ asset('src/plugins/src/flatpickr/flatpickr.js') }}"></script>
     <!-- END PAGE LEVEL SCRIPTS -->
 
+    <script src="{{ asset('src/assets/js/jquery.min.js') }}"></script>
+    <script src="{{ asset('src/plugins/src/croppie/croppie.js') }}"></script>
     <script>
         var f1 = flatpickr(document.getElementById('birth_date'));
         var f1 = flatpickr(document.getElementById('father_birth'));

@@ -44,18 +44,18 @@
 
                                             </div>
                                             <div class="invoice-detail-header">
-                                                <form class="row g-3" action="/admin/keuangan" method="POST">
+                                                <form class="row g-3" action="/admin/pembayaran" method="POST">
                                                     @csrf
                                                     <div class="col-md-6">
                                                         <label for="date" class="form-label">Tanggal</label>
                                                         <input type="hidden" class="form-control" name="invoice" id="invoice" value="{{ $invoice }}">
-                                                        <input type="text" class="form-control" name="date" id="date" value="{{ $items ? $items->first()->date : '' }}" required>
+                                                        <input type="text" class="form-control" name="date" id="date" value="{{ optional($items->first())->date }}" required>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <label for="ids" class="form-label">Santri</label>
                                                         <select type="text" class="form-control" id="ids" name="ids" required>
                                                             @if ($items)
-                                                                <option value="{{ $items->first()->ids }}">{{ $items ? $items->first()->ids . ' - ' . $items->first()->name : '' }}</option>
+                                                                <option value="{{ optional($items->first())->ids }}">{{ optional($items->first())->name }}</option>
                                                             @else
                                                                 <option selected disabled value="">Pilih...</option>
                                                             @endif
@@ -73,8 +73,8 @@
                                                         <select class="form-select" id="idb" required>
                                                             <option selected disabled value="">Pilih...</option>
                                                         </select>
-                                                        <input type="hidden" class="form-control" name="account" id="account" value="{{ $items ? $items->first()->account : '' }}">
-                                                        <input type="hidden" class="form-control" name="billing" id="billing" value="{{ $items ? $items->first()->billing : '' }}">
+                                                        <input type="hidden" class="form-control" name="account" id="account" value="{{ optional($items->first())->account }}">
+                                                        <input type="hidden" class="form-control" name="billing" id="billing" value="{{ optional($items->first())->billing }}">
                                                     </div>
                                                     <div class="col-md-6 mb-2">
                                                         <label for="amount" class="form-label">Jumlah</label>
@@ -106,10 +106,10 @@
 
                                                                 <tr>
                                                                     <td>{{ $loop->index +1 }}</td>
-                                                                    <td>{{ $item->description }}</td>
+                                                                    <td>{{ $item->billing }}</td>
                                                                     <td>{{ number_format($item->amount,0) }}</td>
                                                                     <td class="text-center">
-                                                                        <form action="/admin/keuangan/{{ $item->id }}" method="POST" class="d-inline">
+                                                                        <form action="/admin/pembayaran/{{ $item->id }}" method="POST" class="d-inline">
                                                                             @csrf
                                                                             @method('delete')
                                                                             <button type="submit" class="btn btn-outline-danger btn-sm btn-icon btn-rounded" onclick="return confirm('Apakah anda yakin?')"><i class="far fa-trash-alt"></i></button>

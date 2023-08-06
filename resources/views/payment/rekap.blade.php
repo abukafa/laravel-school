@@ -31,7 +31,9 @@
                                                     <div class="content-section">
     
                                                         <div class="inv--head-section inv--detail-section">
+                                                        
                                                             <div class="row">
+
                                                                 <div class="col-sm-6 col-12 mr-auto">
                                                                     <div class="d-flex">
                                                                         <img class="company-logo" src="{{ $school->logo ? asset('storage/logo.png') : '/src/assets/img/logo.png' }}" alt="company">
@@ -43,9 +45,9 @@
                                                                 </div>
                                                                 
                                                                 <div class="col-sm-6 text-sm-end">
-                                                                    <p class="inv-list-number mt-sm-3 pb-sm-2 mt-4"><span class="inv-title"></span> <span class="inv-number">TABUNGAN</span></p>
-                                                                    <p class="inv-created-date"><span class="inv-title"></span><span class="inv-date">{{ $items->first()->name }}</span></p>
-                                                                    <p class="inv-due-date"><span class="inv-title"></span> <span class="inv-date">000{{ $items->first()->ids }}</span></p>
+                                                                    <p class="inv-list-number mt-sm-3 pb-sm-2 mt-4"><span class="inv-title"></span> <span class="inv-number">REKAP PEMBAYARAN</span></p>
+                                                                    <p class="inv-created-date mt-sm-5"><span class="inv-title"></span><span class="inv-date">{{ $items[0]['name'] }}</span></p>
+                                                                    <p class="inv-due-date"><span class="inv-title"></span> <span class="inv-date">000{{ $items[0]['ids'] }}</span></p>
                                                                 </div>                                                                
                                                             </div>
                                                         </div>
@@ -56,20 +58,22 @@
                                                                     <thead class="">
                                                                         <tr>
                                                                             <th scope="col">No</th>
-                                                                            <th scope="col" class="d-table-cell d-lg-none">Tanggal</th>
-                                                                            <th scope="col">Catatan</th>
-                                                                            <th class="text-end" scope="col">Kredit</th>
-                                                                            <th class="text-end" scope="col">Debit</th>
+                                                                            <th scope="col" class="d-table-cell d-lg-none">Akun</th>
+                                                                            <th scope="col">Deskripsi</th>
+                                                                            <th class="text-end" scope="col">Jumlah</th>
+                                                                            <th class="text-end" scope="col">Terbayar</th>
+                                                                            <th scope="col">Tanggal</th>
                                                                         </tr>
                                                                     </thead>
                                                                     <tbody>
                                                                         @foreach ($items as $index => $item)
                                                                             <tr>
                                                                                 <td>{{ $loop->index +1 }}</td>
-                                                                                <td class="d-table-cell d-lg-none">{{ $item->date }}</td>
-                                                                                <td>{{ $item->note ?: '-' }}</td>
-                                                                                <td class="text-end">{{ number_format($item->credit,0) }}</td>
-                                                                                <td class="text-end">{{ number_format($item->debit,0) }}</td>
+                                                                                <td class="d-table-cell d-lg-none">{{ $item['account'] }}</td>
+                                                                                <td>{{ $item['billing'] }}</td>
+                                                                                <td class="text-end">{{ number_format($item['amount'],0) }}</td>
+                                                                                <td class="text-end">{{ number_format($item['paid'],0) }}</td>
+                                                                                <td>{{ $item['date'] }}</td>
                                                                             </tr>
                                                                         @endforeach
                                                                     </tbody>
@@ -79,22 +83,22 @@
                                                         
                                                         <div class="inv--total-amounts">
                                                         
-                                                            <div class="row mt-4">
+                                                            {{-- <div class="row mt-4">
                                                                 <div class="col-sm-5 col-12 order-sm-0 order-1">
                                                                 </div>
                                                                 <div class="col-sm-7 col-12 order-sm-1 order-0">
                                                                     <div class="text-sm-end">
                                                                         <div class="row">
-                                                                            <div class="col-sm-9 col-6 grand-total-title mt-3">
-                                                                                <h4 class="">Saldo : </h4>
+                                                                            <div class="col-sm-8 col-7 grand-total-title mt-3">
+                                                                                <h4 class="">Total : </h4>
                                                                             </div>
-                                                                            <div class="col-sm-3 col-6 grand-total-amount mt-3">
-                                                                                <h4 class="">{{ number_format($saldo,0) }}</h4>
+                                                                            <div class="col-sm-4 col-5 grand-total-amount mt-3">
+                                                                                <h4 class="">{{ number_format($total,0) }}</h4>
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                            </div>
+                                                            </div> --}}
 
                                                         </div>
 
@@ -128,13 +132,10 @@
 
                                             <div class="row">
                                                 <div class="col-xl-12 col-md-3 col-sm-6">
-                                                    <a href="javascript:void(0);" class="btn btn-primary btn-print  action-print">Print</a>
+                                                    <a href="javascript:void(0);" class="btn btn-primary btn-print action-print">Print</a>
                                                 </div>
-                                                @php
-                                                    $date = date("Y-m-d", strtotime($items->first()->date . '+1 week'));
-                                                @endphp
                                                 <div class="col-xl-12 col-md-3 col-sm-6">
-                                                    <a href="/admin/tabungan" class="btn btn-dark btn-edit">Kembali</a>
+                                                    <a href="/admin/pembayaran" class="btn btn-print btn-dark">Kembali</a>
                                                 </div>
                                             </div>
 

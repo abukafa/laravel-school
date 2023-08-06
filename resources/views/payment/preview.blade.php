@@ -46,7 +46,7 @@
                                                                 
                                                                 <div class="col-sm-6 text-sm-end">
                                                                     <p class="inv-list-number mt-sm-3 pb-sm-2 mt-4"><span class="inv-title"></span> <span class="inv-number">{{ $items->first()->invoice }}</span></p>
-                                                                    <p class="inv-created-date mt-sm-5 mt-3"><span class="inv-title"></span><span class="inv-date">Tanggal Transaksi</span></p>
+                                                                    <p class="inv-created-date mt-sm-5"><span class="inv-title"></span><span class="inv-date">Tanggal Transaksi</span></p>
                                                                     <p class="inv-due-date"><span class="inv-title"></span> <span class="inv-date">{{ $items->first()->date }}</span></p>
                                                                 </div>                                                                
                                                             </div>
@@ -57,9 +57,8 @@
 
                                                             <div class="row">
                                                                 <div class="col-xl-8 col-lg-7 col-md-6 col-sm-4">
-                                                                    <p class="inv-customer-name">{{ $items->first()->vendor }}</p>
-                                                                    <p class="inv-street-addr">{{ $items->first()->account }}</p>
-                                                                    <p class="inv-email-address">{{ $items->first()->remark }}</p>
+                                                                    <p class="inv-customer-name">{{ $items->first()->name }}</p>
+                                                                    <p class="inv-email-address">000{{ $items->first()->ids }}</p>
                                                                 </div>
                                                             </div>
                                                             
@@ -72,8 +71,8 @@
                                                                         <tr>
                                                                             <th scope="col">No</th>
                                                                             <th scope="col" class="d-table-cell d-lg-none">Tanggal</th>
-                                                                            <th scope="col">Penerima</th>
-                                                                            <th class="text-end" scope="col">Uraian</th>
+                                                                            <th scope="col">Akun</th>
+                                                                            <th scope="col">Deskripsi</th>
                                                                             <th class="text-end" scope="col">Jumlah</th>
                                                                         </tr>
                                                                     </thead>
@@ -82,8 +81,8 @@
                                                                             <tr>
                                                                                 <td>{{ $loop->index +1 }}</td>
                                                                                 <td class="d-table-cell d-lg-none">{{ $item->date }}</td>
-                                                                                <td>{{ $item->vendor }}</td>
-                                                                                <td class="text-end">{{ $item->description }}</td>
+                                                                                <td>{{ $item->account }}</td>
+                                                                                <td>{{ $item->billing }}</td>
                                                                                 <td class="text-end">{{ number_format($item->amount,0) }}</td>
                                                                             </tr>
                                                                         @endforeach
@@ -143,13 +142,16 @@
 
                                             <div class="row">
                                                 <div class="col-xl-12 col-md-3 col-sm-6">
-                                                    <a href="javascript:void(0);" class="btn btn-secondary btn-print  action-print">Print</a>
+                                                    <a href="javascript:void(0);" class="btn btn-primary btn-print action-print">Print</a>
+                                                </div>
+                                                <div class="col-xl-12 col-md-3 col-sm-6">
+                                                    <a href="/admin/pembayaran/index/{{ $items->first()->ids }}" class="btn btn-print btn-secondary">Index</a>
                                                 </div>
                                                 @php
                                                     $date = date("Y-m-d", strtotime($items->first()->date . '+1 week'));
                                                 @endphp
                                                 <div class="col-xl-12 col-md-3 col-sm-6">
-                                                    <a href="{{ ($date < date('Y-m-d')) ? '#' : '/admin/keuangan/inv/' . $items->first()->invoice }}" class="btn btn-dark btn-edit" @if ($date < date('Y-m-d')) onclick="alert('Tanggal Expired.. Invoice tidak bisa diedit..')" @endif>Edit</a>
+                                                    <a href="{{ ($date < date('Y-m-d')) ? '#' : '/admin/pembayaran/inv/' . $items->first()->invoice }}" class="btn btn-dark btn-edit" @if ($date < date('Y-m-d')) onclick="alert('Tanggal Expired.. Invoice tidak bisa diedit..')" @endif>Edit</a>
                                                 </div>
                                             </div>
 
