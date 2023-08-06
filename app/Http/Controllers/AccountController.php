@@ -11,7 +11,7 @@ class AccountController extends Controller
     {
         return view('office.account', [
             'title' => 'Data Akun',
-            'accounts' => Account::all()
+            'accounts' => Account::orderByRaw('LEFT(number, 2)')->get()
         ]);
     }
 

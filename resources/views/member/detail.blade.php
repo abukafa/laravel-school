@@ -206,7 +206,9 @@
                                                 <label for="payment_category" class="form-label">Kategori Pembayaran</label>
                                                 <select type="text" class="form-select form-select" name="payment_category" id="payment_category">
                                                     <option selected disabled value="{{ $student ? $student->payment_category : '' }}">{{ $student ? $student->payment_category : 'Pilih...' }}</option>
-                                                    <option>Regular</option>
+                                                    @foreach ($categories as $item)
+                                                        <option>{{ $item->category }}</option>
+                                                    @endforeach
                                                 </select>
                                             </div>
                                             <div class="col-md-4 mb-4">

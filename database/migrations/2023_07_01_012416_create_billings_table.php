@@ -15,13 +15,13 @@ return new class extends Migration
     {
         Schema::create('billings', function (Blueprint $table) {
             $table->id();
-            $table->integer('period_year');
-            $table->string('class');
+            $table->integer('year');
+            $table->string('category');
             $table->string('account');
-            $table->string('remark');
-            $table->string('description');
-            $table->integer('amount');
-            $table->string('admin');
+            $table->string('name');
+            $table->integer('amount')->default(0);
+            $table->tinyInteger('is_monthly')->nullable()->default(0);
+            $table->string('note')->nullable();
             $table->timestamps();
         });
     }

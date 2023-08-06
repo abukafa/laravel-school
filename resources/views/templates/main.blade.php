@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
     <title>{{ $title }}</title>
-    <link rel="icon" type="image/x-icon" href="{{ session('school.logo') ? asset('storage/logo.png') : '' }}"/>
+    <link rel="icon" type="image/x-icon" href="{{ session('school.logo') ? asset('storage/logo.png') : '/src/assets/img/logo.png' }}"/>
     <link rel="stylesheet" type="text/css" href="{{ asset('layouts/vertical-dark-menu/css/light/loader.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ asset('layouts/vertical-dark-menu/css/dark/loader.css') }}" />
     <script src="/layouts/vertical-dark-menu/loader.js"></script>

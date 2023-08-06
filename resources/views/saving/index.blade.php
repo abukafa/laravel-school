@@ -11,6 +11,11 @@
     <!-- END PAGE LEVEL CUSTOM STYLES -->
 
     <!-- BEGIN THEME GLOBAL STYLES -->
+    <link href="../src/assets/css/light/components/list-group.css" rel="stylesheet" type="text/css">
+    <link href="../src/assets/css/dark/components/list-group.css" rel="stylesheet" type="text/css">
+    <!-- END THEME GLOBAL STYLES -->
+
+    <!-- BEGIN THEME GLOBAL STYLES -->
     {{-- <link rel="stylesheet" type="text/css" href="{{ asset('src/plugins/src/flatpickr/flatpickr.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('src/plugins/css/light/flatpickr/custom-flatpickr.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('src/plugins/css/dark/flatpickr/custom-flatpickr.css') }}"> --}}
@@ -20,21 +25,30 @@
 
     <!--  BEGIN CONTENT AREA  -->
     <div id="content" class="main-content">
+
+        <div class="row mx-4 mt-4 mb-3">
+            <div class="col-12 d-flex justify-content-between">
+                <h5 class="mt-2">Tabungan</h5>
+                <a type="button" class="btn btn-primary btn-tambah">Tambah</a>
+            </div>
+        </div>
+
         <div class="layout-px-spacing">
+        
+            <!-- FLASH ALERT -->
+            @if (session()->has('success') || session()->has('danger'))
+            <div class="col-12 mt-3">
+                <div class="alert alert-icon-left alert-light-{{ session('success') ? 'success' : 'danger' }} alert-dismissible fade show" role="alert">
+                    <button type="button" class="btn-close mt-1" data-bs-dismiss="alert" aria-label="Close"> <svg xmlns="http://www.w3.org/2000/svg" data-bs-dismiss="alert" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x close"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-alert-triangle"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12" y2="17"></line></svg>
+                    <strong>{{ session('success') ?: session('danger') }}.</strong>
+                </div>
+            </div>
+            @endif
+        
             <div class="middle-content container-xxl p-0">
                 <div class="row" id="cancel-row">
-                    <div class="col-xl-12 col-lg-12 col-sm-12 layout-top-spacing layout-spacing">
-
-                    <!-- FLASH ALERT -->
-                    @if (session()->has('success') || session()->has('danger'))
-                    <div class="alert alert-icon-left alert-light-{{ session('success') ? 'success' : 'danger' }} alert-dismissible fade show mb-4" role="alert">
-                        <button type="button" class="btn-close mt-1" data-bs-dismiss="alert" aria-label="Close"> <svg xmlns="http://www.w3.org/2000/svg" data-bs-dismiss="alert" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x close"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-alert-triangle"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12" y2="17"></line></svg>
-                        <strong>{{ session('success') ?: session('danger') }}.</strong>
-                    </div>
-                    @endif
-
-                
+                    <div class="col-xl-12 col-lg-12 col-sm-12 layout-top-spacing layout-spacing mt-2">
                         <div class="widget-content widget-content-area br-8">
                             <table id="invoice-list" class="table dt-table-hover" style="width:100%">
                                 <thead>
@@ -148,6 +162,61 @@
             </div>
         </div>
 
+        <!-- Modal -->
+        <div class="modal fade" id="indexModal" tabindex="-1" role="dialog" aria-labelledby="indexModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="indexModalLabel"></h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                            <i class="far fa-times-circle"></i><span class="icon-name"> times-circle</span>
+                        </button>
+                    </div>
+                    <!-- Images -->
+                    <div class="m-4 index-content">
+                        <ul class="list-group list-group-media">
+                            <li class="list-group-item border-0">
+                                <div class="media">
+                                    <div class="me-3">
+                                        <img alt="avatar" src="/src/assets/img/no.png" class="img-fluid rounded-circle">
+                                    </div>
+                                    <div class="media-body">
+                                        <h6 class="tx-inverse">Luke Ivory</h6>
+                                        <p class="mg-b-0">Project Lead</p>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="list-group-item border-0">
+                                <div class="media">
+                                    <div class="me-3">
+                                        <img alt="avatar" src="/src/assets/img/no.png" class="img-fluid rounded-circle">
+                                    </div>
+                                    <div class="media-body">
+                                        <h6 class="tx-inverse">Sonia Shaw</h6>
+                                        <p class="mg-b-0">Web Designer</p>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="list-group-item border-0">
+                                <div class="media">
+                                    <div class="me-3">
+                                        <img alt="avatar" src="/src/assets/img/no.png" class="img-fluid rounded-circle">
+                                    </div>
+                                    <div class="media-body">
+                                        <h6 class="tx-inverse">Dale Butler</h6>
+                                        <p class="mg-b-0">Developer</p>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn" data-bs-dismiss="modal">Tutup</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!--  BEGIN FOOTER  -->
         <div class="footer-wrapper mt-0">
             <div class="footer-section f-section-1">
@@ -181,8 +250,8 @@
             
                 buttons: [
                 {
-                    text: 'Tambah',
-                    className: 'btn btn-primary btn-tambah'
+                    text: 'Index',
+                    className: 'btn btn-primary btn-index'
                 }
             ],
             "order": [[ 1, "asc" ]],
@@ -251,6 +320,48 @@
                 document.getElementById('note').value = '';
                 document.getElementById('methodField').value = '';
             });
+        });
+
+        const btnIndex = document.querySelector('.btn-index');
+        btnIndex.setAttribute('data-bs-toggle', 'modal');
+        btnIndex.setAttribute('data-bs-target', '#indexModal');
+        btnIndex.addEventListener('click', function () {
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', '/admin/tabungan/rekap/all');
+            xhr.onload = function () {
+            if (xhr.status === 200) {
+                var data = JSON.parse(xhr.responseText);
+                document.getElementById('indexModalLabel').innerHTML = 'Rp. <b>' + data.total.toLocaleString('en-US') + '</b>';
+
+                // Convert JSON to array
+                var students = data.item;
+
+                // Adding li to ul
+                const ul = document.querySelector('.modal-content ul');
+
+                // Clear the existing list items if needed
+                ul.innerHTML = '';
+
+                students.forEach(student => {
+                    const liHTML = `
+                    <li class="list-group-item border-0">
+                        <div class="media">
+                        <div class="me-3">
+                            <img alt="avatar" src="${student.image ? '/storage/member/' + student.image : '/src/assets/img/no.png'}" class="img-fluid rounded-circle">
+                        </div>
+                        <div class="media-body">
+                            <h6 class="tx-inverse">${student.name}</h6>
+                            <p class="mg-b-0">Rp. ${(student.credit - student.debit).toLocaleString('en-US')}</p>
+                        </div>
+                        </div>
+                    </li>
+                    `;
+
+                    ul.innerHTML += liHTML;
+                });
+            }
+        };
+        xhr.send();
         });
     </script>
     

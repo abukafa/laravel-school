@@ -7,6 +7,7 @@ use App\Models\Saving;
 use App\Models\School;
 use App\Models\Student;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class SavingController extends Controller
 {
@@ -85,6 +86,23 @@ class SavingController extends Controller
             'saldo' => $credit - $debit,
             'items' => $items,
             'school' => $school
+        ]);
+    }
+
+    public function rekap()
+    {
+        $distinct = Saving::select('name')
+        ->selectRaw('SUM(debit) AS debit')
+        ->selectRaw('SUM(credit) AS credit')
+        ->groupBy('name')
+        ->get();
+        $total = 0;
+        if($distinct){
+            foreach($distinct as $i){ $total += ($i->credit - $i->debit); }
+        }
+        return response()->json([
+            'item' => $distinct,
+            'total' => $total
         ]);
     }
 }

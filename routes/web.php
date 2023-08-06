@@ -49,6 +49,19 @@ Route::get('/admin/akun/no/{num}', [AccountController::class, 'search'])->middle
 Route::get('/admin/keuangan/inv/{inv}', [FinanceController::class, 'detail'])->middleware('auth');
 Route::get('/admin/keuangan/view/{inv}', [FinanceController::class, 'preview'])->middleware('auth');
 Route::get('/admin/tabungan/view/{ids}', [SavingController::class, 'preview'])->middleware('auth');
+Route::get('/admin/tabungan/rekap/all', [SavingController::class, 'rekap'])->middleware('auth');
+
+Route::get('/admin/tagihan', [BillingController::class, 'index'])->middleware('auth');
+Route::post('/admin/tagihan', [BillingController::class, 'save'])->middleware('auth');
+Route::get('/admin/tagihan/0', [BillingController::class, 'preview'])->middleware('auth');
+Route::get('/admin/tagihan/{id}', [BillingController::class, 'show'])->middleware('auth');
+Route::get('/admin/tagihan/{year}/{category}', [BillingController::class, 'preview'])->middleware('auth');
+Route::delete('/admin/tagihan/{year}/{category}', [BillingController::class, 'delete_all'])->middleware('auth');
+Route::get('/admin/tagihan/search/ids/{ids}', [BillingController::class, 'billing_search'])->middleware('auth');
+
+Route::get('/admin/pembayaran', [PaymentController::class, 'index'])->middleware('auth');
+Route::get('/admin/pembayaran/inv/{inv}', [PaymentController::class, 'detail'])->middleware('auth');
+Route::get('/admin/pembayaran/view/{inv}', [PaymentController::class, 'preview'])->middleware('auth');
 
 Route::get('/', [AuthController::class, 'home1'])->middleware('auth');
 Route::get('/home', [AuthController::class, 'home2'])->middleware('auth');
@@ -70,8 +83,6 @@ Route::post('/admin/sekolah', [SchoolController::class, 'save'])->middleware('au
 
 Route::get('/admin/kalendar', [CalendarController::class, 'index'])->middleware('auth', 'maintenance');
 
-Route::get('/admin/tagihan', [BillingController::class, 'index'])->middleware('auth');
-Route::get('/admin/pembayaran', [PaymentController::class, 'index'])->middleware('auth');
 Route::get('/admin/konfirmasi', [PaymentController::class, 'confirm'])->middleware('auth');
 
 // Route::get('/data/pelajaran', [LessonController::class, 'index'])->middleware('auth');

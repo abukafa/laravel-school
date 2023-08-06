@@ -140,6 +140,7 @@
     </div>
 
     <script>
+        document.getElementById('optional').style.display = 'none';
         function numAccount(unit)
         {
             if(unit === 'Pengeluaran'){

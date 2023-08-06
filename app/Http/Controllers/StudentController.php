@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Billing;
 use App\Models\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -27,9 +28,11 @@ class StudentController extends Controller
 
     public function create()
     {
+        $categories = Billing::selectRaw('DISTINCT category')->get();
         return view('member.detail', [
             'title' => 'Data Siswa',
-            'student' => []
+            'student' => [],
+            'categories' => $categories
         ]);
     }
 
@@ -62,21 +65,23 @@ class StudentController extends Controller
 
     public function edit($id)
     {
+        $categories = Billing::selectRaw('DISTINCT category')->get();
         return view('member.detail', [
             'title' => 'Data Siswa',
+            'categories' => $categories,
             'student' => Student::find($id)
         ]);
     }
 
     public function update(Request $request, $id)
     {
-        $validator = Validator::make($request->all(), [
-            'nis' => 'required|unique:students',
-        ]);
+        // $validator = Validator::make($request->all(), [
+        //     'nis' => 'required|unique:students',
+        // ]);
     
-        if ($validator->fails()) {
-            return back()->with('danger', 'NIS sudah terdaftar');
-        }
+        // if ($validator->fails()) {
+        //     return back()->with('danger', 'NIS sudah terdaftar');
+        // }
 
         $student = Student::find($id);
         $data = $request->all();

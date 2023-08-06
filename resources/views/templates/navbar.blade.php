@@ -246,7 +246,7 @@
                         </ul>
                     </li>
 
-                    @if (auth()->user()->role == 5)                        
+                    @if (auth()->user()->role > 1)                        
                         <li class="menu {{ $title == 'Data Pembayaran' || $title == 'Data Tagihan' || $title == 'Konfirmasi Pembayaran' ? 'active' : '' }}">
                             <a href="#pembayaran" data-bs-toggle="collapse" aria-expanded="{{ $title == 'Data Pembayaran' || $title == 'Data Tagihan' || $title == 'Konfirmasi Pembayaran' ? 'true' : 'false' }}" class="dropdown-toggle">
                                 <div class="">
@@ -258,12 +258,12 @@
                                 </div>
                             </a>
                             <ul class="collapse submenu list-unstyled {{ $title == 'Data Pembayaran' || $title == 'Data Tagihan' || $title == 'Konfirmasi Pembayaran' ? 'show' : '' }}" id="pembayaran" data-bs-parent="#accordionExample">
-                                <li class="{{ $title == 'Data Tagihan' ? 'active' : '' }}">
-                                    <a href="/admin/tagihan"> Tagihan </a>
-                                </li>       
                                 <li class="{{ $title == 'Data Pembayaran' ? 'active' : '' }}">
                                     <a href="/admin/pembayaran"> Entri </a>
                                 </li>
+                                <li class="{{ $title == 'Data Tagihan' ? 'active' : '' }}">
+                                    <a href="/admin/tagihan"> Tagihan </a>
+                                </li>       
                                 <li class="{{ $title == 'Konfirmasi Pembayaran' ? 'active' : '' }}">
                                     <a href="/admin/konfirmasi"> Konfirmasi </a>
                                 </li>                       
@@ -282,12 +282,12 @@
                             </div>
                         </a>
                         <ul class="collapse submenu list-unstyled {{ $title == 'Data Akun' || $title == 'Data Keuangan' ? 'show' : '' }}" id="keuangan" data-bs-parent="#accordionExample">
-                            <li class="{{ $title == 'Data Akun' ? 'active' : '' }}">
-                                <a href="/admin/akun"> Akun </a>
-                            </li>
                             <li class="{{ $title == 'Data Keuangan' ? 'active' : '' }}">
                                 <a href="/admin/keuangan"> Entri </a>
                             </li>                           
+                            <li class="{{ $title == 'Data Akun' ? 'active' : '' }}">
+                                <a href="/admin/akun"> Akun </a>
+                            </li>
                         </ul>
                     </li>
 

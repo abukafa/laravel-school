@@ -17,16 +17,12 @@ return new class extends Migration
             $table->id();
             $table->string('invoice');
             $table->date('date');
-            $table->string('nis');
+            $table->integer('ids');
             $table->string('name');
-            $table->string('guardian');
-            $table->string('period_month');
-            $table->integer('period_year');
             $table->string('account');
-            $table->string('remark');
-            $table->string('description');
+            $table->string('billing');
             $table->integer('amount');
-            $table->string('admin');
+            $table->string('admin')->nullable();
             $table->timestamps();
         });
     }
