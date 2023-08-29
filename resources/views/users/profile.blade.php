@@ -39,7 +39,7 @@
                                     <div class="text-center user-info">
                                         <form action="/image" method="post" enctype="multipart/form-data">
                                             <a href="javascript:void(0);" id="uploaded_image">
-                                                <img src="{{ $user->image ? 'storage/' . $user->image : '/src/assets/img/no.png' }}" id="imgPreview" alt="avatar">
+                                                <img src="{{ $user->image ? 'storage/profile/' . $user->image : '/src/assets/img/no.png' }}" id="imgPreview" alt="avatar">
                                             </a>
                                             <input type='file' class='form-control d-none p-1' name='upload_image' id='upload_image' accept='.jpg'>
                                         </form>

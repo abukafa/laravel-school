@@ -56,7 +56,7 @@
                                                 <td>
                                                     <div class="media">
                                                         <div class="avatar me-2">
-                                                            <img src="{{ $user->image ? asset('storage/' . $user->image) : '/src/assets/img/no.png' }}" class="rounded-circle" />
+                                                            <img src="{{ $user->image ? asset('storage/profile/' . $user->image) : '/src/assets/img/no.png' }}" class="rounded-circle" />
                                                         </div>
                                                         <div class="media-body align-self-center">
                                                             <h6 class="mb-0">{{ $user->name }}</h6>

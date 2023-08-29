@@ -59,7 +59,7 @@
                                             <td>{{ $student->nis }}</td>
                                             <td class="">
                                                 <a class="profile-img" href="javascript: void(0);">
-                                                    <img src="{{ $student->image ? asset('storage/member/' . $student->image) : '/src/assets/img/no.png' }}" alt="avatar">
+                                                    <img src="{{ $student->image ? asset('storage/member/' . $student->image) : '/src/assets/img/no.png' }}" alt="{{ $student->image }}">
                                                 </a>
                                             </td>
                                             <td>{{ $student->name }}</td>

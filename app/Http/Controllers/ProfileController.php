@@ -31,7 +31,7 @@ class ProfileController extends Controller
         Storage::disk('public')->put($imagePath, $image_data);
 
         $user = Auth::user();
-        $user->image = $imagePath;
+        $user->image = $imageName;
         $user->save();
 
         return response()->json(['image_path' => Storage::url($imagePath)]);
