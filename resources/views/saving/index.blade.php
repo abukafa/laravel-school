@@ -175,39 +175,6 @@
                     <!-- Images -->
                     <div class="m-4 index-content">
                         <ul class="list-group list-group-media">
-                            <li class="list-group-item border-0">
-                                <div class="media">
-                                    <div class="me-3">
-                                        <img alt="avatar" src="/src/assets/img/no.png" class="img-fluid rounded-circle">
-                                    </div>
-                                    <div class="media-body">
-                                        <h6 class="tx-inverse">Luke Ivory</h6>
-                                        <p class="mg-b-0">Project Lead</p>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="list-group-item border-0">
-                                <div class="media">
-                                    <div class="me-3">
-                                        <img alt="avatar" src="/src/assets/img/no.png" class="img-fluid rounded-circle">
-                                    </div>
-                                    <div class="media-body">
-                                        <h6 class="tx-inverse">Sonia Shaw</h6>
-                                        <p class="mg-b-0">Web Designer</p>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="list-group-item border-0">
-                                <div class="media">
-                                    <div class="me-3">
-                                        <img alt="avatar" src="/src/assets/img/no.png" class="img-fluid rounded-circle">
-                                    </div>
-                                    <div class="media-body">
-                                        <h6 class="tx-inverse">Dale Butler</h6>
-                                        <p class="mg-b-0">Developer</p>
-                                    </div>
-                                </div>
-                            </li>
                         </ul>
                     </div>
                     <div class="modal-footer">
@@ -343,11 +310,12 @@
                 ul.innerHTML = '';
 
                 students.forEach(student => {
+                    console.log(student.ids);
                     const liHTML = `
                     <li class="list-group-item border-0">
                         <div class="media">
                         <div class="me-3">
-                            <img alt="avatar" src="${student.image ? '/storage/member/' + student.image : '/src/assets/img/no.png'}" class="img-fluid rounded-circle">
+                            <img alt="avatar" src="${student.ids ? '/storage/member/' + student.ids + '.png' : '/src/assets/img/no.png'}" class="img-fluid rounded-circle">
                         </div>
                         <div class="media-body">
                             <h6 class="tx-inverse">${student.name}</h6>

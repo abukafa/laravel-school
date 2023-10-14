@@ -47,7 +47,7 @@
                                 <div class="col-md-12 mb-3">
                                     <div class="media mb-4">
                                         <div class="avatar avatar-lg me-3">
-                                            <img alt="avatar" src="{{ session('user.image') ? asset('storage/' . session('user.image')) : '/src/assets/img/no.png' }}" class="rounded-circle">
+                                            <img alt="avatar" src="{{ session('user.image') ? asset('storage/profile/' . session('user.image')) : '/src/assets/img/no.png' }}" class="rounded-circle">
                                         </div>
                                         <div class="media-body align-self-center">
                                             <h3 class="mb-0">{{ session('user.name') }}</h3>
