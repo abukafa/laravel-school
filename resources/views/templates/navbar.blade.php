@@ -245,10 +245,10 @@
                             </li>
                         </ul>
                     </li>
-
+                    
                     @if (auth()->user()->role > 1)                        
-                        <li class="menu {{ $title == 'Data Pembayaran' || $title == 'Data Tagihan' || $title == 'Konfirmasi Pembayaran' ? 'active' : '' }}">
-                            <a href="#pembayaran" data-bs-toggle="collapse" aria-expanded="{{ $title == 'Data Pembayaran' || $title == 'Data Tagihan' || $title == 'Konfirmasi Pembayaran' ? 'true' : 'false' }}" class="dropdown-toggle">
+                        <li class="menu {{ $title == 'Data Pembayaran' || $title == 'Rekap Pembayaran' || $title == 'Data Tagihan' || $title == 'Konfirmasi Pembayaran' ? 'active' : '' }}">
+                            <a href="#pembayaran" data-bs-toggle="collapse" aria-expanded="{{ $title == 'Data Pembayaran' || $title == 'Rekap Pembayaran' || $title == 'Data Tagihan' || $title == 'Konfirmasi Pembayaran' ? 'true' : 'false' }}" class="dropdown-toggle">
                                 <div class="">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
                                     <span>Pembayaran</span>
@@ -257,9 +257,12 @@
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg>
                                 </div>
                             </a>
-                            <ul class="collapse submenu list-unstyled {{ $title == 'Data Pembayaran' || $title == 'Data Tagihan' || $title == 'Konfirmasi Pembayaran' ? 'show' : '' }}" id="pembayaran" data-bs-parent="#accordionExample">
+                            <ul class="collapse submenu list-unstyled {{ $title == 'Data Pembayaran' || $title == 'Rekap Pembayaran' || $title == 'Data Tagihan' || $title == 'Konfirmasi Pembayaran' ? 'show' : '' }}" id="pembayaran" data-bs-parent="#accordionExample">
                                 <li class="{{ $title == 'Data Pembayaran' ? 'active' : '' }}">
                                     <a href="/admin/pembayaran"> Entri </a>
+                                </li>
+                                <li class="{{ $title == 'Rekap Pembayaran' ? 'active' : '' }}">
+                                    <a href="/admin/pembayaran/rekap"> Rekap </a>
                                 </li>
                                 <li class="{{ $title == 'Data Tagihan' ? 'active' : '' }}">
                                     <a href="/admin/tagihan"> Tagihan </a>
@@ -272,7 +275,7 @@
                             </ul>
                         </li>
                     @endif
-
+                    
                     <li class="menu {{ $title == 'Data Akun' || $title == 'Data Keuangan' ? 'active' : '' }}">
                         <a href="#keuangan" data-bs-toggle="collapse" aria-expanded="{{ $title == 'Data Akun' || $title == 'Data Keuangan' ? 'true' : 'false' }}" class="dropdown-toggle">
                             <div class="">
@@ -292,7 +295,7 @@
                             </li>
                         </ul>
                     </li>
-
+                    
                     <li class="menu {{ $title == 'Data Tabungan' ? 'active' : '' }}">
                         <a href="#tabungan" data-bs-toggle="collapse" aria-expanded="{{ $title == 'Data Tabungan' ? 'true' : 'false' }}" class="dropdown-toggle">
                             <div class="">

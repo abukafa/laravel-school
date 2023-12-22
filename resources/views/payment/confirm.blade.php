@@ -1,13 +1,13 @@
 @extends('templates.navbar')
 
     <!-- BEGIN PAGE LEVEL CUSTOM STYLES -->
-    <link rel="stylesheet" type="text/css" href="../src/plugins/src/table/datatable/datatables.css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('src/plugins/src/table/datatable/datatables.css') }}">
 
-    <link rel="stylesheet" type="text/css" href="../src/plugins/css/light/table/datatable/dt-global_style.css">
-    <link rel="stylesheet" type="text/css" href="../src/plugins/css/light/table/datatable/custom_dt_miscellaneous.css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('src/plugins/css/light/table/datatable/dt-global_style.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('src/plugins/css/light/table/datatable/custom_dt_miscellaneous.css') }}">
 
-    <link rel="stylesheet" type="text/css" href="../src/plugins/css/dark/table/datatable/dt-global_style.css">
-    <link rel="stylesheet" type="text/css" href="../src/plugins/css/dark/table/datatable/custom_dt_miscellaneous.css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('src/plugins/css/dark/table/datatable/dt-global_style.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('src/plugins/css/dark/table/datatable/custom_dt_miscellaneous.css') }}">
     <!-- END PAGE LEVEL CUSTOM STYLES -->
 
 @section('content')
@@ -152,16 +152,16 @@
         </div>
     </div>
 
-    <script src="../src/plugins/src/global/vendors.min.js"></script>
-    <script src="../src/assets/js/custom.js"></script>
+    <script src="{{ asset('src/plugins/src/global/vendors.min.js') }}"></script>
+    <script src="{{ asset('src/assets/js/custom.js') }}"></script>
 
     <!-- BEGIN PAGE LEVEL SCRIPTS -->
-    <script src="../src/plugins/src/table/datatable/datatables.js"></script>
-    <script src="../src/plugins/src/table/datatable/button-ext/dataTables.buttons.min.js"></script>
-    <script src="../src/plugins/src/table/datatable/button-ext/jszip.min.js"></script>    
-    <script src="../src/plugins/src/table/datatable/button-ext/buttons.html5.min.js"></script>
-    <script src="../src/plugins/src/table/datatable/button-ext/buttons.print.min.js"></script>
-    <script src="../src/plugins/src/table/datatable/custom_miscellaneous.js"></script>
+    <script src="{{ asset('src/plugins/src/table/datatable/datatables.js') }}"></script>
+    <script src="{{ asset('src/plugins/src/table/datatable/button-ext/dataTables.buttons.min.js') }}"></script>
+    <script src="{{ asset('src/plugins/src/table/datatable/button-ext/jszip.min.js') }}"></script>    
+    <script src="{{ asset('src/plugins/src/table/datatable/button-ext/buttons.html5.min.js') }}"></script>
+    <script src="{{ asset('src/plugins/src/table/datatable/button-ext/buttons.print.min.js') }}"></script>
+    <script src="{{ asset('src/plugins/src/table/datatable/custom_miscellaneous.js') }}"></script>
     <!-- END PAGE LEVEL SCRIPTS -->     
     
 @endsection

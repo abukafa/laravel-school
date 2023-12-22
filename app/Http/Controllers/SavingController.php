@@ -80,7 +80,7 @@ class SavingController extends Controller
             $credit += $i->credit;
         }
         return view('saving.preview', [
-            'title' => 'Data Keuangan',
+            'title' => 'Data Tabungan',
             'debit' => $debit,
             'credit' => $credit,
             'saldo' => $credit - $debit,

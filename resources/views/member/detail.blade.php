@@ -7,10 +7,9 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('src/assets/css/dark/users/user-profile.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('src/assets/css/light/elements/alert.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('src/assets/css/dark/elements/alert.css') }}">
-    <!--  END CUSTOM STYLE FILE  -->
+
     <link rel="stylesheet" type="text/css" href="{{ asset('src/plugins/src/croppie/croppie.css') }}">
 
-    <!--  BEGIN CUSTOM STYLE FILE  -->
     <link rel="stylesheet" type="text/css" href="{{ asset('src/plugins/src/flatpickr/flatpickr.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('src/plugins/css/light/flatpickr/custom-flatpickr.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('src/plugins/css/dark/flatpickr/custom-flatpickr.css') }}">
@@ -74,7 +73,7 @@
                                             <div class="col-md-6 mb-4">
                                                 <label for="nis" class="form-label">NIS</label>
                                                 <input type="hidden" class="form-control form-control" name="id" id="id" value="{{ $student ? $student->id : '' }}">
-                                                <input type="text" class="form-control form-control" name="nis" id="nis" value="{{ $student ? $student->nis : '' }}" required>
+                                                <input type="number" class="form-control form-control" name="nis" id="nis" value="{{ $student ? $student->nis : '' }}" required>
                                             </div>
                                             <div class="col-md-6 mb-4">
                                                 <label for="name" class="form-label">Nama</label>
@@ -212,6 +211,10 @@
                                                 </select>
                                             </div>
                                             <div class="col-md-4 mb-4">
+                                                <label for="registered" class="form-label">Tahun Masuk</label>
+                                                <input type="number" class="form-control form-control" name="registered" id="registered" value="{{ $student ? $student->registered : session('school.period') }}">
+                                            </div>
+                                            <div class="col-md-4 mb-4">
                                                 <label for="graduation" class="form-label">Kelulusan</label>
                                                 <input type="number" class="form-control form-control" name="graduation" id="graduation" value="{{ $student ? $student->graduation : '' }}">
                                             </div>
@@ -265,10 +268,10 @@
     <!-- BEGIN PAGE LEVEL SCRIPTS -->
     <script src="{{ asset('src/plugins/src/global/vendors.min.js') }}"></script>
     <script src="{{ asset('src/plugins/src/flatpickr/flatpickr.js') }}"></script>
-    <!-- END PAGE LEVEL SCRIPTS -->
 
     <script src="{{ asset('src/assets/js/jquery.min.js') }}"></script>
     <script src="{{ asset('src/plugins/src/croppie/croppie.js') }}"></script>
+    <!-- END PAGE LEVEL SCRIPTS -->
     <script>
         var f1 = flatpickr(document.getElementById('birth_date'));
         var f1 = flatpickr(document.getElementById('father_birth'));

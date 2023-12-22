@@ -107,7 +107,7 @@
                         <div class="row mb-3" id="optional">
                             <label for="allocation" class="col-sm-3 col-form-label"><p>Alokasi</p></label>
                             <div class="col-sm-9">
-                                <select class="form-select" id="allocation" onchange="allocAccount(this.value)">
+                                <select class="form-select" name="allocation" id="allocation" onchange="allocAccount(this.value)">
                                     <option selected disabled value="">Pilih...</option>
                                     @foreach ($accounts as $account)
                                         @if ($account->unit == 'Pembayaran')
@@ -178,7 +178,13 @@
                         document.getElementById('unit').value = data.account.unit;
                         document.getElementById('description').value = data.account.description;
                         document.getElementById('detail').value = data.account.detail;
+                        document.getElementById('allocation').value = data.account.allocation;
                         document.getElementById('methodField').value = 'PATCH';
+                        if (data.account.unit === 'Pengeluaran'){
+                            document.getElementById('optional').style.display = '';
+                        }else{
+                            document.getElementById('optional').style.display = 'none';
+                        }
                     }
                 };
                 xhr.send();
@@ -194,6 +200,7 @@
                 document.getElementById('description').value = '';
                 document.getElementById('detail').value = '';
                 document.getElementById('methodField').value = '';
+                document.getElementById('optional').style.display = 'none';
             });
         });
     </script>

@@ -73,6 +73,7 @@
                                                         <select class="form-select" id="idb" required>
                                                             <option selected disabled value="">Pilih...</option>
                                                         </select>
+                                                        <input type="hidden" class="form-control" id="billingName">
                                                         <input type="hidden" class="form-control" name="account" id="account" value="{{ optional($items->first())->account }}">
                                                         <input type="hidden" class="form-control" name="billing" id="billing" value="{{ optional($items->first())->billing }}">
                                                     </div>
@@ -184,45 +185,65 @@
     <script>
         var f1 = flatpickr(document.getElementById('date'));
 
-        document.getElementById('ids').addEventListener('change', function() {
-        var ids = this.value;
-        var xhr = new XMLHttpRequest();
-        xhr.onreadystatechange = function() {
-            if (xhr.readyState === 4 && xhr.status === 200) {
-            var data = JSON.parse(xhr.responseText);
-            document.getElementById('name').value = data.student.name;
-            document.getElementById('payment_category').value = data.student.payment_category;
-            const select = document.getElementById('idb');
-            select.innerHTML = '';
-            select.innerHTML += '<option selected disabled value="">Pilih...</option>';
-            data.billing.forEach(element => {
-                const newSelect = `
-                <option value='${element.id}'>${element.name}</option>
-                `;
-                select.innerHTML += newSelect;
-            });
-            document.getElementById('account').value = '';
-            document.getElementById('billing').value = '';
-            document.getElementById('amount').value = '';
-            }
-        };
-        xhr.open('GET', '/admin/tagihan/search/ids/' + ids, true);
-        xhr.send();
-        });
+        // Make sure to get the 'ids' value initially
+        let ids = document.getElementById('ids').value;
 
+        // Function to get billing and payment data
+        function getBillingPayment(ids) {
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    var data = JSON.parse(xhr.responseText);
+                    document.getElementById('name').value = data.student.name;
+                    document.getElementById('payment_category').value = data.student.payment_category;
+
+                    // Clear the existing options in the select element
+                    const select = document.getElementById('idb');
+                    select.innerHTML = '';
+                    
+                    // Add the default option
+                    select.innerHTML += '<option selected disabled value="">Pilih...</option>';
+                    
+                    // Populate the select element with new options
+                    data.billing.forEach(element => {
+                        const newSelect = `<option value='${element.id}'>${element.name}</option>`;
+                        select.innerHTML += newSelect;
+                    });
+                    
+                    // Clear other form fields
+                    document.getElementById('account').value = '';
+                    document.getElementById('billing').value = '';
+                    document.getElementById('amount').value = '';
+                }
+            };
+            xhr.open('GET', '/admin/tagihan/search/ids/' + ids, true);
+            xhr.send();
+        }
+
+        // Check if 'ids' has a value, and call the function initially
+        if (ids) {
+            getBillingPayment(ids);
+        } else {
+            // If 'ids' is empty, add an event listener to handle changes
+            document.getElementById('ids').addEventListener('change', function() {
+                ids = this.value; // Update the 'ids' value
+                getBillingPayment(ids);
+            });
+        }
 
         document.getElementById('idb').addEventListener('change', function() {
             var id = this.value;
+            var name = this.selectedOptions[0].textContent;
             var xhr = new XMLHttpRequest();
             xhr.onreadystatechange = function() {
                 if (xhr.readyState === 4 && xhr.status === 200) {
                     var data = JSON.parse(xhr.responseText);
                     document.getElementById('account').value = data.billing.account;
                     document.getElementById('billing').value = document.getElementById('idb').selectedOptions[0].textContent;
-                    document.getElementById('amount').value = data.billing.amount;
+                    document.getElementById('amount').value = data.balance;
                 }
             };
-            xhr.open('GET', '/admin/tagihan/' + id, true);
+            xhr.open('GET', '/admin/tagihan/sisa/' + id + '/' + name, true);
             xhr.send();
         });
     </script>

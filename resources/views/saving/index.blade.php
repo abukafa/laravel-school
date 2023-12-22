@@ -8,17 +8,11 @@
 
     <link rel="stylesheet" type="text/css" href="{{ asset('src/plugins/css/dark/table/datatable/dt-global_style.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('src/assets/css/dark/apps/invoice-list.css') }}">
-    <!-- END PAGE LEVEL CUSTOM STYLES -->
-
-    <!-- BEGIN THEME GLOBAL STYLES -->
+    
     <link href="../src/assets/css/light/components/list-group.css" rel="stylesheet" type="text/css">
     <link href="../src/assets/css/dark/components/list-group.css" rel="stylesheet" type="text/css">
-    <!-- END THEME GLOBAL STYLES -->
-
-    <!-- BEGIN THEME GLOBAL STYLES -->
-    {{-- <link rel="stylesheet" type="text/css" href="{{ asset('src/plugins/src/flatpickr/flatpickr.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('src/plugins/css/light/flatpickr/custom-flatpickr.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('src/plugins/css/dark/flatpickr/custom-flatpickr.css') }}"> --}}
+    
+    <link rel="stylesheet" type="text/css" href="{{ asset('src/plugins/src/flatpickr/flatpickr.css') }}">
     <!--  END CUSTOM STYLE FILE  -->
 
 @section('content')
@@ -197,19 +191,18 @@
     </div>
     <!--  END CONTENT AREA  -->
 
+    <!-- BEGIN PAGE LEVEL SCRIPTS -->
     <script src="{{ asset('src/plugins/src/global/vendors.min.js') }}"></script>
     <script src="{{ asset('src/assets/js/custom.js') }}"></script>
 
-    <!-- BEGIN PAGE LEVEL SCRIPTS -->
     <script src="{{ asset('src/plugins/src/table/datatable/datatables.js') }}"></script>
     <script src="{{ asset('src/plugins/src/table/datatable/button-ext/dataTables.buttons.min.js') }}"></script>
-    <!-- END PAGE LEVEL SCRIPTS -->     
 
-    <!-- BEGIN PAGE LEVEL SCRIPTS -->
-    {{-- <script src="{{ asset('src/plugins/src/flatpickr/flatpickr.js') }}"></script>
-    <script src="{{ asset('src/plugins/src/flatpickr/custom-flatpickr.js') }}"></script> --}}
+    <script src="{{ asset('src/plugins/src/flatpickr/flatpickr.js') }}"></script>
     <!-- END PAGE LEVEL SCRIPTS -->
     <script>
+        var f1 = flatpickr(document.getElementById('date'));
+
         var invoiceList = $('#invoice-list').DataTable({
             "dom": "<'inv-list-top-section'<'row'<'col-sm-12 col-md-6 d-flex justify-content-md-start justify-content-center'l<'dt-action-buttons align-self-center'B>><'col-sm-12 col-md-6 d-flex justify-content-md-end justify-content-center mt-md-0 mt-3'f<'toolbar align-self-center'>>>>" +
                 "<'table-responsive'tr>" +
@@ -233,8 +226,6 @@
             "lengthMenu": [7, 10, 20, 50],
             "pageLength": 10
         });
-        
-        // var f1 = flatpickr(document.getElementById('date'));
 
         document.getElementById('ids').addEventListener('change', function() {
             var ids = this.value;
