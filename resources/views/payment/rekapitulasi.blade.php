@@ -44,8 +44,10 @@
                                             <th>No</th>
                                             <th>NIS</th>
                                             <th>Nama</th>
-                                            <th class="{{ $period ? '' : 'd-none' }}">Periode</th>
                                             <th>Kategori</th>
+                                            <th>Masuk</th>
+                                            <th>Tahunan</th>
+                                            <th>Bulanan</th>
                                             <th>Total</th>
                                             <th class="{{ $period ? '' : 'd-none' }}">Opsi</th>
                                         </tr>
@@ -57,9 +59,11 @@
                                                 <td>{{ $loop->index +1 }}</td>
                                                 <td>{{ $item->nis }}</td>
                                                 <td>{{ $item->name }}</td>
-                                                <td class="{{ $period ? '' : 'd-none' }}">{{ $period }}</td>
                                                 <td>{{ $item->category }}</td>
-                                                <td>{{ number_format($item->payment) }}</td>
+                                                <td class="text-end">{{ number_format($item->once) }}</td>
+                                                <td class="text-end">{{ number_format($item->year) }}</td>
+                                                <td class="text-end">{{ number_format($item->month) }}</td>
+                                                <td class="text-end">{{ number_format($item->total) }}</td>
                                                 <td class="{{ $period ? '' : 'd-none' }}">
                                                     <a class="badge badge-primary text-start me-2 action-view" href="/admin/pembayaran/rekap/{{ $item->ids }}/{{ $period }}">
                                                         <span class="far fa-eye"></span>

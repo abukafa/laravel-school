@@ -68,15 +68,21 @@ class PaymentController extends Controller
         $items = collect();
         foreach ($students as $student) {
             $payment = Payment::selectRaw(
-                'SUM(CASE WHEN ids = ? AND billing LIKE ? THEN amount ELSE 0 END) AS total',
-                [$student->id, '%' . $year])->first();
+                'SUM(CASE WHEN ids = ? AND is_once = ? THEN amount ELSE 0 END) AS once,
+                SUM(CASE WHEN ids = ? AND is_monthly = ? THEN amount ELSE 0 END) AS month,
+                SUM(CASE WHEN ids = ? AND is_monthly = ? AND is_once = ? THEN amount ELSE 0 END) AS year,
+                SUM(CASE WHEN ids = ? AND billing LIKE ? THEN amount ELSE 0 END) AS total',
+                [$student->id, 1, $student->id, 1, $student->id, 0, 0, $student->id, '%' . $year])->first();
 
             $items->push((object)[
                 'ids' => $student->id,
                 'nis' => $student->nis,
                 'name' => $student->name,
                 'category' => $student->payment_category,
-                'payment' => $payment->total
+                'once' => $payment->once,
+                'month' => $payment->month,
+                'year' => $payment->year,
+                'total' => $payment->total,
             ]);
         }
         return view('payment.rekapitulasi', [

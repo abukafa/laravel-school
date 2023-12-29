@@ -36,6 +36,7 @@
                                         <th>No</th>
                                         <th>Tahun</th>
                                         <th>Kategori</th>
+                                        <th>Masuk</th>
                                         <th>Tahunan</th>
                                         <th>Bulanan</th>
                                         <th>Opsi</th>
@@ -49,6 +50,7 @@
                                         <td class="text-center">{{ $loop->index +1 }}</td>
                                         <td class="text-center">{{ $billing->year }}</td>
                                         <td>{{ $billing->category }}</td>
+                                        <td class="text-end">{{ number_format($billing->once) }}</td>
                                         <td class="text-end">{{ number_format($billing->yearly) }}</td>
                                         <td class="text-end">{{ number_format($billing->monthly) }}</td>
                                         <td class="text-center">

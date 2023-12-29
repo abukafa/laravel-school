@@ -63,8 +63,8 @@
                                         <td>{{ $loop->index +1 }}</td>
                                         <td>{{ $saving->date }}</td>
                                         <td>{{ $saving->name }}</td>
-                                        <td>{{ number_format($saving->credit,0) }}</td>
-                                        <td>{{ number_format($saving->debit,0) }}</td>
+                                        <td class="text-end">{{ number_format($saving->credit,0) }}</td>
+                                        <td class="text-end">{{ number_format($saving->debit,0) }}</td>
                                         <td>
                                             <a class="btn btn-outline-primary btn-icon btn-rounded" href="/admin/tabungan/view/{{ $saving->ids }}">
                                                 <span class="far fa-eye"></span>

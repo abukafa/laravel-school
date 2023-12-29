@@ -45,9 +45,13 @@
                                                                 </div>
                                                                 
                                                                 <div class="col-sm-6 text-sm-end">
-                                                                    <p class="inv-list-number mt-sm-3 pb-sm-2 mt-4"><span class="inv-title"></span> <span class="inv-number">REKAP PEMBAYARAN</span></p>
-                                                                    <p class="inv-created-date mt-sm-5"><span class="inv-title"></span><span class="inv-date">{{ $items[0]['name'] }}</span></p>
-                                                                    <p class="inv-due-date"><span class="inv-title"></span> <span class="inv-date">000{{ $items[0]['ids'] }}</span></p>
+                                                                    @if (!empty($items))
+                                                                        <p class="inv-list-number mt-sm-3 pb-sm-2 mt-4"><span class="inv-title"></span> <span class="inv-number">REKAP PEMBAYARAN</span></p>
+                                                                        <p class="inv-created-date mt-sm-5"><span class="inv-title"></span><span class="inv-date">{{ $items[0]['name'] }}</span></p>
+                                                                        <p class="inv-due-date"><span class="inv-title"></span> <span class="inv-date">000{{ $items[0]['ids'] }}</span></p>
+                                                                    @else
+                                                                        <p>No items available</p>
+                                                                    @endif
                                                                 </div>                                                                
                                                             </div>
                                                         </div>

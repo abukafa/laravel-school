@@ -14,8 +14,9 @@ class BillingController extends Controller
     public function index()
     {
         $invoices = Billing::select('year', 'category')
-            ->selectRaw('SUM(CASE WHEN is_monthly = 0 THEN amount ELSE 0 END) AS yearly')
+            ->selectRaw('SUM(CASE WHEN is_monthly = 0 AND is_once = 0 THEN amount ELSE 0 END) AS yearly')
             ->selectRaw('SUM(CASE WHEN is_monthly = 1 THEN amount ELSE 0 END) AS monthly')
+            ->selectRaw('SUM(CASE WHEN is_once = 1 THEN amount ELSE 0 END) AS once')
             ->groupBy('year', 'category')
             ->get();
 

@@ -83,11 +83,11 @@
                                 <div class="w-content">
 
                                     <div class="w-info">
-                                        <p class="value">Rp. {{ number_format($total->keluar,0,".",",") }} <span>pekan ini</span> 
+                                        <p class="value">Rp. {{ number_format($total->keluar,0,".",",") }} <span></span> 
                                             @if($total->keluar > $total->masuk)
-                                            <svg xmlns="http://www.w3.org/2000/svg" height="16" width="18" viewBox="0 0 576 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2023 Fonticons, Inc.--><path fill="#386bc2" d="M384 160c-17.7 0-32-14.3-32-32s14.3-32 32-32H544c17.7 0 32 14.3 32 32V288c0 17.7-14.3 32-32 32s-32-14.3-32-32V205.3L342.6 374.6c-12.5 12.5-32.8 12.5-45.3 0L192 269.3 54.6 406.6c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l160-160c12.5-12.5 32.8-12.5 45.3 0L320 306.7 466.7 160H384z"/></svg>
+                                            <svg xmlns="http://www.w3.org/2000/svg" height="16" width="18" viewBox="0 0 576 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2023 Fonticons, Inc.--><path fill="#ff4242" d="M384 160c-17.7 0-32-14.3-32-32s14.3-32 32-32H544c17.7 0 32 14.3 32 32V288c0 17.7-14.3 32-32 32s-32-14.3-32-32V205.3L342.6 374.6c-12.5 12.5-32.8 12.5-45.3 0L192 269.3 54.6 406.6c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l160-160c12.5-12.5 32.8-12.5 45.3 0L320 306.7 466.7 160H384z"/></svg>
                                             @else
-                                            <svg xmlns="http://www.w3.org/2000/svg" height="16" width="18" viewBox="0 0 576 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2023 Fonticons, Inc.--><path fill="#ff4242" d="M384 352c-17.7 0-32 14.3-32 32s14.3 32 32 32H544c17.7 0 32-14.3 32-32V224c0-17.7-14.3-32-32-32s-32 14.3-32 32v82.7L342.6 137.4c-12.5-12.5-32.8-12.5-45.3 0L192 242.7 54.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0L320 205.3 466.7 352H384z"/></svg>
+                                            <svg xmlns="http://www.w3.org/2000/svg" height="16" width="18" viewBox="0 0 576 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2023 Fonticons, Inc.--><path fill="#386bc2" d="M384 352c-17.7 0-32 14.3-32 32s14.3 32 32 32H544c17.7 0 32-14.3 32-32V224c0-17.7-14.3-32-32-32s-32 14.3-32 32v82.7L342.6 137.4c-12.5-12.5-32.8-12.5-45.3 0L192 242.7 54.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0L320 205.3 466.7 352H384z"/></svg>
                                             @endif
                                         </p>
                                     </div>
@@ -332,14 +332,19 @@
                                     </div>
 
                                     <div class="avatar--group">
-                                        <div class="avatar translateY-axis more-group">
-                                            <span class="avatar-title">+6</span>
-                                        </div>
+                                        @if ($totalPayment['yearly_person'] > 3)
+                                            <div class="avatar translateY-axis more-group">
+                                                <span class="avatar-title">+{{ $totalPayment['yearly_person']-1 }}</span>
+                                            </div>
+                                        @endif
                                         @foreach ($studentPayment as $item)
                                             @if ($item['yearly_percent'] < 100)
                                                 <div class="avatar translateY-axis">
                                                     <img alt="avatar" src="{{ asset('src/assets/img/no.png') }}"/>
                                                 </div>
+                                                @if($loop->iteration == 3)
+                                                    @break
+                                                @endif
                                             @endif
                                         @endforeach
                                     </div>
@@ -396,14 +401,19 @@
                                         <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> {{ $totalPayment['remainingDays'] }} hari lagi </p>
                                     </div>
                                     <div class="avatar--group">
-                                        <div class="avatar translateY-axis more-group">
-                                            <span class="avatar-title">+6</span>
-                                        </div>
+                                        @if ($totalPayment['monthly_person'] > 3)
+                                            <div class="avatar translateY-axis more-group">
+                                                <span class="avatar-title">+{{ $totalPayment['monthly_person']-1 }}</span>
+                                            </div>
+                                        @endif
                                         @foreach ($studentPayment as $item)
                                             @if ($item['monthly_percent'] < 100)
                                                 <div class="avatar translateY-axis">
                                                     <img alt="avatar" src="{{ $item['image'] ? asset('storage/member/' . $item['image']) : '/src/assets/img/no.png' }}"/>
                                                 </div>
+                                                @if($loop->iteration == 3)
+                                                    @break
+                                                @endif
                                             @endif
                                         @endforeach
                                     </div>
