@@ -9,4 +9,15 @@ class Student extends Model
 {
     use HasFactory;
     protected $guarded = [];
+
+    public function billings()
+    {
+        return $this->hasMany(Billing::class, ['year', 'payment_category'], ['registered', 'category']);
+    }
+
+    public function payments()
+    {
+        return $this->hasMany(Payment::class, 'ids', 'id');
+    }
 }
+

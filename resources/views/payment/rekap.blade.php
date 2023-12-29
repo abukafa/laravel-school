@@ -63,9 +63,13 @@
                                                                             <th class="text-end" scope="col">Jumlah</th>
                                                                             <th class="text-end" scope="col">Terbayar</th>
                                                                             <th scope="col">Tanggal</th>
+                                                                            <th class="text-end" scope="col">Sisa</th>
                                                                         </tr>
                                                                     </thead>
                                                                     <tbody>
+                                                                        @php
+                                                                            $total = 0;
+                                                                        @endphp
                                                                         @foreach ($items as $index => $item)
                                                                             <tr>
                                                                                 <td>{{ $loop->index +1 }}</td>
@@ -74,7 +78,11 @@
                                                                                 <td class="text-end">{{ number_format($item['amount'],0) }}</td>
                                                                                 <td class="text-end">{{ number_format($item['paid'],0) }}</td>
                                                                                 <td>{{ $item['date'] }}</td>
+                                                                                <td class="text-end">{{ number_format(($item['amount']-$item['paid']),0) }}</td>
                                                                             </tr>
+                                                                        @php
+                                                                            $total += ($item['amount']-$item['paid']);
+                                                                        @endphp
                                                                         @endforeach
                                                                     </tbody>
                                                                 </table>
@@ -83,14 +91,14 @@
                                                         
                                                         <div class="inv--total-amounts">
                                                         
-                                                            {{-- <div class="row mt-4">
+                                                            <div class="row mt-4">
                                                                 <div class="col-sm-5 col-12 order-sm-0 order-1">
                                                                 </div>
                                                                 <div class="col-sm-7 col-12 order-sm-1 order-0">
                                                                     <div class="text-sm-end">
                                                                         <div class="row">
                                                                             <div class="col-sm-8 col-7 grand-total-title mt-3">
-                                                                                <h4 class="">Total : </h4>
+                                                                                <h4 class="">Total Sisa : </h4>
                                                                             </div>
                                                                             <div class="col-sm-4 col-5 grand-total-amount mt-3">
                                                                                 <h4 class="">{{ number_format($total,0) }}</h4>
@@ -98,7 +106,7 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                            </div> --}}
+                                                            </div>
 
                                                         </div>
 
@@ -135,7 +143,10 @@
                                                     <a href="javascript:void(0);" class="btn btn-primary btn-print action-print">Print</a>
                                                 </div>
                                                 <div class="col-xl-12 col-md-3 col-sm-6">
-                                                    <a href="/admin/pembayaran" class="btn btn-print btn-dark">Kembali</a>
+                                                    <a href="/admin/pembayaran" class="btn btn-print btn-success">Entri</a>
+                                                </div>
+                                                <div class="col-xl-12 col-md-3 col-sm-6">
+                                                    <a href="/admin/pembayaran/rekap" class="btn btn-print btn-dark">Rekap</a>
                                                 </div>
                                             </div>
 

@@ -58,6 +58,7 @@
                                                                     <th class="w-25">Akun</th>
                                                                     <th>Tagihan</th>
                                                                     <th class="text-right w-25">Jumlah</th>
+                                                                    <th>Sekali</th>
                                                                     <th>Bulanan</th>
                                                                 </tr>
                                                             </thead>
@@ -79,6 +80,12 @@
                                                                             <td>
                                                                                 <input type="hidden" class="form-control text-end" name="id[]" value="{{ $matchingItem ? $matchingItem->id : '0' }}">
                                                                                 <input type="text" class="form-control text-end" name="amount[]" value="{{ $matchingItem ? $matchingItem->amount : '0' }}">
+                                                                            </td>
+                                                                            <td class="text-center">
+                                                                                <div class="form-check form-switch form-check-inline mt-1">
+                                                                                    <input class="form-check-input" type="checkbox" role="switch" name="is_once[{{ $i }}]" id="is_once_{{ $i }}" value="1" {{ $matchingItem && $matchingItem->is_once == 1 ? 'checked' : '' }}>
+                                                                                    <label class="form-check-label d-inline d-md-none" for="is_once_{{ $i }}">Sekali</label>
+                                                                                </div>
                                                                             </td>
                                                                             <td class="text-center">
                                                                                 <div class="form-check form-switch form-check-inline mt-1">

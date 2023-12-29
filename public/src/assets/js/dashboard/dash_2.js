@@ -46,16 +46,16 @@ window.addEventListener("load", function(){
         colors: ['#e2a03f', '#e0e6ed'],
         series: [{
             name: 'Sales',
-            data: [44, 55, 41, 67, 22, 43, 21]
+            data: [44, 55, 41, 67]
         },{
             name: 'Last Week',
-            data: [13, 23, 20, 8, 13, 27, 33]
+            data: [13, 23, 20, 13]
         }],
         xaxis: {
             labels: {
                 show: false,
             },
-            categories: ['Sun', 'Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat'],
+            categories: ['Adab', 'Tahsin', 'Tajwid', 'Tahfidz'],
             crosshairs: {
             show: false
             }
@@ -204,7 +204,7 @@ window.addEventListener("load", function(){
         }]
         },
         subtitle: {
-          text: '$10,840',
+          text: '3.7',
           align: 'left',
           margin: 0,
           offsetX: 100,
@@ -216,7 +216,7 @@ window.addEventListener("load", function(){
           }
         },
         title: {
-          text: 'Total Profit',
+          text: 'Rata-rata',
           align: 'left',
           margin: 0,
           offsetX: -10,
@@ -234,10 +234,10 @@ window.addEventListener("load", function(){
             lineCap: 'square'
         },
         series: [{
-            name: 'Expenses',
+            name: 'Karakter',
             data: [16800, 16800, 15500, 14800, 15500, 17000, 21000, 16000, 15000, 17000, 14000, 17000]
         }, {
-            name: 'Income',
+            name: 'Akademis',
             data: [16500, 17500, 16200, 17300, 16000, 21500, 16000, 17000, 16000, 19000, 18000, 19000]
         }],
         labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
@@ -660,18 +660,18 @@ window.addEventListener("load", function(){
             color:  '#4361ee'
           }
         },
-        title: {
-          text: 'Total Profit',
-          align: 'left',
-          margin: 0,
-          offsetX: -10,
-          offsetY: 20,
-          floating: false,
-          style: {
-            fontSize: '18px',
-            color:  '#0e1726'
-          },
-        },
+        // title: {
+        //   text: 'Total Profit',
+        //   align: 'left',
+        //   margin: 0,
+        //   offsetX: -10,
+        //   offsetY: 20,
+        //   floating: false,
+        //   style: {
+        //     fontSize: '18px',
+        //     color:  '#0e1726'
+        //   },
+        // },
         stroke: {
             show: true,
             curve: 'smooth',

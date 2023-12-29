@@ -58,19 +58,21 @@ class BillingController extends Controller
         ]);
     }
 
-    public function show_balance($id, $name)
+    public function show_balance($id, $ids, $name)
     {
         // Find the billing record
         $billing = Billing::find($id);
 
         if ($billing) {
             // Calculate the balance using a subquery
-            $payment = Payment::selectRaw('SUM(CASE WHEN billing = ? THEN amount ELSE 0 END) AS balance', [$name])->first();
+            $payment = Payment::selectRaw('SUM(CASE WHEN ids = ? AND billing LIKE ? THEN amount ELSE 0 END) AS balance', [$ids, $name])->first();
             $balance = $billing->amount - $payment->balance;
             // Return the billing and payment data as JSON
             return response()->json([
                 'billing' => $billing,
-                'balance' => $balance
+                'balance' => $balance,
+                'is_once' => $billing->is_once,
+                'is_monthly' => $billing->is_monthly
             ]);
         }
 
@@ -87,6 +89,7 @@ class BillingController extends Controller
         $account = $request->input('account');
         $name = $request->input('name');
         $amount = $request->input('amount');
+        $is_once = $request->input('is_once');
         $is_monthly = $request->input('is_monthly');
 
         $allSaved = true; // Initialize the $allSaved variable to true
@@ -98,6 +101,7 @@ class BillingController extends Controller
                 'account' => $account[$key],
                 'name' => $name[$key],
                 'amount' => $amount[$key],
+                'is_once' => isset($is_once[$key]) ? $is_once[$key] : 0,
                 'is_monthly' => isset($is_monthly[$key]) ? $is_monthly[$key] : 0,
             ];
 
@@ -131,48 +135,76 @@ class BillingController extends Controller
 
     public function billing_search($ids)
     {
+        $school = School::first();
         $student = Student::find($ids);
 
         if (!$student) {
             return response()->json(['error' => 'Student not found'], 404);
         }
 
-        $billing = Billing::select('id', 'year', 'account', 'name', 'amount', 'is_monthly')
-            ->where('year', '>=', $student->registered)
+        $billing = Billing::select('id', 'year', 'account', 'name', 'amount', 'is_once', 'is_monthly')
+            ->where('year', $student->registered)
             ->where('category', $student->payment_category)
             ->get();
 
+        if ($billing->isEmpty()) {
+            return response()->json(['error' => 'Billing data not found for the student'], 404);
+        }
+            
         $result = [];
 
         foreach ($billing as $value) {
-            if ($value->is_monthly == true) {
-                $startMonth = strtotime('JULY ' . $value->year);
-                $months = [];
-                for ($i = 0; $i < 12; $i++) {
-                    $month = date('M-Y', $startMonth);
-                    $months[] = $month;
-                    $startMonth = strtotime('+1 month', $startMonth);
+            if ($value->is_once == 0){
+                for ($p = $student->registered; $p <= $school->period; $p++) {
+                    if ($value->is_monthly == 0) {
+                        $result[] = [
+                            'id' => $value->id,
+                            'year' => $p,
+                            'account' => $value->account,
+                            'name' => $value->name . ' ' . $p,
+                            'amount' => $value->amount,
+                            'is_once' => $value->is_once,
+                            'is_monthly' => $value->is_monthly
+                        ];
+                    } else {
+                        $startMonth = strtotime('JULY ' . $p);
+                        $months = [];
+                        for ($i = 0; $i < 12; $i++) {
+                            $month = date('M-Y', $startMonth);
+                            $months[] = $month;
+                            $startMonth = strtotime('+1 month', $startMonth);
+                        }
+                        foreach ($months as $remark) {
+                            $result[] = [
+                                'id' => $value->id,
+                                'year' => $p,
+                                'account' => $value->account,
+                                'name' => $value->name . ' ' . $remark,
+                                'amount' => $value->amount,
+                                'is_once' => $value->is_once,
+                                'is_monthly' => $value->is_monthly
+                            ];
+                        }
+                    }
                 }
-                foreach ($months as $remark) {
-                    $result[] = [
-                        'id' => $value->id,
-                        'account' => $value->account,
-                        'name' => $value->name . ' ' . $remark,
-                        'amount' => $value->amount,
-                        'is_monthly' => true
-                    ];
-                }
-            } else {
+            }else{
                 $result[] = [
                     'id' => $value->id,
+                    'year' => $student->registered,
                     'account' => $value->account,
-                    'name' => $value->name . ' ' . $value->year,
+                    'name' => $value->name . ' ' . $student->registered,
                     'amount' => $value->amount,
-                    'is_monthly' => false
+                    'is_once' => $value->is_once,
+                    'is_monthly' => $value->is_monthly
                 ];
             }
         }
-
+        
+        // Sort the entire result array by 'year'
+        usort($result, function ($a, $b) {
+            return $a['year'] - $b['year'];
+        });
+        
         return response()->json([
             'student' => $student,
             'billing' => $result

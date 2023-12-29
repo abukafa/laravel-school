@@ -46,9 +46,7 @@
                                             <th>Nama</th>
                                             <th class="{{ $period ? '' : 'd-none' }}">Periode</th>
                                             <th>Kategori</th>
-                                            <th>Tahunan</th>
-                                            <th>Bulanan</th>
-                                            <th class="{{ !$period ? '' : 'd-none' }}">Total</th>
+                                            <th>Total</th>
                                             <th class="{{ $period ? '' : 'd-none' }}">Opsi</th>
                                         </tr>
                                     </thead>
@@ -61,9 +59,7 @@
                                                 <td>{{ $item->name }}</td>
                                                 <td class="{{ $period ? '' : 'd-none' }}">{{ $period }}</td>
                                                 <td>{{ $item->category }}</td>
-                                                <td>{{ number_format($item->tahunan) }}</td>
-                                                <td>{{ number_format($item->bulanan) }}</td>
-                                                <td class="{{ !$period ? '' : 'd-none' }}">{{ number_format($item->total) }}</td>
+                                                <td>{{ number_format($item->payment) }}</td>
                                                 <td class="{{ $period ? '' : 'd-none' }}">
                                                     <a class="badge badge-primary text-start me-2 action-view" href="/admin/pembayaran/rekap/{{ $item->ids }}/{{ $period }}">
                                                         <span class="far fa-eye"></span>

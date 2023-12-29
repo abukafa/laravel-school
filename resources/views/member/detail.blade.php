@@ -212,7 +212,7 @@
                                             </div>
                                             <div class="col-md-4 mb-4">
                                                 <label for="registered" class="form-label">Tahun Masuk</label>
-                                                <input type="number" class="form-control form-control" name="registered" id="registered" value="{{ $student ? $student->registered : session('school.period') }}">
+                                                <input type="number" class="form-control form-control" name="registered" id="registered" value="{{ $student ? $student->registered : session('school.period') }}" required>
                                             </div>
                                             <div class="col-md-4 mb-4">
                                                 <label for="graduation" class="form-label">Kelulusan</label>
@@ -222,11 +222,11 @@
                                                 <label for="next_school" class="form-label">Sekolah Lanjutan</label>
                                                 <input type="text" class="form-control form-control" name="next_school" id="next_school" value="{{ $student ? $student->next_school : '' }}">
                                             </div>
-                                            <div class="col-md-4 mb-4">
+                                            <div class="col-md-8 mb-4">
                                                 <label for="next_school_address" class="form-label">Alamat Sekolah</label>
                                                 <input type="text" class="form-control form-control" name="next_school_address" id="next_school_address" value="{{ $student ? $student->next_school_address : '' }}">
                                             </div>
-                                            <div class="col-md-8 mb-4">
+                                            <div class="col-md-12 mb-4">
                                                 <label for="note" class="form-label">Catatan</label>
                                                 <input type="text" class="form-control form-control" name="note" id="note" value="{{ $student ? $student->note : '' }}">
                                             </div>

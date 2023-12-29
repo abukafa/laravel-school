@@ -55,7 +55,7 @@ Route::get('/admin/tagihan', [BillingController::class, 'index'])->middleware('a
 Route::post('/admin/tagihan', [BillingController::class, 'save'])->middleware('auth');
 Route::get('/admin/tagihan/0', [BillingController::class, 'preview'])->middleware('auth');
 Route::get('/admin/tagihan/{id}', [BillingController::class, 'show'])->middleware('auth');
-Route::get('/admin/tagihan/sisa/{id}/{name}', [BillingController::class, 'show_balance'])->middleware('auth');
+Route::get('/admin/tagihan/sisa/{id}/{ids}/{name}', [BillingController::class, 'show_balance'])->middleware('auth');
 Route::get('/admin/tagihan/{year}/{category}', [BillingController::class, 'preview'])->middleware('auth');
 Route::delete('/admin/tagihan/{year}/{category}', [BillingController::class, 'delete_all'])->middleware('auth');
 Route::get('/admin/tagihan/search/ids/{ids}', [BillingController::class, 'billing_search'])->middleware('auth');
@@ -66,10 +66,10 @@ Route::delete('/admin/pembayaran/{id}', [PaymentController::class, 'destroy'])->
 Route::get('/admin/pembayaran/inv/{inv}', [PaymentController::class, 'detail'])->middleware('auth');
 Route::get('/admin/pembayaran/view/{inv}', [PaymentController::class, 'preview'])->middleware('auth');
 Route::get('/admin/pembayaran/rekap', [PaymentController::class, 'rekapitulasi'])->middleware('auth');
-Route::get('/admin/pembayaran/rekap/{ids}/{year?}', [PaymentController::class, 'rekap'])->middleware('auth');
+Route::get('/admin/pembayaran/rekap/{ids}/{year}', [PaymentController::class, 'rekap'])->middleware('auth');
 
-Route::get('/', [AuthController::class, 'home1'])->middleware('auth');
-Route::get('/home', [AuthController::class, 'home2'])->middleware('auth');
+Route::get('/', [AuthController::class, 'home2'])->middleware('auth');
+Route::get('/home', [AuthController::class, 'home1'])->middleware('auth');
 Route::get('/login', [AuthController::class, 'index'])->name('login')->middleware('guest');
 Route::get('/logout', [AuthController::class, 'logout']);
 Route::post('/login', [AuthController::class, 'login']);

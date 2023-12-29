@@ -459,7 +459,7 @@
         var direction;
         var originalX;
         var originalY;
-        var minSize = 50;
+        var minSize = 128;
         var maxWidth;
         var maxHeight;
         var vr;

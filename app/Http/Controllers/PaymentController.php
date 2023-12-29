@@ -68,21 +68,15 @@ class PaymentController extends Controller
         $items = collect();
         foreach ($students as $student) {
             $payment = Payment::selectRaw(
-                '
-                SUM(CASE WHEN ids = ? THEN amount ELSE 0 END) AS total,
-                SUM(CASE WHEN ids = ? AND billing LIKE ? THEN amount ELSE 0 END) AS bulanan,
-                SUM(CASE WHEN ids = ? AND billing LIKE ? THEN amount ELSE 0 END) AS tahunan',
-                [$student->id, $student->id, '%Bulanan%' . $year, $student->id, '%Tahunan%' . $year]
-            )->first();
+                'SUM(CASE WHEN ids = ? AND billing LIKE ? THEN amount ELSE 0 END) AS total',
+                [$student->id, '%' . $year])->first();
 
             $items->push((object)[
                 'ids' => $student->id,
                 'nis' => $student->nis,
                 'name' => $student->name,
                 'category' => $student->payment_category,
-                'tahunan' => $payment->tahunan,
-                'bulanan' => $payment->bulanan,
-                'total' => $payment->total
+                'payment' => $payment->total
             ]);
         }
         return view('payment.rekapitulasi', [
@@ -101,14 +95,20 @@ class PaymentController extends Controller
         $payments = Payment::where('ids', $ids)
             ->where('billing', 'LIKE', '%' . $period . '%')
             ->get();
-        $billing = Billing::select('account', 'name', 'amount', 'is_monthly')
-            ->where('year', $period)
+        $billing = Billing::select('account', 'name', 'amount', 'is_once', 'is_monthly')
+            ->where('year', $student->registered)
             ->where('category', $student->payment_category)
             ->get();
 
+        $filteredDataBilling = collect($billing)->filter(function ($item) {
+            return $item->is_once == false;
+        })->values()->all();
+
+        $dataBilling = ($year > $student->registered) ? $filteredDataBilling : $billing;
+
         $items = [];
 
-        foreach ($billing as $value) {
+        foreach ($dataBilling as $value) {
             $date = '-';
             if ($value->is_monthly == true) {
                 $startMonth = strtotime('JULY ' . $period);
@@ -161,7 +161,7 @@ class PaymentController extends Controller
         }
 
         return view('payment.rekap', [
-            'title' => 'Data Pembayaran',
+            'title' => 'Rekap Pembayaran',
             'items' => $items,
             'school' => $school
         ]);

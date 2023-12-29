@@ -19,7 +19,7 @@
                     <div class="col-xl-4 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
                         <div class="widget widget-six">
                             <div class="widget-heading">
-                                <h6 class="">Statistics</h6>
+                                <h6 class="">Pemasukan</h6>
                                 <div class="task-action">
                                     <div class="dropdown">
                                         <a class="dropdown-toggle" href="#" role="button" id="statistics" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -36,21 +36,21 @@
                             <div class="w-chart">
                                 <div class="w-chart-section">
                                     <div class="w-detail">
-                                        <p class="w-title">Total Visits</p>
-                                        <p class="w-stats">423,964</p>
+                                        <p class="w-title">Pembayaran</p>
+                                        <p class="w-stats">{{ number_format($total->bayar,0,".",",") }}</p>
                                     </div>
                                     <div class="w-chart-render-one">
-                                        <div id="total-users"></div>
+                                        <div id="payment-total"></div>
                                     </div>
                                 </div>
 
                                 <div class="w-chart-section">
                                     <div class="w-detail">
-                                        <p class="w-title">Paid Visits</p>
-                                        <p class="w-stats">7,929</p>
+                                        <p class="w-title">Lain-lain</p>
+                                        <p class="w-stats">{{ number_format($total->masuk,0,".",",") }}</p>
                                     </div>
                                     <div class="w-chart-render-one">
-                                        <div id="paid-visits"></div>
+                                        <div id="finance-in"></div>
                                     </div>
                                 </div>
                             </div>
@@ -63,7 +63,7 @@
                             <div class="widget-content">
                                 <div class="w-header">
                                     <div class="w-info">
-                                        <h6 class="value">Expenses</h6>
+                                        <h6 class="value">Pengeluaran</h6>
                                     </div>
                                     <div class="task-action">
                                         <div class="dropdown">
@@ -83,22 +83,26 @@
                                 <div class="w-content">
 
                                     <div class="w-info">
-                                        <p class="value">$ 45,141 <span>this week</span> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trending-up"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg></p>
+                                        <p class="value">Rp. {{ number_format($total->keluar,0,".",",") }} <span>pekan ini</span> 
+                                            @if($total->keluar > $total->masuk)
+                                            <svg xmlns="http://www.w3.org/2000/svg" height="16" width="18" viewBox="0 0 576 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2023 Fonticons, Inc.--><path fill="#386bc2" d="M384 160c-17.7 0-32-14.3-32-32s14.3-32 32-32H544c17.7 0 32 14.3 32 32V288c0 17.7-14.3 32-32 32s-32-14.3-32-32V205.3L342.6 374.6c-12.5 12.5-32.8 12.5-45.3 0L192 269.3 54.6 406.6c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l160-160c12.5-12.5 32.8-12.5 45.3 0L320 306.7 466.7 160H384z"/></svg>
+                                            @else
+                                            <svg xmlns="http://www.w3.org/2000/svg" height="16" width="18" viewBox="0 0 576 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2023 Fonticons, Inc.--><path fill="#ff4242" d="M384 352c-17.7 0-32 14.3-32 32s14.3 32 32 32H544c17.7 0 32-14.3 32-32V224c0-17.7-14.3-32-32-32s-32 14.3-32 32v82.7L342.6 137.4c-12.5-12.5-32.8-12.5-45.3 0L192 242.7 54.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0L320 205.3 466.7 352H384z"/></svg>
+                                            @endif
+                                        </p>
                                     </div>
                                     
                                 </div>
 
                                 <div class="w-progress-stats">                                            
                                     <div class="progress">
-                                        <div class="progress-bar bg-gradient-secondary" role="progressbar" style="width: 57%" aria-valuenow="57" aria-valuemin="0" aria-valuemax="100"></div>
+                                        <div class="progress-bar bg-gradient-secondary" role="progressbar" style="width: {{ ($total->masuk + $total->keluar) > 0 ? ($total->keluar / ($total->masuk + $total->keluar) * 100) : 0 }}%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
-
                                     <div class="">
                                         <div class="w-icon">
-                                            <p>57%</p>
+                                            <p>{{ round($total->keluar / ($total->masuk + $total->keluar) * 100,2) }}%</p>
                                         </div>
                                     </div>
-                                    
                                 </div>
                             </div>
                         </div>
@@ -110,10 +114,10 @@
                                 <div class="account-box">
                                     <div class="info">
                                         <div class="inv-title">
-                                            <h5 class="">Total Balance</h5>
+                                            <h5 class="">Total Saldo</h5>
                                         </div>
                                         <div class="inv-balance-info">
-                                            <p class="inv-balance">$ 41,741.42</p>
+                                            <p class="inv-balance">Rp. {{ number_format((($total->bayar + $total->masuk)-$total->keluar),0,".",",") }}</p>
                                             <span class="inv-stats balance-credited">+ 2453</span>
                                         </div>
                                     </div>
@@ -121,7 +125,7 @@
                                         <div class="">
                                             <a href="javascript:void(0);" class="btn-wallet"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-credit-card"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg></a>
                                         </div>
-                                        <a href="javascript:void(0);" class="btn-add-balance">Add Balance</a>
+                                        <a href="/admin/keuangan" class="btn-add-balance">Tambah Transaksi</a>
                                     </div>
                                 </div>
                             </div>
@@ -132,7 +136,7 @@
                         <div class="widget widget-chart-three">
                             <div class="widget-heading">
                                 <div class="">
-                                    <h5 class="">Unique Visitors</h5>
+                                    <h5 class="">Pembayaran Bulanan</h5>
                                 </div>
 
                                 <div class="dropdown ">
@@ -149,7 +153,7 @@
                             </div>
 
                             <div class="widget-content">
-                                <div id="uniqueVisits"></div>
+                                <div id="progress-bulanan"></div>
                             </div>
                         </div>
                     </div>
@@ -158,7 +162,7 @@
                         <div class="widget widget-activity-five">
 
                             <div class="widget-heading">
-                                <h5 class="">Activity Log</h5>
+                                <h5 class="">Histori Transaksi</h5>
 
                                 <div class="task-action">
                                     <div class="dropdown">
@@ -180,80 +184,31 @@
 
                                 <div class="mt-container mx-auto">
                                     <div class="timeline-line">
-                                        
-                                        <div class="item-timeline timeline-new">
-                                            <div class="t-dot">
-                                                <div class="t-secondary"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></div>
-                                            </div>
-                                            <div class="t-content">
-                                                <div class="t-uppercontent">
-                                                    <h5>New project created : <a href="javscript:void(0);"><span>[Cork Admin]</span></a></h5>
+                                        @foreach ($history as $item)   
+                                            <div class="item-timeline timeline-new">
+                                                <div class="t-dot">
+                                                    @if (substr($item['account'],0,2) == '11')
+                                                        <div class="t-warning">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                                                        </div>
+                                                    @elseif (substr($item['account'],0,2) == '22')
+                                                        <div class="t-primary">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                                        </div>
+                                                    @else
+                                                        <div class="t-danger">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                                        </div>
+                                                    @endif
                                                 </div>
-                                                <p>07 May, 2022</p>
-                                            </div>
-                                        </div>
-
-                                        <div class="item-timeline timeline-new">
-                                            <div class="t-dot">
-                                                <div class="t-success"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-mail"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg></div>
-                                            </div>
-                                            <div class="t-content">
-                                                <div class="t-uppercontent">
-                                                    <h5>Mail sent to <a href="javascript:void(0);">HR</a> and <a href="javascript:void(0);">Admin</a></h5>
+                                                <div class="t-content">
+                                                    <div class="t-uppercontent">
+                                                        <h5>{{ $item['name'] }} : <a href="javscript:void(0);"><span>{{ is_numeric($item['billing']) ? number_format($item['billing'],0,".",",") : $item['billing'] }}</span></a></h5>
+                                                    </div>
+                                                    <p>{{ $item['date'] }}</p>
                                                 </div>
-                                                <p>06 May, 2022</p>
                                             </div>
-                                        </div>
-
-                                        <div class="item-timeline timeline-new">
-                                            <div class="t-dot">
-                                                <div class="t-primary"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
-                                            </div>
-                                            <div class="t-content">
-                                                <div class="t-uppercontent">
-                                                    <h5>Server Logs Updated</h5>
-                                                </div>
-                                                <p>01 May, 2022</p>
-                                            </div>
-                                        </div>
-
-                                        <div class="item-timeline timeline-new">
-                                            <div class="t-dot">
-                                                <div class="t-danger"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
-                                            </div>
-                                            <div class="t-content">
-                                                <div class="t-uppercontent">
-                                                    <h5>Task Completed : <a href="javscript:void(0);"><span>[Backup Files EOD]</span></a></h5>
-                                                </div>
-                                                <p>30 Apr, 2022</p>
-                                            </div>
-                                        </div>
-
-                                        <div class="item-timeline timeline-new">
-                                            <div class="t-dot">
-                                                <div class="t-warning"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline></svg></div>
-                                            </div>
-                                            <div class="t-content">
-                                                <div class="t-uppercontent">
-                                                    <h5>Documents Submitted from <a href="javascript:void(0);">Sara</a></h5>
-                                                    <span class=""></span>
-                                                </div>
-                                                <p>25 Apr, 2022</p>
-                                            </div>
-                                        </div>
-
-                                        <div class="item-timeline timeline-new">
-                                            <div class="t-dot">
-                                                <div class="t-dark"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-server"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6" y2="6"></line><line x1="6" y1="18" x2="6" y2="18"></line></svg></div>
-                                            </div>
-                                            <div class="t-content">
-                                                <div class="t-uppercontent">
-                                                    <h5>Server rebooted successfully</h5>
-                                                    <span class=""></span>
-                                                </div>
-                                                <p>10 Apr, 2022</p>
-                                            </div>
-                                        </div>                                      
+                                        @endforeach
                                     </div>                                    
                                 </div>
 
@@ -265,7 +220,7 @@
                     <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12 layout-spacing">
                         <div class="widget-four">
                             <div class="widget-heading">
-                                <h5 class="">Visitors by Browser</h5>
+                                <h5 class="">Progress Pembayaran</h5>
                             </div>
                             <div class="widget-content">
                                 <div class="vistorsBrowser">
@@ -275,12 +230,12 @@
                                         </div>
                                         <div class="w-browser-details">
                                             <div class="w-browser-info">
-                                                <h6>Chrome</h6>
-                                                <p class="browser-count">65%</p>
+                                                <h6>Biaya Awal</h6>
+                                                <p class="browser-count">{{ $totalPayment['once_percent'] }}%</p>
                                             </div>
                                             <div class="w-browser-stats">
                                                 <div class="progress">
-                                                    <div class="progress-bar bg-gradient-primary" role="progressbar" style="width: 65%" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
+                                                    <div class="progress-bar bg-gradient-primary" role="progressbar" style="width: {{ $totalPayment['once_percent'] }}%" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
                                                 </div>
                                             </div>
                                         </div>
@@ -293,18 +248,16 @@
                                         <div class="w-browser-details">
                                             
                                             <div class="w-browser-info">
-                                                <h6>Safari</h6>
-                                                <p class="browser-count">25%</p>
+                                                <h6>Biaya Tahunan</h6>
+                                                <p class="browser-count">{{ $totalPayment['yearly_percent'] }}%</p>
                                             </div>
 
                                             <div class="w-browser-stats">
                                                 <div class="progress">
-                                                    <div class="progress-bar bg-gradient-danger" role="progressbar" style="width: 35%" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"></div>
+                                                    <div class="progress-bar bg-gradient-danger" role="progressbar" style="width: {{ $totalPayment['yearly_percent'] }}%" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"></div>
                                                 </div>
                                             </div>
-
                                         </div>
-
                                     </div>
 
                                     <div class="browser-list">
@@ -314,27 +267,216 @@
                                         <div class="w-browser-details">
                                             
                                             <div class="w-browser-info">
-                                                <h6>Others</h6>
-                                                <p class="browser-count">15%</p>
+                                                <h6>Biaya Bulanan</h6>
+                                                <p class="browser-count">{{ $totalPayment['monthly_percent'] }}%</p>
                                             </div>
 
                                             <div class="w-browser-stats">
                                                 <div class="progress">
-                                                    <div class="progress-bar bg-gradient-warning" role="progressbar" style="width: 15%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
+                                                    <div class="progress-bar bg-gradient-warning" role="progressbar" style="width: {{ $totalPayment['monthly_percent'] }}%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
                                                 </div>
                                             </div>
-
                                         </div>
-
                                     </div>
-                                    
                                 </div>
-
                             </div>
                         </div>
                     </div>
 
-                    <div class="col-xl-8 col-lg-12 col-md-12 col-sm-12 col-12">
+                    <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12 layout-spacing">
+                        <div class="widget widget-five">
+                            <div class="widget-heading">
+                                <a href="javascript:void(0)" class="task-info">
+                                    <div class="usr-avatar">
+                                        <span>Y</span>
+                                    </div>
+                                    <div class="w-title">
+                                        <h5>Belum Bayar</h5>
+                                        <span>Biaya Tahunan</span>
+                                    </div>
+                                </a>
+
+                                <div class="task-action">
+                                    <div class="dropdown">
+                                        <a class="dropdown-toggle" href="#" role="button" id="pendingTask" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-horizontal"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>
+                                        </a>
+                                        <div class="dropdown-menu left" aria-labelledby="pendingTask" style="will-change: transform;">
+                                            <a class="dropdown-item" href="javascript:void(0);">View Project</a>
+                                            <a class="dropdown-item" href="javascript:void(0);">Edit Project</a>
+                                            <a class="dropdown-item" href="javascript:void(0);">Mark as Done</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="widget-content">
+
+                                <!-- <p>Doloribus nisi vel suscipit modi, optio ex repudiandae voluptatibus officiis commodi.</p> -->
+
+                                <div class="progress-data">
+                                    <div class="progress-info">
+                                        <div class="task-count"><p>{{ $totalPayment['yearly_person'] }} Persons</p></div>
+                                        <div class="progress-stats"><p>{{ 100 - $totalPayment['yearly_percent'] }}%</p></div>
+                                    </div>
+                                    
+                                    <div class="progress">
+                                        <div class="progress-bar bg-primary" role="progressbar" style="width: {{ 100 - $totalPayment['yearly_percent'] }}%" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                </div>
+
+                                <div class="meta-info">
+
+                                    <div class="due-time">
+                                        <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> {{ $totalPayment['remainingMonths'] }} bulan lagi </p>
+                                    </div>
+
+                                    <div class="avatar--group">
+                                        <div class="avatar translateY-axis more-group">
+                                            <span class="avatar-title">+6</span>
+                                        </div>
+                                        @foreach ($studentPayment as $item)
+                                            @if ($item['yearly_percent'] < 100)
+                                                <div class="avatar translateY-axis">
+                                                    <img alt="avatar" src="{{ asset('src/assets/img/no.png') }}"/>
+                                                </div>
+                                            @endif
+                                        @endforeach
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12 layout-spacing">
+                        <div class="widget widget-five">
+                            <div class="widget-heading">
+
+                                <a href="javascript:void(0)" class="task-info">
+
+                                    <div class="usr-avatar">
+                                        <span>M</span>
+                                    </div>
+
+                                    <div class="w-title">
+                                        <h5>Belum Bayar</h5>
+                                        <span>Biaya Bulanan</span>
+                                    </div>
+                                </a>
+
+                                <div class="task-action">
+                                    <div class="dropdown">
+                                        <a class="dropdown-toggle" href="#" role="button" id="pendingTask" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-horizontal"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>
+                                        </a>
+                                        <div class="dropdown-menu left" aria-labelledby="pendingTask" style="will-change: transform;">
+                                            <a class="dropdown-item" href="javascript:void(0);">View Project</a>
+                                            <a class="dropdown-item" href="javascript:void(0);">Edit Project</a>
+                                            <a class="dropdown-item" href="javascript:void(0);">Mark as Done</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            <div class="widget-content">
+
+                                <!-- <p>Doloribus nisi vel suscipit modi, optio ex repudiandae voluptatibus officiis commodi.</p> -->
+
+                                <div class="progress-data">
+                                    <div class="progress-info">
+                                        <div class="task-count"><p>{{ $totalPayment['monthly_person'] }} Persons</p></div>
+                                        <div class="progress-stats"><p>{{ 100 - $totalPayment['monthly_percent'] }}%</p></div>
+                                    </div>
+                                    <div class="progress">
+                                        <div class="progress-bar bg-primary" role="progressbar" style="width: {{ 100 - $totalPayment['monthly_percent'] }}%" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                </div>
+                                <div class="meta-info">
+                                    <div class="due-time">
+                                        <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> {{ $totalPayment['remainingDays'] }} hari lagi </p>
+                                    </div>
+                                    <div class="avatar--group">
+                                        <div class="avatar translateY-axis more-group">
+                                            <span class="avatar-title">+6</span>
+                                        </div>
+                                        @foreach ($studentPayment as $item)
+                                            @if ($item['monthly_percent'] < 100)
+                                                <div class="avatar translateY-axis">
+                                                    <img alt="avatar" src="{{ $item['image'] ? asset('storage/member/' . $item['image']) : '/src/assets/img/no.png' }}"/>
+                                                </div>
+                                            @endif
+                                        @endforeach
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-xl-5 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
+                        <div class="widget widget-five">
+                            <div class="widget-heading">
+                                <h5 class="">Pemasukan Lain-lain</h5>
+                            </div>
+                            <div class="widget-content">
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                            <tr class="text-center">
+                                                <th><div class="th-content">Tgl</div></th>
+                                                <th><div class="th-content">Keterangan</div></th>
+                                                <th><div class="th-content th-heading">Jumlah</div></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($finances as $item)
+                                                @if (substr($item->account,0,2)=='22')
+                                                    <tr>
+                                                        <td><div class="td-content product-invoice">{{ date('m/d', strtotime($item->date)) }}</div></td>
+                                                        <td><div class="td-content customer-name"><span>{{ $item->description }}</span></div></td>
+                                                        <td class="text-end"><div class="td-content pricing"><span class="">{{ number_format($item->amount,0,".",",") }}</span></div></td>
+                                                    </tr>
+                                                @endif
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-7 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
+                        <div class="widget widget-five">
+                            <div class="widget-heading">
+                                <h5 class="">Alokasi Keuangan</h5>
+                            </div>
+                            <div class="widget-content">
+                                <div class="table-responsive">
+                                    <table class="table table-scroll">
+                                        <thead>
+                                            <tr class="text-center">
+                                                <th><div class="th-content">Pembayaran</div></th>
+                                                <th><div class="th-content th-heading">Jumlah</div></th>
+                                                <th><div class="th-content th-heading">Pengeluaran</div></th>
+                                                <th><div class="th-content">Saldo</div></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($alokasi as $item)
+                                                <tr>
+                                                    <td><div class="td-content product-name"><div class="align-self-center"><p class="prd-name">{{ $item['remark'] }}</p><p class="prd-category text-primary">{{ $item['account'] }}</p></div></div></td>
+                                                    <td><div class="td-content text-end"><span class="pricing">{{ number_format($item['payment'],0,".",",") }}</span></div></td>
+                                                    <td><div class="td-content text-end"><span class="discount-pricing">{{ number_format($item['finance'],0,".",",") }}</span></div></td>
+                                                    <td><div class="td-content text-end text-danger">{{ number_format($item['balance'],0,".",",") }}</div></td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- <div class="col-xl-8 col-lg-12 col-md-12 col-sm-12 col-12">
                         <div class="row widget-statistic">
                             <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12 layout-spacing">
                                 <div class="widget widget-one_hybrid widget-followers">
@@ -398,94 +540,6 @@
                             </div>
                         </div>
                     </div>
-
-                    <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12 layout-spacing">
-                        <div class="widget widget-five">
-
-                            <div class="widget-heading">
-
-                                <a href="javascript:void(0)" class="task-info">
-
-                                    <div class="usr-avatar">
-                                        <span>FD</span>
-                                    </div>
-
-                                    <div class="w-title">
-
-                                        <h5>Figma Design</h5>
-                                        <span>Design Project</span>
-                                        
-                                    </div>
-
-                                </a>
-
-                                <div class="task-action">
-                                    <div class="dropdown">
-                                        <a class="dropdown-toggle" href="#" role="button" id="pendingTask" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-horizontal"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>
-                                        </a>
-
-                                        <div class="dropdown-menu left" aria-labelledby="pendingTask" style="will-change: transform;">
-                                            <a class="dropdown-item" href="javascript:void(0);">View Project</a>
-                                            <a class="dropdown-item" href="javascript:void(0);">Edit Project</a>
-                                            <a class="dropdown-item" href="javascript:void(0);">Mark as Done</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                            </div>
-                            
-                            
-                            <div class="widget-content">
-
-                                <p>Doloribus nisi vel suscipit modi, optio ex repudiandae voluptatibus officiis commodi.</p>
-
-                                <div class="progress-data">
-
-                                    <div class="progress-info">
-                                        <div class="task-count"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-square"><polyline points="9 11 12 14 22 4"></polyline><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg><p>5 Tasks</p></div>
-                                        <div class="progress-stats"><p>86.2%</p></div>
-                                    </div>
-                                    
-                                    <div class="progress">
-                                        <div class="progress-bar bg-primary" role="progressbar" style="width: 65%" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                    
-                                </div>
-
-                                <div class="meta-info">
-
-                                    <div class="due-time">
-                                        <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> 3 Days Left</p>
-                                    </div>
-
-
-                                    <div class="avatar--group">
-
-                                        <div class="avatar translateY-axis more-group">
-                                            <span class="avatar-title">+6</span>
-                                        </div>
-                                        <div class="avatar translateY-axis">
-                                            <img alt="avatar" src="{{ asset('src/assets/img/no.png') }}"/>
-                                        </div>
-                                        <div class="avatar translateY-axis">
-                                            <img alt="avatar" src="{{ asset('src/assets/img/no.png') }}"/>
-                                        </div>
-                                        <div class="avatar translateY-axis">
-                                            <img alt="avatar" src="{{ asset('src/assets/img/no.png') }}"/>
-                                        </div>
-                                        
-                                    </div>
-
-                                </div>
-                                
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
                     <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12 layout-spacing">
                         <div class="widget widget-card-one">
                             <div class="widget-content">
@@ -515,7 +569,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12 layout-spacing">
                         <div class="widget widget-card-two">
                             <div class="widget-content">
@@ -542,26 +595,37 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
 
                 </div>
-
             </div>
-
         </div>
         <!--  BEGIN FOOTER  -->
         <div class="footer-wrapper">
             <div class="footer-section f-section-1">
-                <p class="">Copyright © <span class="dynamic-year">2023</span> Yayasan Bina Insani.</p>
+                <p class="">Copyright © <span class="dynamic-year">2023</span> Semangkamedia.</p>
             </div>
             <div class="footer-section f-section-2">
-                <p class="">Code by Semangkamedia <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-heart"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg></p>
+                <p class="">Code with <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-heart"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg></p>
             </div>
         </div>
         <!--  END CONTENT AREA  -->
     </div>
     <!--  END CONTENT AREA  -->
 
+    <script>
+        var paymentByMonth = {!! json_encode($paymentByMonth) !!};
+        var financeInByMonth = {!! json_encode($financeInByMonth) !!};
+        var monthlyPaymentByMonth = {!! json_encode($monthlyPaymentByMonth) !!};
+        const arrMonthlyTotal = [];
+        const arrMonthlyMonth = [];
+        for (const payment of monthlyPaymentByMonth) {
+            const month = payment.month_year.slice(0, 3);
+            arrMonthlyMonth.push(month);
+            arrMonthlyTotal.push(parseInt(payment.total));
+        }
+    </script>
+    
     <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM SCRIPTS -->
     <script src="{{ asset('src/plugins/src/apex/apexcharts.min.js') }}"></script>
     <script src="{{ asset('src/assets/js/dashboard/dash_1.js') }}"></script>

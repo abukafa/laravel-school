@@ -66,7 +66,7 @@
                                                             @endforeach
                                                         </select>
                                                         <input type="hidden" class="form-control" name="name" id="name">
-                                                        <input type="hidden" class="form-control" id="payment_category">
+                                                        <input type="hidden" class="form-control" name="category" id="payment_category">
                                                     </div>
                                                     <div class="col-md-6">
                                                         <label for="idb" class="form-label">Pembayaran</label>
@@ -74,12 +74,14 @@
                                                             <option selected disabled value="">Pilih...</option>
                                                         </select>
                                                         <input type="hidden" class="form-control" id="billingName">
-                                                        <input type="hidden" class="form-control" name="account" id="account" value="{{ optional($items->first())->account }}">
-                                                        <input type="hidden" class="form-control" name="billing" id="billing" value="{{ optional($items->first())->billing }}">
+                                                        <input type="hidden" class="form-control" id="account" name="account" value="{{ optional($items->first())->account }}">
+                                                        <input type="hidden" class="form-control" id="billing" name="billing" value="{{ optional($items->first())->billing }}">
                                                     </div>
                                                     <div class="col-md-6 mb-2">
                                                         <label for="amount" class="form-label">Jumlah</label>
                                                         <input type="number" class="form-control" name="amount" id="amount" required>
+                                                        <input type="hidden" class="form-control" name="is_once" id="is_once" required>
+                                                        <input type="hidden" class="form-control" name="is_monthly" id="is_monthly" required>
                                                         <input type="hidden" class="form-control" value="{{ session('user.name') }}" name="admin" id="admin">
                                                     </div>
                                                     <div class="col-12 mt-4">
@@ -196,6 +198,7 @@
                     var data = JSON.parse(xhr.responseText);
                     document.getElementById('name').value = data.student.name;
                     document.getElementById('payment_category').value = data.student.payment_category;
+                    console.log(data);
 
                     // Clear the existing options in the select element
                     const select = document.getElementById('idb');
@@ -214,6 +217,8 @@
                     document.getElementById('account').value = '';
                     document.getElementById('billing').value = '';
                     document.getElementById('amount').value = '';
+                    document.getElementById('is_once').value = '';
+                    document.getElementById('is_monthly').value = '';
                 }
             };
             xhr.open('GET', '/admin/tagihan/search/ids/' + ids, true);
@@ -233,17 +238,21 @@
 
         document.getElementById('idb').addEventListener('change', function() {
             var id = this.value;
+            var ids = document.getElementById('ids').value;
             var name = this.selectedOptions[0].textContent;
             var xhr = new XMLHttpRequest();
+            // console.log(ids);
             xhr.onreadystatechange = function() {
                 if (xhr.readyState === 4 && xhr.status === 200) {
                     var data = JSON.parse(xhr.responseText);
                     document.getElementById('account').value = data.billing.account;
                     document.getElementById('billing').value = document.getElementById('idb').selectedOptions[0].textContent;
                     document.getElementById('amount').value = data.balance;
+                    document.getElementById('is_once').value = data.is_once;
+                    document.getElementById('is_monthly').value = data.is_monthly;
                 }
             };
-            xhr.open('GET', '/admin/tagihan/sisa/' + id + '/' + name, true);
+            xhr.open('GET', '/admin/tagihan/sisa/' + id + '/' + ids + '/' + name, true);
             xhr.send();
         });
     </script>

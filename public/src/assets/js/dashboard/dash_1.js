@@ -21,12 +21,12 @@ window.addEventListener("load", function(){
       
       /*
         ======================================
-            Visitor Statistics | Options
+            Pemasukan | Options
         ======================================
       */
       
       
-      // Total Visits
+      // Total Pembayaran
       
       var spark1 = {
       chart: {
@@ -47,7 +47,7 @@ window.addEventListener("load", function(){
           }
       },
       series: [{
-          data: [21, 9, 36, 12, 44, 25, 59, 41, 66, 25]
+          data: paymentByMonth
       }],
       stroke: {
         curve: 'smooth',
@@ -125,7 +125,7 @@ window.addEventListener("load", function(){
       ]
       }
       
-      // Paid Visits
+      // Pemasukan Lain-lain
       
       var spark2 = {
       chart: {
@@ -146,7 +146,7 @@ window.addEventListener("load", function(){
         }
       },
       series: [{
-        data: [22, 19, 30, 47, 32, 44, 34, 55, 41, 69]
+        data: financeInByMonth
       }],
       stroke: {
         curve: 'smooth',
@@ -226,7 +226,7 @@ window.addEventListener("load", function(){
       
       /*
         ===================================
-            Unique Visitors | Options
+            Progres Bayar Bulanan | Options
         ===================================
       */
       
@@ -275,14 +275,14 @@ window.addEventListener("load", function(){
           colors: ['transparent']
       },
       series: [{
-          name: 'Direct',
-          data: [58, 44, 55, 57, 56, 61, 58, 63, 60, 66, 56, 63]
-      }, {
-          name: 'Organic',
-          data: [91, 76, 85, 101, 98, 87, 105, 91, 114, 94, 66, 70]
+          name: 'Bulanan',
+          data: arrMonthlyTotal
+      // }, {
+      //     name: 'Organic',
+      //     data: [91, 76, 85, 101, 98, 87, 105, 91, 114, 94, 66, 70]
       }],
       xaxis: {
-          categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+          categories: arrMonthlyMonth,
       },
       fill: {
         type: 'gradient',
@@ -718,7 +718,7 @@ window.addEventListener("load", function(){
       
       /*
         ===================================
-            Unique Visitors | Options
+            Progres Bayar Bulanan | Options
         ===================================
       */
       
@@ -1004,21 +1004,21 @@ window.addEventListener("load", function(){
       */
 
       // Total Visits
-      d_1C_1 = new ApexCharts(document.querySelector("#total-users"), spark1);
+      d_1C_1 = new ApexCharts(document.querySelector("#payment-total"), spark1);
       d_1C_1.render();
 
       // Paid Visits
-      d_1C_2 = new ApexCharts(document.querySelector("#paid-visits"), spark2);
+      d_1C_2 = new ApexCharts(document.querySelector("#finance-in"), spark2);
       d_1C_2.render();
 
       /*
           ===================================
-              Unique Visitors | Script
+              Progres Bayar Bulanan | Script
           ===================================
       */
 
       var d_1C_3 = new ApexCharts(
-          document.querySelector("#uniqueVisits"),
+          document.querySelector("#progress-bulanan"),
           d_1options1
       );
       d_1C_3.render();
@@ -1081,7 +1081,7 @@ window.addEventListener("load", function(){
       
           /*
               ===================================
-                  Unique Visitors | Script
+                  Progres Bayar Bulanan | Script
               ===================================
           */
       
@@ -1141,7 +1141,7 @@ window.addEventListener("load", function(){
       
           /*
               ===================================
-                  Unique Visitors | Script
+                  Progres Bayar Bulanan | Script
               ===================================
           */
       
