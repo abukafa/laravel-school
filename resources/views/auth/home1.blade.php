@@ -334,16 +334,17 @@
                                     <div class="avatar--group">
                                         @if ($totalPayment['yearly_person'] > 3)
                                             <div class="avatar translateY-axis more-group">
-                                                <span class="avatar-title">+{{ $totalPayment['yearly_person']-1 }}</span>
+                                                <span class="avatar-title">+{{ $totalPayment['yearly_person']-3 }}</span>
                                             </div>
                                         @endif
+                                        @php $count = 0 @endphp
                                         @foreach ($studentPayment as $item)
-                                            @if ($item['yearly_percent'] < 100)
-                                                <div class="avatar translateY-axis">
-                                                    <img alt="avatar" src="{{ asset('src/assets/img/no.png') }}"/>
-                                                </div>
-                                                @if($loop->iteration == 3)
-                                                    @break
+                                            @if ($count < 3)
+                                                @if ($item['yearly_percent'] < 100)
+                                                    <div class="avatar translateY-axis">
+                                                        <img alt="avatar" src="{{ $item['image'] ? asset('storage/member/' . $item['image']) : '/src/assets/img/no.png' }}"/>
+                                                    </div>
+                                                    @php $count++ @endphp
                                                 @endif
                                             @endif
                                         @endforeach
@@ -403,16 +404,17 @@
                                     <div class="avatar--group">
                                         @if ($totalPayment['monthly_person'] > 3)
                                             <div class="avatar translateY-axis more-group">
-                                                <span class="avatar-title">+{{ $totalPayment['monthly_person']-1 }}</span>
+                                                <span class="avatar-title">+{{ $totalPayment['monthly_person']-3 }}</span>
                                             </div>
                                         @endif
+                                        @php $count=0 @endphp
                                         @foreach ($studentPayment as $item)
-                                            @if ($item['monthly_percent'] < 100)
-                                                <div class="avatar translateY-axis">
-                                                    <img alt="avatar" src="{{ $item['image'] ? asset('storage/member/' . $item['image']) : '/src/assets/img/no.png' }}"/>
-                                                </div>
-                                                @if($loop->iteration == 3)
-                                                    @break
+                                            @if ($count < 3)
+                                                @if ($item['monthly_percent'] < 100)
+                                                    <div class="avatar translateY-axis">
+                                                        <img alt="avatar" src="{{ $item['image'] ? asset('storage/member/' . $item['image']) : '/src/assets/img/no.png' }}"/>
+                                                    </div>
+                                                    @php $count++ @endphp
                                                 @endif
                                             @endif
                                         @endforeach
@@ -473,10 +475,10 @@
                                         <tbody>
                                             @foreach ($alokasi as $item)
                                                 <tr>
-                                                    <td><div class="td-content product-name"><div class="align-self-center"><p class="prd-name">{{ $item['remark'] }}</p><p class="prd-category text-primary">{{ $item['account'] }}</p></div></div></td>
+                                                    <td><div class="td-content product-name"><div class="align-self-center"><p class="prd-name">{{ $item['remark'] }}</p><p class="prd-category text-{{ $item['balance'] > 0 ? 'primary' : 'danger' }}">{{ $item['account'] }}</p></div></div></td>
                                                     <td><div class="td-content text-end"><span class="pricing">{{ number_format($item['payment'],0,".",",") }}</span></div></td>
                                                     <td><div class="td-content text-end"><span class="discount-pricing">{{ number_format($item['finance'],0,".",",") }}</span></div></td>
-                                                    <td><div class="td-content text-end text-danger">{{ number_format($item['balance'],0,".",",") }}</div></td>
+                                                    <td><div class="td-content text-end text-{{ $item['balance'] > 0 ? 'primary' : 'danger' }}">{{ number_format($item['balance'],0,".",",") }}</div></td>
                                                 </tr>
                                             @endforeach
                                         </tbody>
@@ -485,128 +487,6 @@
                             </div>
                         </div>
                     </div>
-
-                    <!-- <div class="col-xl-8 col-lg-12 col-md-12 col-sm-12 col-12">
-                        <div class="row widget-statistic">
-                            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12 layout-spacing">
-                                <div class="widget widget-one_hybrid widget-followers">
-                                    <div class="widget-heading">
-                                        <div class="w-title">
-                                            <div class="w-icon">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-users"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
-                                            </div>
-                                            <div class="">
-                                                <p class="w-value">31.6K</p>
-                                                <h5 class="">Followers</h5>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="widget-content">    
-                                        <div class="w-chart">
-                                            <div id="hybrid_followers"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12 layout-spacing">
-                                <div class="widget widget-one_hybrid widget-referral">
-                                    <div class="widget-heading">
-                                        <div class="w-title">
-                                            <div class="w-icon">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
-                                            </div>
-                                            <div class="">
-                                                <p class="w-value">1,900</p>
-                                                <h5 class="">Referral</h5>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="widget-content">    
-                                        <div class="w-chart">
-                                            <div id="hybrid_followers1"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12 layout-spacing">
-                                <div class="widget widget-one_hybrid widget-engagement">
-                                    <div class="widget-heading">
-                                        <div class="w-title">
-                                            <div class="w-icon">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-message-circle"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
-                                            </div>
-                                            <div class="">
-                                                <p class="w-value">18.2%</p>
-                                                <h5 class="">Engagement</h5>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="widget-content">    
-                                        <div class="w-chart">
-                                            <div id="hybrid_followers3"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12 layout-spacing">
-                        <div class="widget widget-card-one">
-                            <div class="widget-content">
-
-                                <div class="media">
-                                    <div class="w-img">
-                                        <img src="{{ asset('src/assets/img/no.png') }}" alt="avatar">
-                                    </div>
-                                    <div class="media-body">
-                                        <h6>Jimmy Turner</h6>
-                                        <p class="meta-date-time">Monday, May 18</p>
-                                    </div>
-                                </div>
-
-                                <p>"Duis aute irure dolor" in reprehenderit in voluptate velit esse cillum "dolore eu fugiat" nulla pariatur. Excepteur sint occaecat cupidatat non proident.</p>
-
-                                <div class="w-action">
-                                    <div class="card-like">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-thumbs-up"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path></svg>
-                                        <span>551 Likes</span>
-                                    </div>
-
-                                    <div class="read-more">
-                                        <a href="javascript:void(0);">Read More <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevrons-right"><polyline points="13 17 18 12 13 7"></polyline><polyline points="6 17 11 12 6 7"></polyline></svg></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12 layout-spacing">
-                        <div class="widget widget-card-two">
-                            <div class="widget-content">
-
-                                <div class="media">
-                                    <div class="w-img">
-                                        <img src="{{ asset('src/assets/img/no.png') }}" alt="avatar">
-                                    </div>
-                                    <div class="media-body">
-                                        <h6>Dev Summit - New York</h6>
-                                        <p class="meta-date-time">Bronx, NY</p>
-                                    </div>
-                                </div>
-
-                                <div class="card-bottom-section">
-                                    <h5>4 Members Going</h5>
-                                    <div class="img-group">
-                                        <img src="{{ asset('src/assets/img/no.png') }}" alt="avatar">
-                                        <img src="{{ asset('src/assets/img/no.png') }}" alt="avatar">
-                                        <img src="{{ asset('src/assets/img/no.png') }}" alt="avatar">
-                                        <img src="{{ asset('src/assets/img/no.png') }}" alt="avatar">
-                                    </div>
-                                    <a href="javascript:void(0);" class="btn">View Details</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div> -->
-
                 </div>
             </div>
         </div>

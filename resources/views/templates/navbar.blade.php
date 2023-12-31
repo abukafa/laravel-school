@@ -161,7 +161,7 @@
                             </a>
                         </div>
                         <div class="nav-item theme-text">
-                            <a href="/" class="nav-link"> {{ session('school.nickname') }} </a>
+                            <a href="/" class="nav-link"> {{ session('school.nickname') ?: session('school.period') }} </a>
                         </div>
                     </div>
                     <div class="nav-item sidebar-toggle">

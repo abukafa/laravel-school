@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use DateTime;
 use App\Models\School;
 use App\Models\Billing;
 use App\Models\Finance;
@@ -59,6 +60,7 @@ class AuthController extends Controller
                     DB::raw('SUM(CASE WHEN is_monthly = 0 AND is_once = 0 THEN amount ELSE 0 END) AS yearly')
                 )
                 ->where('year', $student->registered)
+                ->where('category', $student->payment_category)
                 ->first();
 
             $paymentData = DB::table('payments')
@@ -69,19 +71,30 @@ class AuthController extends Controller
                 )
                 ->where('ids', $student->id)
                 ->first();
+            
+            // Menghitung Bulan
+            $bulanAwal = "July " . session('school.period');
+            $dateTimeAwal = DateTime::createFromFormat('F Y', $bulanAwal);
+            $dateTimeSekarang = new DateTime();
+            $interval = $dateTimeAwal->diff($dateTimeSekarang);
+            $jumlahBulan = ($interval->y * 12) + $interval->m +1;
+            $billingMonthly = $billingData->monthly * $jumlahBulan;
 
-            $studentPayment[] = [
-                'id' => $student->id,
-                'name' => $student->name,
-                'image' => $student->image,
-                'once_percent' => $billingData->once != 0 ? round((($billingData->once - $paymentData->once) / $billingData->once) * 100, 0) : 0,
-                'monthly_percent' => $billingData->monthly != 0 ? round((($billingData->monthly - $paymentData->monthly) / $billingData->monthly) * 100, 0) : 0,
-                'yearly_percent' => $billingData->yearly != 0 ? round((($billingData->yearly - $paymentData->yearly) / $billingData->yearly) * 100, 0) : 0,
-            ];
+            $totalBillingData = $billingData->once + $billingData->monthly + $billingData->yearly;
+            if ($totalBillingData > 0){
+                $studentPayment[] = [
+                    'id' => $student->id,
+                    'name' => $student->name,
+                    'image' => $student->image,
+                    'once_percent' => $billingData->once != 0 ? round(($paymentData->once / $billingData->once) * 100, 0) : 0,
+                    'monthly_percent' => $billingMonthly != 0 ? round(($paymentData->monthly / $billingMonthly) * 100, 0) : 0,
+                    'yearly_percent' => $billingData->yearly != 0 ? round(($paymentData->yearly / $billingData->yearly) * 100, 0) : 0,
+                ];
+            }
 
             // Update total billing and total payment
             $total_bill_once += $billingData->once;
-            $total_bill_monthly += $billingData->monthly;
+            $total_bill_monthly += $billingMonthly;
             $total_bill_yearly += $billingData->yearly;
             $total_pay_once += $paymentData->once;
             $total_pay_monthly += $paymentData->monthly;
@@ -89,9 +102,9 @@ class AuthController extends Controller
         }
 
         // Calculate percentages for total billing and total payment
-        $total_once_percent = $total_bill_once != 0 ? round(($total_bill_once - $total_pay_once) / $total_bill_once * 100, 0) : 0;
-        $total_monthly_percent = $total_bill_monthly != 0 ? round(($total_bill_monthly - $total_pay_monthly) / $total_bill_monthly * 100, 0) : 0;
-        $total_yearly_percent = $total_bill_yearly != 0 ? round(($total_bill_yearly - $total_pay_yearly) / $total_bill_yearly * 100, 0) : 0;
+        $total_once_percent = $total_bill_once != 0 ? round($total_pay_once / $total_bill_once * 100, 0) : 0;
+        $total_monthly_percent = $total_bill_monthly != 0 ? round($total_pay_monthly / $total_bill_monthly * 100, 0) : 0;
+        $total_yearly_percent = $total_bill_yearly != 0 ? round($total_pay_yearly / $total_bill_yearly * 100, 0) : 0;
 
         $payWait['year'] = 0;
         $payWait['month'] = 0;
