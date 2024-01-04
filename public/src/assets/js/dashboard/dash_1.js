@@ -274,13 +274,7 @@ window.addEventListener("load", function(){
           width: 2,
           colors: ['transparent']
       },
-      series: [{
-          name: 'Bulanan',
-          data: arrMonthlyTotal
-      // }, {
-      //     name: 'Organic',
-      //     data: [91, 76, 85, 101, 98, 87, 105, 91, 114, 94, 66, 70]
-      }],
+      series: seriesBulanan,
       xaxis: {
           categories: arrMonthlyMonth,
       },

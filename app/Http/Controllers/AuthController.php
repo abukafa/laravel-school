@@ -32,7 +32,31 @@ class AuthController extends Controller
         // data Sub Total per Bulan
         $paymentByMonth = (new Payment())->getPaymentByMonth()->pluck('total_payment')->toArray();
         $financeInByMonth = (new Finance())->getFinanceByMonth('22')->pluck('total_finance')->toArray();
-        $monthlyPaymentByMonth = (new Payment())->getMonthlyPaymentByMonth(date('Y'))->toArray();
+        // $monthlyPaymentByMonth = (new Payment())->getMonthlyPaymentByMonth(date(app('periode')))->toArray();
+        $monthlyPaymentByMonth = [];
+        $myMonth = ['Jul-', 'Aug-', 'Sep-', 'Oct-', 'Nov-', 'Dec-', 'Jan-', 'Feb-', 'Mar-', 'Apr-', 'May-', 'Jun-'];
+        for($i=0; $i<count($myMonth); $i++){
+            $bulan = $myMonth[$i] . (($i<6) ? app('periode') : app('periode') +1);
+            $monthlyPaymentByMonth[$i] = ['month_year' => $bulan];
+            $amount = Payment::selectRaw('SUBSTRING_INDEX(billing, " ", 1) AS billing_group, SUM(amount) as totalPayment')
+                ->where('billing', 'like', '%' . $bulan . '%')
+                ->groupBy('billing_group')
+                ->get();
+            // SYNTAX UMUM ==========================
+            // foreach ($amount as $item) {
+            //     $billing_group = $item['billing_group'];
+            //     $totalPayment = $item['totalPayment'];
+            //     $monthlyPaymentByMonth[$i][$billing_group] = $totalPayment;
+            // }
+            // KHUSUS ARM ==========================
+            if ($amount->count() > 0) {
+                $monthlyPaymentByMonth[$i]['Syahriyah'] = $amount->where('billing_group', 'SPP')->first()['totalPayment'] ? $amount->where('billing_group', 'SPP')->first()['totalPayment'] + $amount->where('billing_group', 'Asrama')->first()['totalPayment'] : 0;
+                $monthlyPaymentByMonth[$i]['Makan'] = $amount->where('billing_group', 'Makan')->first()['totalPayment'] ?? 0;
+            } else {
+                $monthlyPaymentByMonth[$i]['Syahriyah'] = 0;
+                $monthlyPaymentByMonth[$i]['Makan'] = 0;
+            }
+        }
     
         // data gabungan - History input
         $history = Payment::select('date', 'account', 'name', 'billing')
@@ -73,11 +97,12 @@ class AuthController extends Controller
                 ->first();
             
             // Menghitung Bulan
-            $bulanAwal = "July " . session('school.period');
-            $dateTimeAwal = DateTime::createFromFormat('F Y', $bulanAwal);
-            $dateTimeSekarang = new DateTime();
-            $interval = $dateTimeAwal->diff($dateTimeSekarang);
-            $jumlahBulan = ($interval->y * 12) + $interval->m +1;
+            // $bulanAwal = "July " . session('school.period');
+            // $dateTimeAwal = DateTime::createFromFormat('F Y', $bulanAwal);
+            // $dateTimeSekarang = new DateTime();
+            // $interval = $dateTimeAwal->diff($dateTimeSekarang);
+            // $jumlahBulan = ($interval->y * 12) + $interval->m +1;
+            $jumlahBulan = 12 - app('sisaBulanDalamPeriode');
             $billingMonthly = $billingData->monthly * $jumlahBulan;
 
             $totalBillingData = $billingData->once + $billingData->monthly + $billingData->yearly;
@@ -86,6 +111,7 @@ class AuthController extends Controller
                     'id' => $student->id,
                     'name' => $student->name,
                     'image' => $student->image,
+                    'registered' => $student->registered,
                     'once_percent' => $billingData->once != 0 ? round(($paymentData->once / $billingData->once) * 100, 0) : 0,
                     'monthly_percent' => $billingMonthly != 0 ? round(($paymentData->monthly / $billingMonthly) * 100, 0) : 0,
                     'yearly_percent' => $billingData->yearly != 0 ? round(($paymentData->yearly / $billingData->yearly) * 100, 0) : 0,
@@ -112,7 +138,7 @@ class AuthController extends Controller
             if ($item['yearly_percent'] < 100){
                 $payWait['year'] += 1;
             }
-            if ($item['monthly_percent'] < 100){
+            if ($item['monthly_percent'] < 100 && $item['registered'] <= app('periode')){
                 $payWait['month'] += 1;
             }
         }

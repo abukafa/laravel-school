@@ -15,6 +15,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\CalendarController;
+use App\Http\Controllers\DiscountController;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,6 +42,8 @@ Route::resource('/admin/keuangan', FinanceController::class)->middleware('auth')
 Route::resource('/admin/tabungan', SavingController::class)->middleware('auth');
 Route::resource('/admin/siswa', StudentController::class)->middleware('auth');
 Route::resource('/admin/guru', TeacherController::class)->middleware('maintenance');
+
+Route::resource('/admin/potongan', DiscountController::class)->middleware('auth');
 
 Route::post('/admin/siswa/image/{id}', [StudentController::class, 'image_upload'])->middleware('auth');
 Route::get('/admin/alumni', [StudentController::class, 'alumni'])->middleware('auth');

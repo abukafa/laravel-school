@@ -6,6 +6,7 @@ use App\Models\School;
 use App\Models\Billing;
 use App\Models\Payment;
 use App\Models\Student;
+use App\Models\Discount;
 use Illuminate\Http\Request;
 
 class PaymentController extends Controller
@@ -101,7 +102,7 @@ class PaymentController extends Controller
         $payments = Payment::where('ids', $ids)
             ->where('billing', 'LIKE', '%' . $period . '%')
             ->get();
-        $billing = Billing::select('account', 'name', 'amount', 'is_once', 'is_monthly')
+        $billing = Billing::select('year', 'account', 'name', 'amount', 'is_once', 'is_monthly')
             ->where('year', $student->registered)
             ->where('category', $student->payment_category)
             ->get();
@@ -114,9 +115,9 @@ class PaymentController extends Controller
 
         $items = [];
 
-        foreach ($dataBilling as $value) {
+        foreach ($dataBilling as $bill) {
             $date = '-';
-            if ($value->is_monthly == true) {
+            if ($bill->is_monthly == true) {
                 $startMonth = strtotime('JULY ' . $period);
                 $months = [];
                 for ($i = 0; $i < 12; $i++) {
@@ -126,40 +127,44 @@ class PaymentController extends Controller
                 }
 
                 foreach ($months as $remark) {
-                    $billing = $value->name . ' ' . $remark;
+                    $billing = $bill->name . ' ' . $remark;
+                    $ids = $payments->count() > 0 ? $payments[0]->ids : 0;
+                    $discountData = Discount::select()->where('ids', $ids)->where('billing', $billing)->get();
+                    $discount = $discountData->count() > 0 ? $discountData[0]->amount : 0;
                     $paid = 0;
                     $date = '-';
-                    foreach ($payments as $key => $val) {
-                        if ($val->billing == $billing) {
-                            $paid += $val->amount;
-                            $date = $val->date;
+                    foreach ($payments as $key => $pay) {
+                        if ($pay->billing == $billing) {
+                            $paid += $pay->amount;
+                            $date = $pay->date;
                         }
                     }
                     $items[] = [
                         'ids' => $student->id,
                         'name' => $student->name,
-                        'account' => $value->account,
+                        'account' => $bill->account,
                         'billing' => $billing,
-                        'amount' => $value->amount,
+                        'amount' => $bill->amount - $discount,
                         'paid' => $paid,
                         'date' => $date
                     ];
                 }
             } else {
-                $billing = $value->name . ' ' . $period;
+                $billing = $bill->name . ' ' . $period;
                 $paid = 0;
-                foreach ($payments as $key => $val) {
-                    if ($val->billing == $billing) {
-                        $paid += $val->amount;
-                        $date = $val->date;
+                foreach ($payments as $key => $pay) {
+                    if ($pay->billing == $billing) {
+                        $paid += $pay->amount;
+                        $date = $pay->date;
                     }
                 }
                 $items[] = [
                     'ids' => $student->id,
+                    'nis' => $student->nis,
                     'name' => $student->name,
-                    'account' => $value->account,
+                    'account' => $bill->account,
                     'billing' => $billing,
-                    'amount' => $value->amount,
+                    'amount' => $bill->amount,
                     'paid' => $paid,
                     'date' => $date
                 ];

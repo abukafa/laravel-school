@@ -59,7 +59,7 @@
                                                 <td>{{ $payment->date }}</td>
                                                 <td>{{ $payment->name }}</td>
                                                 <td>{{ $payment->items }}</td>
-                                                <td>{{ number_format($payment->total) }}</td>
+                                                <td class="text-end">{{ number_format($payment->total) }}</td>
                                                 <td>
                                                     <a class="badge badge-primary text-start me-2 action-view" href="/admin/pembayaran/view/{{ $payment->invoice }}">
                                                         <span class="far fa-eye"></span>

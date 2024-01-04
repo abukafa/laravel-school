@@ -505,15 +505,42 @@
 
     <script>
         var paymentByMonth = {!! json_encode($paymentByMonth) !!};
+
         var financeInByMonth = {!! json_encode($financeInByMonth) !!};
+
         var monthlyPaymentByMonth = {!! json_encode($monthlyPaymentByMonth) !!};
-        const arrMonthlyTotal = [];
         const arrMonthlyMonth = [];
+        const arrMonthlyData = {};
+        // Mendapatkan array unik dari nama grup
+        const uniqueGroups = [...new Set(monthlyPaymentByMonth.flatMap(item => Object.keys(item)))];
+        // Inisialisasi objek arrMonthlyData
+        uniqueGroups.forEach(group => {
+            arrMonthlyData[group] = [];
+        });
+        // Memproses data
         for (const payment of monthlyPaymentByMonth) {
             const month = payment.month_year.slice(0, 3);
             arrMonthlyMonth.push(month);
-            arrMonthlyTotal.push(parseInt(payment.total));
+            // Memproses setiap grup
+            uniqueGroups.forEach(group => {
+                if (payment[group]) {
+                    arrMonthlyData[group].push(parseInt(payment[group]));
+                } else {
+                    arrMonthlyData[group].push(0);
+                }
+            });
         }
+        const seriesBulanan = [];
+        // Membuat objek seriesBulanan secara dinamis, tidak termasuk 'month_year'
+        uniqueGroups.forEach(group => {
+            if (group !== 'month_year') {
+                seriesBulanan.push({
+                    name: group,
+                    data: arrMonthlyData[group]
+                });
+            }
+        });
+
     </script>
     
     <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM SCRIPTS -->

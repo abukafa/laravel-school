@@ -43,7 +43,7 @@
                                         <td>{{ $finance->date }}</td>
                                         <td>{{ $finance->remark }}</td>
                                         <td>{{ $finance->items }}</td>
-                                        <td>{{ number_format($finance->total) }}</td>
+                                        <td class="text-end">{{ number_format($finance->total) }}</td>
                                         <td>
                                             <a class="badge badge-primary text-start me-2 action-view" href="/admin/keuangan/view/{{ $finance->invoice }}">
                                                 <span class="far fa-eye"></span>
