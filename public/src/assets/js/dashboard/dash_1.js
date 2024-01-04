@@ -274,7 +274,14 @@ window.addEventListener("load", function(){
           width: 2,
           colors: ['transparent']
       },
-      series: seriesBulanan,
+      // series: seriesBulanan,
+      series: [{
+        name: 'Syahriyah',
+        data: arrMonthlyTotal
+      }, {
+        name: 'Makan',
+        data: arrMonthlyMakan
+      }],
       xaxis: {
           categories: arrMonthlyMonth,
       },

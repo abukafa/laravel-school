@@ -505,9 +505,7 @@
 
     <script>
         var paymentByMonth = {!! json_encode($paymentByMonth) !!};
-
         var financeInByMonth = {!! json_encode($financeInByMonth) !!};
-
         var monthlyPaymentByMonth = {!! json_encode($monthlyPaymentByMonth) !!};
         const arrMonthlyMonth = [];
         const arrMonthlyData = {};
@@ -530,17 +528,20 @@
                 }
             });
         }
-        const seriesBulanan = [];
-        // Membuat objek seriesBulanan secara dinamis, tidak termasuk 'month_year'
-        uniqueGroups.forEach(group => {
-            if (group !== 'month_year') {
-                seriesBulanan.push({
-                    name: group,
-                    data: arrMonthlyData[group]
-                });
-            }
-        });
 
+        let arrMonthlyMakan = arrMonthlyData['Makan'];
+        let arrMonthlyTotal = arrMonthlyData['Syahriyah'];
+
+        // Membuat objek seriesBulanan secara dinamis, tidak termasuk 'month_year'
+        // const seriesBulanan = [];
+        // uniqueGroups.forEach(group => {
+        //     if (group !== 'month_year') {
+        //         seriesBulanan.push({
+        //             name: group,
+        //             data: arrMonthlyData[group]
+        //         });
+        //     }
+        // });
     </script>
     
     <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM SCRIPTS -->
