@@ -100,7 +100,7 @@ class PaymentController extends Controller
         $student = Student::find($ids);
         $total = 0;
         $payments = Payment::where('ids', $ids)
-            ->where('billing', 'LIKE', '%' . $period . '%')
+            // ->where('billing', 'LIKE', '%' . $period . '%')
             ->get();
         $billing = Billing::select('year', 'account', 'name', 'amount', 'is_once', 'is_monthly')
             ->where('year', $student->registered)

@@ -149,7 +149,7 @@
                                                     $date = date("Y-m-d", strtotime($items->first()->date . '+1 week'));
                                                 @endphp
                                                 <div class="col-xl-12 col-md-3 col-sm-6">
-                                                    <a href="{{ ($date < date('Y-m-d')) ? '#' : '/admin/keuangan/inv/' . $items->first()->invoice }}" class="btn btn-dark btn-edit" @if ($date < date('Y-m-d')) onclick="alert('Tanggal Expired.. Invoice tidak bisa diedit..')" @endif>Edit</a>
+                                                    <a href="{{ (session('user.role') < 5 && $date < date('Y-m-d')) ? '#' : '/admin/keuangan/inv/' . $items->first()->invoice }}" class="btn btn-dark btn-edit" @if ($date < date('Y-m-d')) onclick="alert('Tanggal Expired.. Invoice tidak bisa diedit..')" @endif>Edit</a>
                                                 </div>
                                             </div>
 

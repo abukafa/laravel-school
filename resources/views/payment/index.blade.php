@@ -68,7 +68,7 @@
                                                     @php
                                                         $date = date("Y-m-d", strtotime($payment->date . '+1 week'));
                                                     @endphp
-                                                    <a class="badge badge-secondary text-start me-2 action-edit" href="{{ ($date < date('Y-m-d')) ? '#' : '/admin/pembayaran/inv/' . $payment->invoice }}" @if ($date < date('Y-m-d')) onclick="alert('Tanggal Expired.. Invoice tidak bisa diedit..')" @endif>
+                                                    <a class="badge badge-secondary text-start me-2 action-edit" href="{{ (session('user.role') < 5 && $date < date('Y-m-d')) ? '#' : '/admin/pembayaran/inv/' . $payment->invoice }}" @if ($date < date('Y-m-d')) onclick="alert('Tanggal Expired.. Invoice tidak bisa diedit..')" @endif>
                                                         <span class="far fa-edit"></span>
                                                     </a>
                                                 </td>

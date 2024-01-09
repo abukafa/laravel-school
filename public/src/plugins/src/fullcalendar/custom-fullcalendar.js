@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', function() {
         {
             id: 1,
             title: 'All Day Event',
-            start: `${newDate.getFullYear()}-${getDynamicMonth()}-01`,
+            start: `2023-12-01`,
             extendedProps: { calendar: 'Work' }
         },
         {
