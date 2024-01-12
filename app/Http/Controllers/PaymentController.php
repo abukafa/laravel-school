@@ -144,6 +144,7 @@ class PaymentController extends Controller
                         'name' => $student->name,
                         'account' => $bill->account,
                         'billing' => $billing,
+                        'diskon' => $discount,
                         'amount' => $bill->amount - $discount,
                         'paid' => $paid,
                         'date' => $date
@@ -151,6 +152,8 @@ class PaymentController extends Controller
                 }
             } else {
                 $billing = $bill->name . ' ' . $period;
+                $discountData = Discount::select()->where('ids', $ids)->where('billing', $billing)->get();
+                $discount = $discountData->count() > 0 ? $discountData[0]->amount : 0;
                 $paid = 0;
                 foreach ($payments as $key => $pay) {
                     if ($pay->billing == $billing) {
@@ -164,7 +167,7 @@ class PaymentController extends Controller
                     'name' => $student->name,
                     'account' => $bill->account,
                     'billing' => $billing,
-                    'amount' => $bill->amount,
+                    'amount' => $bill->amount - $discount,
                     'paid' => $paid,
                     'date' => $date
                 ];
