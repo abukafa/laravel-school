@@ -65,15 +65,15 @@ class PaymentController extends Controller
     public function rekapitulasi(Request $request)
     {
         $year = $request->query('year');
-        $students = Student::all();
+        $students = $year ? Student::where('registered', $year)->get() : Student::all();
         $items = collect();
         foreach ($students as $student) {
             $payment = Payment::selectRaw(
                 'SUM(CASE WHEN ids = ? AND is_once = ? THEN amount ELSE 0 END) AS once,
                 SUM(CASE WHEN ids = ? AND is_monthly = ? THEN amount ELSE 0 END) AS month,
                 SUM(CASE WHEN ids = ? AND is_monthly = ? AND is_once = ? THEN amount ELSE 0 END) AS year,
-                SUM(CASE WHEN ids = ? AND billing LIKE ? THEN amount ELSE 0 END) AS total',
-                [$student->id, 1, $student->id, 1, $student->id, 0, 0, $student->id, '%' . $year])->first();
+                SUM(CASE WHEN ids = ? AND period = ? THEN amount ELSE 0 END) AS total',
+                [$student->id, 1, $student->id, 1, $student->id, 0, 0, $student->id, $year])->first();
 
             $items->push((object)[
                 'ids' => $student->id,
@@ -100,7 +100,7 @@ class PaymentController extends Controller
         $student = Student::find($ids);
         $total = 0;
         $payments = Payment::where('ids', $ids)
-            // ->where('billing', 'LIKE', '%' . $period . '%')
+            ->where('period', $period)
             ->get();
         $billing = Billing::select('year', 'account', 'name', 'amount', 'is_once', 'is_monthly')
             ->where('year', $student->registered)

@@ -46,10 +46,14 @@
                                             <div class="invoice-detail-header">
                                                 <form class="row g-3" action="/admin/pembayaran" method="POST">
                                                     @csrf
-                                                    <div class="col-md-6">
+                                                    <div class="col-md-3">
                                                         <label for="date" class="form-label">Tanggal</label>
                                                         <input type="hidden" class="form-control" name="invoice" id="invoice" value="{{ $invoice }}">
                                                         <input type="text" class="form-control" name="date" id="date" value="{{ optional($items->first())->date }}" required>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <label for="date" class="form-label">Periode</label>
+                                                        <input type="text" class="form-control" name="period" id="period" value="{{ optional($items->first())->period }}" required>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <label for="ids" class="form-label">Santri</label>
@@ -198,7 +202,7 @@
                     var data = JSON.parse(xhr.responseText);
                     document.getElementById('name').value = data.student.name;
                     document.getElementById('payment_category').value = data.student.payment_category;
-                    console.log(data);
+                    // console.log(data);
 
                     // Clear the existing options in the select element
                     const select = document.getElementById('idb');
@@ -241,10 +245,12 @@
             var ids = document.getElementById('ids').value;
             var name = this.selectedOptions[0].textContent;
             var xhr = new XMLHttpRequest();
-            // console.log(ids);
+            var period = @json(app('periode'));
+            // console.log(period);
             xhr.onreadystatechange = function() {
                 if (xhr.readyState === 4 && xhr.status === 200) {
                     var data = JSON.parse(xhr.responseText);
+                    document.getElementById('period').value = period;
                     document.getElementById('account').value = data.billing.account;
                     document.getElementById('billing').value = document.getElementById('idb').selectedOptions[0].textContent;
                     document.getElementById('amount').value = data.balance;

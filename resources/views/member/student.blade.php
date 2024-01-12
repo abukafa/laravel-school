@@ -52,24 +52,24 @@
                                     </thead>
                                     <tbody>
 
-                                        @foreach ($students as $index => $student)
+                                        @foreach ($students as $index => $item)
                                             
                                         <tr>
                                             <td>{{ $loop->index +1 }}</td>
-                                            <td>{{ $student->nis }}</td>
+                                            <td>{{ $item->nis }}</td>
                                             <td class="">
                                                 <a class="profile-img" href="javascript: void(0);">
-                                                    <img src="{{ $student->image ? asset('storage/member/' . $student->image) : '/src/assets/img/no.png' }}" alt="{{ $student->image }}">
+                                                    <img src="{{ $item->image ? asset('storage/member/' . $item->image) : '/src/assets/img/no.png' }}" alt="{{ $item->image }}">
                                                 </a>
                                             </td>
-                                            <td>{{ $student->name }}</td>
-                                            <td>{{ $student->rumble }}</td>
+                                            <td>{{ $item->name }}</td>
+                                            <td>{{ $item->rumble }}</td>
                                             <td class="text-center">
                                                 <div class="action-btns">
-                                                    <a href="/admin/siswa/{{ $student->id }}/edit" class="btn btn-outline-secondary btn-icon btn-rounded">
+                                                    <a href="/admin/siswa/{{ $item->id }}/edit" class="btn btn-outline-secondary btn-icon btn-rounded">
                                                         <span class="far fa-edit"></span>
                                                     </a>
-                                                    <form action="/admin/siswa/{{ $student->id }}" method="POST" class="d-inline">
+                                                    <form action="/admin/siswa/{{ $item->id }}" method="POST" class="d-inline">
                                                         @csrf
                                                         @method('delete')
                                                         <button type="submit" class="btn btn-outline-danger btn-icon btn-rounded" onclick="return confirm('Apakah anda yakin?')" {{ session('user.role') < 3 ? 'disabled' : '' }}><i class="far fa-trash-alt"></i></button>
@@ -97,20 +97,6 @@
     <script src="../src/plugins/src/table/datatable/datatables.js"></script>
     <script>
         c1 = $('#style-1').DataTable({
-            // headerCallback:function(e, a, t, n, s) {
-            //     e.getElementsByTagName("th")[0].innerHTML=`
-            //     <div class="form-check form-check-primary d-none">
-            //         <input class="form-check-input chk-parent" type="checkbox" id="form-check-default">
-            //     </div>`
-            // },
-            // columnDefs:[ {
-            //     targets:0, width:"30px", className:"", orderable:!1, render:function(e, a, t, n) {
-            //         return `
-            //         <div class="form-check form-check-primary d-none">
-            //             <input class="form-check-input child-chk" type="checkbox" id="form-check-default">
-            //         </div>`
-            //     }
-            // }],
             "dom": "<'dt--top-section'<'row'<'col-12 col-sm-6 d-flex justify-content-sm-start justify-content-center'l><'col-12 col-sm-6 d-flex justify-content-sm-end justify-content-center mt-sm-0 mt-3'f>>>" +
         "<'table-responsive'tr>" +
         "<'dt--bottom-section d-sm-flex justify-content-sm-between text-center'<'dt--pages-count  mb-sm-0 mb-3'i><'dt--pagination'p>>",

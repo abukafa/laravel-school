@@ -30,8 +30,10 @@ return new class extends Migration
             $table->string('postal_code')->nullable();
             $table->string('phone')->nullable();
             $table->string('registered')->nullable();
+            $table->string('grade')->nullable();
             $table->string('resign')->nullable();
             $table->string('update_job')->nullable();
+            $table->string('image')->nullable();
             $table->string('note')->nullable();
             $table->timestamps();
         });

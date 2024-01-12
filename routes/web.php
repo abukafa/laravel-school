@@ -46,6 +46,7 @@ Route::resource('/admin/guru', TeacherController::class)->middleware('maintenanc
 Route::resource('/admin/potongan', DiscountController::class)->middleware('auth');
 
 Route::post('/admin/siswa/image/{id}', [StudentController::class, 'image_upload'])->middleware('auth');
+Route::post('/admin/guru/image/{id}', [TeacherController::class, 'image_upload'])->middleware('auth');
 Route::get('/admin/alumni', [StudentController::class, 'alumni'])->middleware('auth');
 
 Route::get('/admin/akun/no/{num}', [AccountController::class, 'search'])->middleware('auth');

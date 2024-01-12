@@ -48,7 +48,7 @@
                                             <th>Masuk</th>
                                             <th>Tahunan</th>
                                             <th>Bulanan</th>
-                                            <th>Total</th>
+                                            {{-- <th>Total</th> --}}
                                             <th class="{{ $period ? '' : 'd-none' }}">Opsi</th>
                                         </tr>
                                     </thead>
@@ -63,7 +63,7 @@
                                                 <td class="text-end">{{ number_format($item->once) }}</td>
                                                 <td class="text-end">{{ number_format($item->year) }}</td>
                                                 <td class="text-end">{{ number_format($item->month) }}</td>
-                                                <td class="text-end">{{ number_format($item->total) }}</td>
+                                                {{-- <td class="text-end">{{ number_format($item->total) }}</td> --}}
                                                 <td class="{{ $period ? '' : 'd-none' }}">
                                                     <a class="badge badge-primary text-start me-2 action-view" href="/admin/pembayaran/rekap/{{ $item->ids }}/{{ $period }}">
                                                         <span class="far fa-eye"></span>
