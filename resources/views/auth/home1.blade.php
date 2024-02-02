@@ -100,7 +100,7 @@
                                     </div>
                                     <div class="">
                                         <div class="w-icon">
-                                            <p>{{ round($total->keluar / ($total->masuk + $total->keluar) * 100,2) }}%</p>
+                                            <p>{{ $total->keluar == 0 ? 0 : round($total->keluar / ($total->masuk + $total->keluar) * 100,2) }}%</p>
                                         </div>
                                     </div>
                                 </div>
