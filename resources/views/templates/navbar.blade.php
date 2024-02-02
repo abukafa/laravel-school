@@ -1,5 +1,5 @@
 @extends('templates.main')
-    
+
     <!--  BEGIN CUSTOM STYLE FILE  -->
     <link rel="stylesheet" type="text/css" href="{{ asset('src/assets/css/light/elements/alert.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('src/assets/css/dark/elements/alert.css') }}">
@@ -92,10 +92,10 @@
                                     </div>
                                 </div>
                             </div>
-                            
+
                         </div>
                     </div>
-                    
+
                 </li>
 
                 <li class="nav-item dropdown user-profile-dropdown  order-lg-0 order-1">
@@ -135,7 +135,7 @@
                             </a>
                         </div>
                     </div>
-                    
+
                 </li>
             </ul>
         </header>
@@ -157,7 +157,7 @@
                     <div class="nav-logo">
                         <div class="nav-item theme-logo">
                             <a href="/">
-                                <img src="{{ session('school.logo') ? asset('storage/logo.png') : '/src/assets/img/logo.png' }}">    
+                                <img src="{{ session('school.logo') ? asset('storage/logo.png') : '/src/assets/img/logo.png' }}">
                             </a>
                         </div>
                         <div class="nav-item theme-text">
@@ -221,7 +221,7 @@
                                 <span>Kalendar</span>
                             </div>
                         </a>
-                    </li>           
+                    </li>
 
                     <li class="menu {{ $title == 'Data Guru' || $title == 'Data Siswa' || $title == 'Data Alumni' ? 'active' : '' }}">
                         <a href="#member" data-bs-toggle="collapse" aria-expanded="{{ $title == 'Data Guru' || $title == 'Data Siswa' || $title == 'Data Alumni' ? 'true' : 'false' }}" class="dropdown-toggle">
@@ -245,8 +245,8 @@
                             </li>
                         </ul>
                     </li>
-                    
-                    @if (auth()->user()->role > 1)                        
+
+                    @if (auth()->user()->role > 1)
                         <li class="menu {{ $title == 'Data Pembayaran' || $title == 'Rekap Pembayaran' || $title == 'Data Tagihan' || $title == 'Data Potongan' || $title == 'Konfirmasi Pembayaran' ? 'active' : '' }}">
                             <a href="#pembayaran" data-bs-toggle="collapse" aria-expanded="{{ $title == 'Data Pembayaran' || $title == 'Rekap Pembayaran' || $title == 'Data Tagihan' || $title == 'Data Potongan' || $title == 'Konfirmasi Pembayaran' ? 'true' : 'false' }}" class="dropdown-toggle">
                                 <div class="">
@@ -266,39 +266,39 @@
                                 </li>
                                 <li class="{{ $title == 'Data Tagihan' ? 'active' : '' }}">
                                     <a href="/admin/tagihan"> Tagihan </a>
-                                </li> 
+                                </li>
                                 <li class="{{ $title == 'Data Potongan' ? 'active' : '' }}">
                                     <a href="/admin/potongan"> Potongan </a>
-                                </li>     
+                                </li>
                                 @if (auth()->user()->role == 5)
                                     <li class="{{ $title == 'Konfirmasi Pembayaran' ? 'active' : '' }}">
                                         <a href="/admin/konfirmasi"> Konfirmasi </a>
-                                    </li>                       
-                                @endif  
+                                    </li>
+                                @endif
+                            </ul>
+                        </li>
+
+                        <li class="menu {{ $title == 'Data Akun' || $title == 'Data Keuangan' ? 'active' : '' }}">
+                            <a href="#keuangan" data-bs-toggle="collapse" aria-expanded="{{ $title == 'Data Akun' || $title == 'Data Keuangan' ? 'true' : 'false' }}" class="dropdown-toggle">
+                                <div class="">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shopping-cart"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                                    <span>Keuangan</span>
+                                </div>
+                                <div>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                                </div>
+                            </a>
+                            <ul class="collapse submenu list-unstyled {{ $title == 'Data Akun' || $title == 'Data Keuangan' ? 'show' : '' }}" id="keuangan" data-bs-parent="#accordionExample">
+                                <li class="{{ $title == 'Data Keuangan' ? 'active' : '' }}">
+                                    <a href="/admin/keuangan"> Entri </a>
+                                </li>
+                                <li class="{{ $title == 'Data Akun' ? 'active' : '' }}">
+                                    <a href="/admin/akun"> Akun </a>
+                                </li>
                             </ul>
                         </li>
                     @endif
-                    
-                    <li class="menu {{ $title == 'Data Akun' || $title == 'Data Keuangan' ? 'active' : '' }}">
-                        <a href="#keuangan" data-bs-toggle="collapse" aria-expanded="{{ $title == 'Data Akun' || $title == 'Data Keuangan' ? 'true' : 'false' }}" class="dropdown-toggle">
-                            <div class="">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shopping-cart"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
-                                <span>Keuangan</span>
-                            </div>
-                            <div>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg>
-                            </div>
-                        </a>
-                        <ul class="collapse submenu list-unstyled {{ $title == 'Data Akun' || $title == 'Data Keuangan' ? 'show' : '' }}" id="keuangan" data-bs-parent="#accordionExample">
-                            <li class="{{ $title == 'Data Keuangan' ? 'active' : '' }}">
-                                <a href="/admin/keuangan"> Entri </a>
-                            </li>                           
-                            <li class="{{ $title == 'Data Akun' ? 'active' : '' }}">
-                                <a href="/admin/akun"> Akun </a>
-                            </li>
-                        </ul>
-                    </li>
-                    
+
                     <li class="menu {{ $title == 'Data Tabungan' ? 'active' : '' }}">
                         <a href="#tabungan" data-bs-toggle="collapse" aria-expanded="{{ $title == 'Data Tabungan' ? 'true' : 'false' }}" class="dropdown-toggle">
                             <div class="">
@@ -312,7 +312,7 @@
                         <ul class="collapse submenu list-unstyled {{ $title == 'Data Tabungan' ? 'show' : '' }}" id="tabungan" data-bs-parent="#accordionExample">
                             <li class="{{ $title == 'Data Tabungan' ? 'active' : '' }}">
                                 <a href="/admin/tabungan"> Entri </a>
-                            </li>        
+                            </li>
                         </ul>
                     </li>
 
@@ -355,12 +355,12 @@
 
         </div>
         <!--  END SIDEBAR  -->
-        
+
 
         @yield('content')
-        
+
 
     </div>
-    <!-- END MAIN CONTAINER -->      
+    <!-- END MAIN CONTAINER -->
 
 @endsection

@@ -3,11 +3,11 @@ document.addEventListener('DOMContentLoaded', function() {
     // Date variable
     var newDate = new Date();
 
-    /** 
-     * 
-     * @getDynamicMonth() fn. is used to validate 2 digit number and act accordingly 
-     * 
-    */    
+    /**
+     *
+     * @getDynamicMonth() fn. is used to validate 2 digit number and act accordingly
+     *
+    */
     function getDynamicMonth() {
         getMonthValue = newDate.getMonth();
         if (getMonthValue < 10) {
@@ -20,16 +20,21 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log(getDynamicMonth())
 
     // Modal Elements
-    var getModalTitleEl = document.querySelector('#event-title');
-    var getModalStartDateEl = document.querySelector('#event-start-date');
-    var getModalEndDateEl = document.querySelector('#event-end-date');
+    var getModalFormEl = document.querySelector('#event-form');
+    var getDeleteFormEl = document.querySelector('#form-delete-event');
+    var getModalTitleEl = document.querySelector('#title');
+    var getModalDescEl = document.querySelector('#description');
+    var getModalStartDateEl = document.querySelector('#start_date');
+    var getModalEndDateEl = document.querySelector('#end_date');
     var getModalAddBtnEl = document.querySelector('.btn-add-event');
     var getModalUpdateBtnEl = document.querySelector('.btn-update-event');
+    var getFooterEventEl = document.querySelector('.foot-event');
+    var getFooterDeleteEl = document.querySelector('.foot-delete');
     var calendarsEvents = {
-        Work: 'primary',
-        Personal: 'success',
+        Learning: 'primary',
+        Activity: 'success',
         Important: 'danger',
-        Travel: 'warning',
+        Project: 'warning',
     }
 
     // Calendar Elements and options
@@ -42,85 +47,37 @@ document.addEventListener('DOMContentLoaded', function() {
             return false;
         }
     }
-    
+
     var calendarHeaderToolbar = {
         left: 'prev next addEventButton',
         center: 'title',
         right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
     }
-    var calendarEventsList = [
-        {
-            id: 1,
-            title: 'All Day Event',
-            start: `2023-12-01`,
-            extendedProps: { calendar: 'Work' }
-        },
-        {
-            id: 2,
-            title: 'Long Event',
-            start: `${newDate.getFullYear()}-${getDynamicMonth()}-07`,
-            end: `${newDate.getFullYear()}-${getDynamicMonth()}-10`,
-            extendedProps: { calendar: 'Personal' }
-        },
-        {
-            groupId: '999',
-            id: 3,
-            title: 'Repeating Event',
-            start: `${newDate.getFullYear()}-${getDynamicMonth()}-09T16:00:00`,
-            extendedProps: { calendar: 'Important' }
-        },
-        {
-            groupId: '999',
-            id: 4,
-            title: 'Repeating Event',
-            start: `${newDate.getFullYear()}-${getDynamicMonth()}-16T16:00:00`,
-            extendedProps: { calendar: 'Travel' }
-        },
-        {
-            id: 5,
-            title: 'Conference',
-            start: `${newDate.getFullYear()}-${getDynamicMonth()}-11`,
-            end: `${newDate.getFullYear()}-${getDynamicMonth()}-13`,
-            extendedProps: { calendar: 'Work' }
-        },
-        {
-            id: 6,
-            title: 'Meeting',
-            start: `${newDate.getFullYear()}-${getDynamicMonth()}-12T10:30:00`,
-            end: `${newDate.getFullYear()}-${getDynamicMonth()}-12T12:30:00`,
-            extendedProps: { calendar: 'Personal' }
-        },
-        {
-            id: 7,
-            title: 'Lunch',
-            start: `${newDate.getFullYear()}-${getDynamicMonth()}-12T12:00:00`,
-            extendedProps: { calendar: 'Important' }
-        },
-        {
-            id: 8,
-            title: 'Meeting',
-            start: `${newDate.getFullYear()}-${getDynamicMonth()}-12T14:30:00`,
-            extendedProps: { calendar: 'Travel' }
-        },
-        {
-            id: 9,
-            title: 'Birthday Party',
-            start: `${newDate.getFullYear()}-${getDynamicMonth()}-13T07:00:00`,
-            extendedProps: { calendar: 'Personal' }
-        },
-        {
-            id: 10,
-            title: 'Click for Google',
-            url: 'http://google.com/',
-            start: `${newDate.getFullYear()}-${getDynamicMonth()}-28`,
-            extendedProps: { calendar: 'Important' }
-        }
-    ]
-    
+
+    var calendarEventsList = [];
+
+    eventLists.forEach(function(a) {
+        var newItem = {
+            id: a.id,
+            title: a.title,
+            description: a.description,
+            start: a.start_date,
+            end: a.end_date,
+            extendedProps: {
+                calendar: a.remark
+            }
+        };
+
+        calendarEventsList.push(newItem);
+    });
+
     // Calendar Select fn.
     var calendarSelect = function(info) {
+        getModalFormEl.action = '/admin/kalendar/';
         getModalAddBtnEl.style.display = 'block';
         getModalUpdateBtnEl.style.display = 'none';
+        getFooterEventEl.style.display = 'flex';
+        getFooterDeleteEl.style.display = 'none';
         myModal.show()
         getModalStartDateEl.value = info.startStr;
         getModalEndDateEl.value = info.endStr;
@@ -133,10 +90,14 @@ document.addEventListener('DOMContentLoaded', function() {
         var mm = String(currentDate.getMonth() + 1).padStart(2, '0'); //January is 0!
         var yyyy = currentDate.getFullYear();
         var combineDate = `${yyyy}-${mm}-${dd}T00:00:00`;
+        getModalFormEl.action = '/admin/kalendar/';
         getModalAddBtnEl.style.display = 'block';
-        getModalUpdateBtnEl.style.display = 'none';        
+        getModalUpdateBtnEl.style.display = 'none';
+        getFooterEventEl.style.display = 'flex';
+        getFooterDeleteEl.style.display = 'none';
         myModal.show();
         getModalStartDateEl.value = combineDate;
+        getModalEndDateEl.value = combineDate;
     }
 
     // Calendar eventClick fn.
@@ -145,24 +106,47 @@ document.addEventListener('DOMContentLoaded', function() {
 
         if (eventObj.url) {
           window.open(eventObj.url);
-  
+
           info.jsEvent.preventDefault(); // prevents browser from following link in current tab.
         } else {
-            var getModalEventId = eventObj._def.publicId; 
+            var getModalEventId = eventObj._def.publicId;
             var getModalEventLevel = eventObj._def.extendedProps['calendar'];
             var getModalCheckedRadioBtnEl = document.querySelector(`input[value="${getModalEventLevel}"]`);
+            var startDate = new Date(eventObj.start);
+            var endDate = new Date(eventObj.end);
 
+            function formatToISO(dateString) {
+                var date = new Date(dateString);
+                var year = date.getFullYear();
+                var month = ('0' + (date.getMonth() + 1)).slice(-2); // Months are zero-based
+                var day = ('0' + date.getDate()).slice(-2);
+                var hours = ('0' + date.getHours()).slice(-2);
+                var minutes = ('0' + date.getMinutes()).slice(-2);
+                var seconds = ('0' + date.getSeconds()).slice(-2);
+                var formattedDate = year + '-' + month + '-' + day + 'T' + hours + ':' + minutes + ':' + seconds;
+                return formattedDate;
+            }
+
+            getDeleteFormEl.action = '/admin/kalendar/' + eventObj.id;
+            getModalFormEl.action = '/admin/kalendar/' + eventObj.id;
+            getModalFormEl.method = 'PATCH';
+            document.getElementById('methodInput').value = 'PATCH';
             getModalTitleEl.value = eventObj.title;
+            getModalDescEl.value = eventObj.extendedProps.description;
+            getModalStartDateEl.value = formatToISO(startDate);
+            getModalEndDateEl.value = formatToISO(endDate);
             getModalCheckedRadioBtnEl.checked = true;
-            getModalUpdateBtnEl.setAttribute('data-fc-event-public-id', getModalEventId)
+            // getModalUpdateBtnEl.setAttribute('data-fc-event-public-id', getModalEventId)
             getModalAddBtnEl.style.display = 'none';
             getModalUpdateBtnEl.style.display = 'block';
+            getFooterEventEl.style.display = 'none';
+            getFooterDeleteEl.style.display = 'flex';
             myModal.show();
         }
     }
-    
 
-    // Activate Calender    
+
+    // Activate Calender
     var calendar = new FullCalendar.Calendar(calendarEl, {
         selectable: true,
         height: checkWidowWidth() ? 900 : 1052,
@@ -187,7 +171,7 @@ document.addEventListener('DOMContentLoaded', function() {
               'event-fc-color fc-bg-' + getColorValue
             ];
         },
-        
+
         eventClick: calendarEventClick,
         windowResize: function(arg) {
             if (checkWidowWidth()) {
@@ -205,7 +189,7 @@ document.addEventListener('DOMContentLoaded', function() {
     getModalAddBtnEl.addEventListener('click', function() {
 
         var getModalCheckedRadioBtnEl = document.querySelector('input[name="event-level"]:checked');
-        
+
         var getTitleValue = getModalTitleEl.value;
         var setModalStartDateValue = getModalStartDateEl.value;
         var setModalEndDateValue = getModalEndDateEl.value;
@@ -232,15 +216,15 @@ document.addEventListener('DOMContentLoaded', function() {
         var getModalUpdatedCheckedRadioBtnEl = document.querySelector('input[name="event-level"]:checked');
 
         var getModalUpdatedCheckedRadioBtnValue = (getModalUpdatedCheckedRadioBtnEl !== null) ? getModalUpdatedCheckedRadioBtnEl.value : '';
-        
+
         getEvent.setProp('title', getTitleUpdatedValue);
         getEvent.setExtendedProp('calendar', getModalUpdatedCheckedRadioBtnValue);
         myModal.hide()
     })
-    
+
     // Calendar Renderation
     calendar.render();
-    
+
     var myModal = new bootstrap.Modal(document.getElementById('exampleModal'))
     var modalToggle = document.querySelector('.fc-addEventButton-button ')
 

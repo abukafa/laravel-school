@@ -1,5 +1,5 @@
 @extends('templates.navbar')
-    
+
     <!--  BEGIN CUSTOM STYLE FILE  -->
     <link href="../src/assets/css/light/scrollspyNav.css" rel="stylesheet" type="text/css" />
     <link href="../src/assets/css/light/components/modal.css" rel="stylesheet" type="text/css" />
@@ -15,7 +15,7 @@
             <div class="middle-content container-xxl p-0">
                 <div class="row layout-top-spacing">
                     <div id="tableCustomBasic" class="col-lg-12 col-12 layout-spacing">
-                    
+
                     <!-- FLASH ALERT -->
                     @if (session()->has('success') || session()->has('danger'))
                     <div class="alert alert-icon-left alert-light-{{ session('success') ? 'success' : 'danger' }} alert-dismissible fade show mb-4" role="alert">
@@ -24,14 +24,14 @@
                         <strong>{{ session('success') ?: session('danger') }}.</strong>
                     </div>
                     @endif
-                    
+
                         <div class="statbox widget box box-shadow">
 
                             <div class="widget-header">
                                 <div class="row mx-4 mt-4 mb-2">
                                     <div class="col-12 d-flex justify-content-between">
                                         <h4 class="p-0 mt-2">Pengguna</h4>
-                                        <button type="button" class="btn btn-sm btn-primary inputUser" data-bs-toggle="modal" data-bs-target="#userModal">Tambah</button>
+                                        <button type="button" class="btn btn-sm btn-primary inputUser {{ auth()->user()->role < 3 ? 'd-none' : '' }}" data-bs-toggle="modal" data-bs-target="#userModal">Tambah</button>
                                     </div>
                                 </div>
                             </div>
@@ -50,7 +50,7 @@
                                         </thead>
                                         <tbody>
 
-                                            @foreach ($users as $user)    
+                                            @foreach ($users as $user)
 
                                             <tr>
                                                 <td>

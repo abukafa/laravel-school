@@ -41,8 +41,8 @@ Route::resource('/admin/akun', AccountController::class)->middleware('auth');
 Route::resource('/admin/keuangan', FinanceController::class)->middleware('auth');
 Route::resource('/admin/tabungan', SavingController::class)->middleware('auth');
 Route::resource('/admin/siswa', StudentController::class)->middleware('auth');
-Route::resource('/admin/guru', TeacherController::class)->middleware('maintenance');
-
+Route::resource('/admin/guru', TeacherController::class)->middleware('auth');
+Route::resource('/admin/kalendar', CalendarController::class)->middleware('auth');
 Route::resource('/admin/potongan', DiscountController::class)->middleware('auth');
 
 Route::post('/admin/siswa/image/{id}', [StudentController::class, 'image_upload'])->middleware('auth');
@@ -90,7 +90,6 @@ Route::post('/admin/sekolah', [SchoolController::class, 'save'])->middleware('au
 
 
 
-Route::get('/admin/kalendar', [CalendarController::class, 'index'])->middleware('auth', 'maintenance');
 
 Route::get('/admin/konfirmasi', [PaymentController::class, 'confirm'])->middleware('auth');
 

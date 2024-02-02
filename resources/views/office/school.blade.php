@@ -7,7 +7,7 @@
             <div class="middle-content container-xxl p-0">
                 <div class="row">
                     <div id="flLoginForm" class="col-lg-12 layout-spacing">
-                        
+
                         <!-- FLASH ALERT -->
                         @if (session()->has('success') || session()->has('danger'))
                         <div class="alert alert-icon-left alert-light-{{ session('success') ? 'success' : 'danger' }} alert-dismissible fade show mb-4" role="alert">
@@ -16,13 +16,13 @@
                             <strong>{{ session('success') ?: session('danger') }}.</strong>
                         </div>
                         @endif
-                        
+
                         <div class="statbox widget box box-shadow">
                             <div class="widget-header">
                                 <div class="row">
                                     <div class="col-xl-12 col-md-12 col-sm-12 col-12">
                                         <h4>Data Sekolah</h4>
-                                    </div>                                                                        
+                                    </div>
                                 </div>
                             </div>
                             <div class="widget-content widget-content-area">
@@ -88,10 +88,10 @@
                                     <div class="col-6">
                                         <label for="logo" class="form-label">Logo</label>
                                         <input type="file" class="form-control" id="logo" name="logo" value="{{ $school ? $school->logo : '' }}">
-                                        <img src="{{ $school->logo ? asset('storage/logo.png') : '/src/assets/img/logo.png' }}" width="250" alt="logo" id="imgPreview">    
+                                        <img src="{{ $school->logo ? asset('storage/logo.png') : '/src/assets/img/logo.png' }}" width="250" alt="logo" id="imgPreview">
                                     </div>
                                     <div class="col-12 mt-2">
-                                        <button type="submit" class="btn btn-primary">Simpan</button>
+                                        <button type="submit" disabled class="btn btn-primary">Simpan</button>
                                     </div>
                                 </form>
                             </div>
@@ -101,5 +101,5 @@
             </div>
         </div>
     </div>
-    
+
 @endsection

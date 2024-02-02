@@ -28,7 +28,7 @@ class AuthController extends Controller
             'SUM(CASE WHEN LEFT(account, 2) = "33" THEN amount ELSE 0 END) as keluar'
         )->first();
         $total->bayar = Payment::whereRaw("LEFT(account, 2) = '11'")->sum('amount');
-        
+
         // data Sub Total per Bulan
         $paymentByMonth = (new Payment())->getPaymentByMonth()->pluck('total_payment')->toArray();
         $financeInByMonth = (new Finance())->getFinanceByMonth('22')->pluck('total_finance')->toArray();
@@ -57,12 +57,12 @@ class AuthController extends Controller
                 $monthlyPaymentByMonth[$i]['Makan'] = 0;
             }
         }
-    
+
         // data gabungan - History input
         $history = Payment::select('date', 'account', 'name', 'billing')
             ->union(Finance::select('date', 'account', 'description as name', 'amount as billing'))
             ->latest('date')->take(10)->get()->toArray();
-            
+
         // data progres payment
         $students = DB::table('students')
             ->select('id', 'name', 'registered', 'payment_category', 'image')
@@ -95,7 +95,7 @@ class AuthController extends Controller
                 )
                 ->where('ids', $student->id)
                 ->first();
-            
+
             // Menghitung Bulan
             // $bulanAwal = "July " . session('school.period');
             // $dateTimeAwal = DateTime::createFromFormat('F Y', $bulanAwal);
@@ -146,7 +146,7 @@ class AuthController extends Controller
         // Mendapatkan tanggal awal & akhir
         $today = date('Y-m-d');
         $lastDayOfMonth = date('Y-m-t');
-        
+
         $totalPayment = [
             'once_percent' => $total_once_percent,
             'monthly_percent' => $total_monthly_percent,
@@ -157,7 +157,7 @@ class AuthController extends Controller
             'remainingMonths' => 12 - date('n'),
         ];
 
-        // data alokasi 
+        // data alokasi
         $billings = Billing::select('account', 'name')
             ->groupBy('account', 'name')
             ->get();
@@ -180,6 +180,16 @@ class AuthController extends Controller
             ];
         }
 
+        $financeDistnc = Finance::select('invoice')
+            ->selectRaw('MIN(date) AS date')
+            ->selectRaw('MIN(remark) AS remark')
+            ->selectRaw('COUNT(*) AS items')
+            ->selectRaw('SUM(amount) AS total')
+            ->whereRaw("LEFT(account, 2) = '22'")  // Koreksi pada bagian WHERE
+            ->groupBy('invoice')
+            ->get();
+
+
         return view('auth.home1', [
             'title' => 'Beranda Keuangan',
             'total' => $total,
@@ -190,12 +200,12 @@ class AuthController extends Controller
             'studentPayment' => $studentPayment,
             'totalPayment' => $totalPayment,
             'payments' => Payment::all(),
-            'finances' => Finance::all(),
+            'finances' => $financeDistnc,
             'alokasi' => $alokasi
 
         ]);
     }
-    
+
     public function index()
     {
         return view('auth.login', [

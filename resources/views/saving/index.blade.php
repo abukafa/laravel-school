@@ -8,10 +8,10 @@
 
     <link rel="stylesheet" type="text/css" href="{{ asset('src/plugins/css/dark/table/datatable/dt-global_style.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('src/assets/css/dark/apps/invoice-list.css') }}">
-    
+
     <link href="../src/assets/css/light/components/list-group.css" rel="stylesheet" type="text/css">
     <link href="../src/assets/css/dark/components/list-group.css" rel="stylesheet" type="text/css">
-    
+
     <link rel="stylesheet" type="text/css" href="{{ asset('src/plugins/src/flatpickr/flatpickr.css') }}">
     <!--  END CUSTOM STYLE FILE  -->
 
@@ -28,7 +28,7 @@
         </div>
 
         <div class="layout-px-spacing">
-        
+
             <!-- FLASH ALERT -->
             @if (session()->has('success') || session()->has('danger'))
             <div class="col-12 mt-3">
@@ -39,7 +39,7 @@
                 </div>
             </div>
             @endif
-        
+
             <div class="middle-content container-xxl p-0">
                 <div class="row" id="cancel-row">
                     <div class="col-xl-12 col-lg-12 col-sm-12 layout-top-spacing layout-spacing mt-2">
@@ -58,7 +58,7 @@
                                 <tbody>
 
                                     @foreach ($savings as $index => $saving)
-                                        
+
                                     <tr>
                                         <td>{{ $loop->index +1 }}</td>
                                         <td>{{ $saving->date }}</td>
@@ -207,7 +207,7 @@
             "dom": "<'inv-list-top-section'<'row'<'col-sm-12 col-md-6 d-flex justify-content-md-start justify-content-center'l<'dt-action-buttons align-self-center'B>><'col-sm-12 col-md-6 d-flex justify-content-md-end justify-content-center mt-md-0 mt-3'f<'toolbar align-self-center'>>>>" +
                 "<'table-responsive'tr>" +
                 "<'inv-list-bottom-section d-sm-flex justify-content-sm-between text-center'<'inv-list-pages-count  mb-sm-0 mb-3'i><'inv-list-pagination'p>>",
-            
+
                 buttons: [
                 {
                     text: 'Index',
@@ -253,6 +253,7 @@
                 xhr.onload = function() {
                     if (xhr.status === 200) {
                         var data = JSON.parse(xhr.responseText);
+                        console.log(data);
                         document.getElementById('date').value = data.saving.date;
                         document.getElementById('ids').value = data.saving.ids;
                         document.getElementById('name').value = data.saving.name;
@@ -323,5 +324,5 @@
         xhr.send();
         });
     </script>
-    
+
 @endsection

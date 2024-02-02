@@ -4,7 +4,7 @@
 <link rel="stylesheet" type="text/css" href="{{ asset('src/plugins/src/apex/apexcharts.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('src/assets/css/light/dashboard/dash_1.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('src/assets/css/dark/dashboard/dash_1.css') }}">
-<!-- END PAGE LEVEL PLUGINS/CUSTOM STYLES -->    
+<!-- END PAGE LEVEL PLUGINS/CUSTOM STYLES -->
 
 @section('content')
 
@@ -16,7 +16,7 @@
 
                 <div class="row layout-top-spacing">
 
-                    <div class="col-xl-4 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
+                    <div class="col-xl-4 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing {{ auth()->user()->role == 1 ? 'd-none' : '' }}">
                         <div class="widget widget-six">
                             <div class="widget-heading">
                                 <h6 class="">Pemasukan</h6>
@@ -55,10 +55,10 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                     </div>
-                    
-                    <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12 layout-spacing">
+
+                    <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12 layout-spacing {{ auth()->user()->role == 1 ? 'd-none' : '' }}">
                         <div class="widget widget-card-four">
                             <div class="widget-content">
                                 <div class="w-header">
@@ -83,7 +83,7 @@
                                 <div class="w-content">
 
                                     <div class="w-info">
-                                        <p class="value">Rp. {{ number_format($total->keluar,0,".",",") }} <span></span> 
+                                        <p class="value">Rp. {{ number_format($total->keluar,0,".",",") }} <span></span>
                                             @if($total->keluar > $total->masuk)
                                             <svg xmlns="http://www.w3.org/2000/svg" height="16" width="18" viewBox="0 0 576 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2023 Fonticons, Inc.--><path fill="#ff4242" d="M384 160c-17.7 0-32-14.3-32-32s14.3-32 32-32H544c17.7 0 32 14.3 32 32V288c0 17.7-14.3 32-32 32s-32-14.3-32-32V205.3L342.6 374.6c-12.5 12.5-32.8 12.5-45.3 0L192 269.3 54.6 406.6c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l160-160c12.5-12.5 32.8-12.5 45.3 0L320 306.7 466.7 160H384z"/></svg>
                                             @else
@@ -91,10 +91,10 @@
                                             @endif
                                         </p>
                                     </div>
-                                    
+
                                 </div>
 
-                                <div class="w-progress-stats">                                            
+                                <div class="w-progress-stats">
                                     <div class="progress">
                                         <div class="progress-bar bg-gradient-secondary" role="progressbar" style="width: {{ ($total->masuk + $total->keluar) > 0 ? ($total->keluar / ($total->masuk + $total->keluar) * 100) : 0 }}%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
@@ -106,9 +106,9 @@
                                 </div>
                             </div>
                         </div>
-                    </div>  
+                    </div>
 
-                    <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12 layout-spacing">
+                    <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12 layout-spacing {{ auth()->user()->role == 1 ? 'd-none' : '' }}">
                         <div class="widget widget-card-three">
                             <div class="widget-content">
                                 <div class="account-box">
@@ -184,7 +184,7 @@
 
                                 <div class="mt-container mx-auto">
                                     <div class="timeline-line">
-                                        @foreach ($history as $item)   
+                                        @foreach ($history as $item)
                                             <div class="item-timeline timeline-new">
                                                 <div class="t-dot">
                                                     @if (substr($item['account'],0,2) == '11')
@@ -203,13 +203,13 @@
                                                 </div>
                                                 <div class="t-content">
                                                     <div class="t-uppercontent">
-                                                        <h5>{{ $item['name'] }} : <a href="javscript:void(0);"><span>{{ is_numeric($item['billing']) ? number_format($item['billing'],0,".",",") : $item['billing'] }}</span></a></h5>
+                                                        <h5>{{ $item['name'] }}</h5>
                                                     </div>
-                                                    <p>{{ $item['date'] }}</p>
+                                                    <p>{{ $item['date'] }} : <a href="javscript:void(0);"><span>{{ is_numeric($item['billing']) ? number_format($item['billing'],0,".",",") : $item['billing'] }}</span></a></p>
                                                 </div>
                                             </div>
                                         @endforeach
-                                    </div>                                    
+                                    </div>
                                 </div>
 
                                 <div class="w-shadow-bottom"></div>
@@ -246,7 +246,7 @@
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-compass"><circle cx="12" cy="12" r="10"></circle><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon></svg>
                                         </div>
                                         <div class="w-browser-details">
-                                            
+
                                             <div class="w-browser-info">
                                                 <h6>Biaya Tahunan</h6>
                                                 <p class="browser-count">{{ $totalPayment['yearly_percent'] }}%</p>
@@ -265,7 +265,7 @@
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-globe"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
                                         </div>
                                         <div class="w-browser-details">
-                                            
+
                                             <div class="w-browser-info">
                                                 <h6>Biaya Bulanan</h6>
                                                 <p class="browser-count">{{ $totalPayment['monthly_percent'] }}%</p>
@@ -309,7 +309,7 @@
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <div class="widget-content">
 
                                 <!-- <p>Doloribus nisi vel suscipit modi, optio ex repudiandae voluptatibus officiis commodi.</p> -->
@@ -319,7 +319,7 @@
                                         <div class="task-count"><p>{{ $totalPayment['yearly_person'] }} Persons</p></div>
                                         <div class="progress-stats"><p>{{ 100 - $totalPayment['yearly_percent'] }}%</p></div>
                                     </div>
-                                    
+
                                     <div class="progress">
                                         <div class="progress-bar bg-primary" role="progressbar" style="width: {{ 100 - $totalPayment['yearly_percent'] }}%" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
@@ -382,7 +382,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                
+
                             </div>
                             <div class="widget-content">
 
@@ -423,7 +423,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="col-xl-5 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
                         <div class="widget widget-five">
                             <div class="widget-heading">
@@ -441,13 +441,11 @@
                                         </thead>
                                         <tbody>
                                             @foreach ($finances as $item)
-                                                @if (substr($item->account,0,2)=='22')
-                                                    <tr>
-                                                        <td><div class="td-content product-invoice">{{ date('m/d', strtotime($item->date)) }}</div></td>
-                                                        <td><div class="td-content customer-name"><span>{{ $item->description }}</span></div></td>
-                                                        <td class="text-end"><div class="td-content pricing"><span class="">{{ number_format($item->amount,0,".",",") }}</span></div></td>
-                                                    </tr>
-                                                @endif
+                                                <tr>
+                                                    <td><div class="td-content product-invoice">{{ date('m/d', strtotime($item->date)) }}</div></td>
+                                                    <td><div class="td-content customer-name"><span>{{ $item->remark }}</span></div></td>
+                                                    <td class="text-end"><div class="td-content pricing"><span class="">{{ number_format($item->total,0,".",",") }}</span></div></td>
+                                                </tr>
                                             @endforeach
                                         </tbody>
                                     </table>
@@ -543,7 +541,7 @@
         //     }
         // });
     </script>
-    
+
     <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM SCRIPTS -->
     <script src="{{ asset('src/plugins/src/apex/apexcharts.min.js') }}"></script>
     <script src="{{ asset('src/assets/js/dashboard/dash_1.js') }}"></script>
