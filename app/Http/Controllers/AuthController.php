@@ -90,7 +90,8 @@ class AuthController extends Controller
             $paymentData = DB::table('payments')
                 ->select(
                     DB::raw('SUM(CASE WHEN is_once = 1 THEN amount ELSE 0 END) AS once'),
-                    DB::raw('SUM(CASE WHEN is_monthly = 1 THEN amount ELSE 0 END) AS monthly'),
+                    DB::raw('SUM(CASE WHEN is_monthly = 1 AND RIGHT(billing, 8) = DATE_FORMAT(NOW(), "%b-%Y") THEN amount ELSE 0 END) AS monthly'),
+                    // DB::raw('SUM(CASE WHEN is_monthly = 1 THEN amount ELSE 0 END) AS monthly'),
                     DB::raw('SUM(CASE WHEN is_monthly = 0 AND is_once = 0 THEN amount ELSE 0 END) AS yearly')
                 )
                 ->where('ids', $student->id)
@@ -102,8 +103,9 @@ class AuthController extends Controller
             // $dateTimeSekarang = new DateTime();
             // $interval = $dateTimeAwal->diff($dateTimeSekarang);
             // $jumlahBulan = ($interval->y * 12) + $interval->m +1;
-            $jumlahBulan = 12 - app('sisaBulanDalamPeriode');
-            $billingMonthly = $billingData->monthly * $jumlahBulan;
+            // $jumlahBulan = 12 - app('sisaBulanDalamPeriode');
+            // $billingMonthly = $billingData->monthly * $jumlahBulan;
+            $billingMonthly = $billingData->monthly;
 
             $totalBillingData = $billingData->once + $billingData->monthly + $billingData->yearly;
             if ($totalBillingData > 0){
