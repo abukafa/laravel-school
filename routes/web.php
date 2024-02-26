@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ScoreController;
 use App\Http\Controllers\AssessController;
 use App\Http\Controllers\LessonController;
 use App\Http\Controllers\SavingController;
@@ -12,10 +13,13 @@ use App\Http\Controllers\BillingController;
 use App\Http\Controllers\FinanceController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\CalendarController;
 use App\Http\Controllers\DiscountController;
+use App\Http\Controllers\CompetenceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,6 +48,17 @@ Route::resource('/admin/siswa', StudentController::class)->middleware('auth');
 Route::resource('/admin/guru', TeacherController::class)->middleware('auth');
 Route::resource('/admin/kalendar', CalendarController::class)->middleware('auth');
 Route::resource('/admin/potongan', DiscountController::class)->middleware('auth');
+
+Route::get('/admin/siswa/asesmen/{amy}', [StudentController::class, 'dataAsesmen'])->middleware('auth');
+
+Route::resource('/data/pelajaran', SubjectController::class)->middleware('auth');
+Route::resource('/data/kompetensi', CompetenceController::class)->middleware('auth');
+Route::resource('/data/nilai', ScoreController::class)->middleware('auth');
+Route::resource('/data/proyek', ProjectController::class)->middleware('auth');
+
+Route::get('/data/delete/nilai/{any}', [ScoreController::class, 'delete_all'])->middleware('auth');
+
+Route::get('/data/kompetensi/semester/{id}', [CompetenceController::class, 'findBySemester'])->middleware('auth');
 
 Route::post('/admin/siswa/image/{id}', [StudentController::class, 'image_upload'])->middleware('auth');
 Route::post('/admin/guru/image/{id}', [TeacherController::class, 'image_upload'])->middleware('auth');
@@ -87,12 +102,4 @@ Route::post('/password', [ProfileController::class, 'password_change'])->middlew
 Route::get('/admin/sekolah', [SchoolController::class, 'index'])->middleware('auth');
 Route::post('/admin/sekolah', [SchoolController::class, 'save'])->middleware('auth');
 
-
-
-
-
 Route::get('/admin/konfirmasi', [PaymentController::class, 'confirm'])->middleware('auth');
-
-// Route::get('/data/pelajaran', [LessonController::class, 'index'])->middleware('auth');
-// Route::get('/data/nilai', [AssessController::class, 'index'])->middleware('auth');
-// Route::get('/data/personal', [AssessController::class, 'detail'])->middleware('auth');

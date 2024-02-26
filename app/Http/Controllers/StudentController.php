@@ -62,6 +62,14 @@ class StudentController extends Controller
             'student' => $student
         ]);
     }
+    
+    public function dataAsesmen($year)
+    {
+        $students = Student::whereNull('graduation')->where('registered', $year)->orderBy('name')->get();
+        return response()->json([
+            'students' => $students
+        ]);
+    }
 
     public function edit($id)
     {
