@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\competence;
-use App\Models\subject;
-use App\Models\teacher;
+use App\Models\Competence;
+use App\Models\Subject;
+use App\Models\Teacher;
 use Illuminate\Http\Request;
 
 class CompetenceController extends Controller
@@ -14,11 +14,17 @@ class CompetenceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $semester = $request->query('semester');
+        if ($semester) {
+            $competences = Competence::where('semester', $semester)->get();
+        }else{
+            $competences = Competence::all();
+        }
         return view('assess.competence', [
             'title' => 'Data Kompetensi',
-            'competences' => Competence::all(),
+            'competences' => $competences,
             'subjects' => Subject::all(),
             'teachers' => Teacher::all()
         ]);

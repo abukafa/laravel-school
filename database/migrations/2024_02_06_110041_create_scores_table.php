@@ -21,7 +21,7 @@ return new class extends Migration
             $table->integer('registered');
             $table->integer('semester');
             $table->integer('competence_id');
-            $table->integer('subject');
+            $table->string('subject');
             $table->integer('month_1')->nullable();
             $table->integer('month_2')->nullable();
             $table->integer('month_3')->nullable();

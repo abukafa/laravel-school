@@ -66,61 +66,59 @@
                                                             </thead>
                                                             <tbody id="table-form">
                                                                 @foreach ($scores as $i => $item)
-                                                                    <tr>
-                                                                        <td style="vertical-align: middle !important;">{{ $i + 1 }}</td>
-                                                                        <td>
-                                                                            <input type="hidden" class="form-control form-control-sm" name="id[]" value="{{ $item->id }}">
-                                                                            <input type="hidden" class="form-control form-control-sm" name="student_id[]" value="{{ $item->student_id }}">
-                                                                            <input type="text" class="form-control form-control-sm" name="student[]" value="{{ $item->student }}">
-                                                                        </td>
-                                                                        <td>
-                                                                            <input type="text" class="form-control form-control-sm text-center" name="month_1[]" id="month_1" value="{{ $item->month_1 }}">
-                                                                        </td>
-                                                                        <td>
-                                                                            <input type="text" class="form-control form-control-sm text-center" name="month_2[]" id="month_2" value="{{ $item->month_2 }}">
-                                                                        </td>
-                                                                        <td>
-                                                                            <input type="text" class="form-control form-control-sm text-center" name="month_3[]" id="month_3" value="{{ $item->month_3 }}">
-                                                                        </td>
-                                                                        <td>
-                                                                            <input type="text" class="form-control form-control-sm text-center" name="month_4[]" id="month_4" value="{{ $item->month_4 }}">
-                                                                        </td>
-                                                                        <td>
-                                                                            <input type="text" class="form-control form-control-sm text-center" name="month_5[]" id="month_5" value="{{ $item->month_5 }}">
-                                                                        </td>
-                                                                        <td>
-                                                                            <input type="text" class="form-control form-control-sm text-center" name="month_6[]" id="month_6" value="{{ $item->month_6 }}">
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr class="text-center">
-                                                                        <td colspan="2" style="vertical-align: middle !important;">
-                                                                            <form action="/data/nilai/{{ $item->id }}" method="POST" class="d-inline">
-                                                                                @csrf
-                                                                                @method('delete')
-                                                                                <button type="submit" class="btn btn-outline-danger btn-icon btn-rounded" onclick="return confirm('Apakah anda yakin?')" disabled>
-                                                                                    <i class="far fa-trash-al">{{ $item->id }}</i>
-                                                                                </button>
-                                                                            </form>                                                                            
-                                                                        </td>
-                                                                        <td colspan="2">
-                                                                            <textarea class="form-control" name="competence_1[]" id="competence_1" cols="30" rows="3">{{ $item->competence_1 }}</textarea>
-                                                                            <div class="form-check form-switch mt-3">
-                                                                                <input class="form-check-input" type="checkbox" name="is_ok_1[]" id="is_ok_1" value="1" {{ $item->is_ok_1 ? 'checked' : '' }}>
-                                                                            </div>
-                                                                        </td>
-                                                                        <td colspan="2">
-                                                                            <textarea class="form-control" name="competence_2[]" id="competence_2" cols="30" rows="3">{{ $item->competence_2 }}</textarea>
-                                                                            <div class="form-check form-switch mt-3">
-                                                                                <input class="form-check-input" type="checkbox" name="is_ok_2[]" id="is_ok_2" value="1" {{ $item->is_ok_2 ? 'checked' : '' }}>
-                                                                            </div>
-                                                                        </td>
-                                                                        <td colspan="2">
-                                                                            <textarea class="form-control" name="competence_3[]" id="competence_3" cols="30" rows="3">{{ $item->competence_3 }}</textarea>
-                                                                            <div class="form-check form-switch mt-3">
-                                                                                <input class="form-check-input" type="checkbox" name="is_ok_3[]" id="is_ok_3" value="1" {{ $item->is_ok_3 ? 'checked' : '' }}>
-                                                                            </div>
-                                                                        </td>
-                                                                    </tr>
+                                                                
+                                                                <tr>
+                                                                    <td style="vertical-align: middle !important;">{{ $i + 1 }}</td>
+                                                                    <td>
+                                                                        <input type="hidden" class="form-control form-control-sm" name="id[]" value="{{ $item->id }}">
+                                                                        <input type="hidden" class="form-control form-control-sm" name="student_id[]" value="{{ $item->student_id }}">
+                                                                        <input type="text" class="form-control form-control-sm" name="student[]" value="{{ $item->student }}">
+                                                                    </td>
+                                                                    <td>
+                                                                        <input type="text" class="form-control form-control-sm text-center" name="month_1[]" id="month_1" value="{{ $item->month_1 }}">
+                                                                    </td>
+                                                                    <td>
+                                                                        <input type="text" class="form-control form-control-sm text-center" name="month_2[]" id="month_2" value="{{ $item->month_2 }}">
+                                                                    </td>
+                                                                    <td>
+                                                                        <input type="text" class="form-control form-control-sm text-center" name="month_3[]" id="month_3" value="{{ $item->month_3 }}">
+                                                                    </td>
+                                                                    <td>
+                                                                        <input type="text" class="form-control form-control-sm text-center" name="month_4[]" id="month_4" value="{{ $item->month_4 }}">
+                                                                    </td>
+                                                                    <td>
+                                                                        <input type="text" class="form-control form-control-sm text-center" name="month_5[]" id="month_5" value="{{ $item->month_5 }}">
+                                                                    </td>
+                                                                    <td>
+                                                                        <input type="text" class="form-control form-control-sm text-center" name="month_6[]" id="month_6" value="{{ $item->month_6 }}">
+                                                                    </td>
+                                                                </tr>
+                                                                <tr class="text-center">
+                                                                    <td colspan="2" style="vertical-align: middle !important;">
+                                                                        <a href="/data/destroy/nilai/{{ $item->id }}" type="button" class="btn btn-outline-danger btn-icon btn-rounded" onclick="return confirm('Apakah anda yakin?')">
+                                                                            <i class="far fa-trash-alt"></i>
+                                                                        </a>
+                                                                    </td>
+                                                                    <td colspan="2">
+                                                                        <textarea class="form-control" name="competence_1[]" id="competence_1" cols="30" rows="3">{{ $item->competence_1 }}</textarea>
+                                                                        <div class="form-check form-switch mt-3">
+                                                                            <input class="form-check-input" type="checkbox" name="is_ok_1[]" id="is_ok_1" value="1" {{ $item->is_ok_1 ? 'checked' : '' }}>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td colspan="2">
+                                                                        <textarea class="form-control" name="competence_2[]" id="competence_2" cols="30" rows="3">{{ $item->competence_2 }}</textarea>
+                                                                        <div class="form-check form-switch mt-3">
+                                                                            <input class="form-check-input" type="checkbox" name="is_ok_2[]" id="is_ok_2" value="1" {{ $item->is_ok_2 ? 'checked' : '' }}>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td colspan="2">
+                                                                        <textarea class="form-control" name="competence_3[]" id="competence_3" cols="30" rows="3">{{ $item->competence_3 }}</textarea>
+                                                                        <div class="form-check form-switch mt-3">
+                                                                            <input class="form-check-input" type="checkbox" name="is_ok_3[]" id="is_ok_3" value="1" {{ $item->is_ok_3 ? 'checked' : '' }}>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>                                                            
+
                                                                 @endforeach
                                                             </tbody>
                                                         </table>

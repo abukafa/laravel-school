@@ -78,9 +78,6 @@
                                                     <a class="badge badge-primary text-start me-1 action-view" href="/data/nilai/{{ $item->serial }}/edit">
                                                         <span class="far fa-eye"></span>
                                                     </a>
-                                                    <a class="badge badge-danger text-start me-1 action-view {{ auth()->user()->role < 5 ? 'd-none' : '' }}" href="/data/delete/nilai/{{ $item->serial }}" onclick="return confirm('Apakah anda yakin?')">
-                                                        <span class="far fa-trash-alt"></span>
-                                                    </a>
                                                 </td>
                                             </tr>
                                         @endforeach

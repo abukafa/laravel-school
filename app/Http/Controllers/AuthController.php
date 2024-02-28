@@ -191,8 +191,7 @@ class AuthController extends Controller
             ->groupBy('invoice')
             ->get();
 
-
-        return view('auth.home1', [
+        $data = [
             'title' => 'Beranda Keuangan',
             'total' => $total,
             'paymentByMonth' => $paymentByMonth,
@@ -205,7 +204,10 @@ class AuthController extends Controller
             'finances' => $financeDistnc,
             'alokasi' => $alokasi
 
-        ]);
+        ];
+
+        // dd($data);
+        return view('auth.home1', $data);
     }
 
     public function index()
