@@ -53,10 +53,14 @@ Route::get('/admin/siswa/asesmen/{amy}', [StudentController::class, 'dataAsesmen
 
 Route::resource('/data/pelajaran', SubjectController::class)->middleware('auth');
 Route::resource('/data/kompetensi', CompetenceController::class)->middleware('auth');
-Route::resource('/data/nilai', ScoreController::class)->middleware('auth');
 Route::resource('/data/proyek', ProjectController::class)->middleware('auth');
 
-Route::get('/data/delete/nilai/{any}', [ScoreController::class, 'delete_all'])->middleware('auth');
+// Route::resource('/data/nilai', ScoreController::class)->middleware('auth');
+Route::get('/data/nilai', [ScoreController::class, 'index'])->middleware('auth');
+Route::get('/data/nilai/create', [ScoreController::class, 'create'])->middleware('auth');
+Route::get('/data/nilai/{num}/edit', [ScoreController::class, 'edit'])->middleware('auth');
+Route::post('/data/nilai', [ScoreController::class, 'store'])->middleware('auth');
+Route::get('/data/destroy/nilai/{id}', [ScoreController::class, 'destroy'])->middleware('auth');
 
 Route::get('/data/kompetensi/semester/{id}', [CompetenceController::class, 'findBySemester'])->middleware('auth');
 

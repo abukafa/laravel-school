@@ -22,7 +22,20 @@
                                 <div class="row mx-4 mt-4 mb-2">
                                     <div class="col-12 d-flex justify-content-between">
                                         <h4 class="p-0 mt-2">Kompetensi Dasar</h4>
-                                        <button type="button" class="btn btn-sm btn-primary inputCompetence" data-bs-toggle="modal" data-bs-target="#competenceModal">Tambah</button>
+                                        <div class="d-flex align-items-center">
+                                            <form action="" method="GET" class="d-flex m-1">
+                                                <select class="form-select form-select-sm m-1" name="semester" onchange="this.form.submit()">
+                                                    <option selected>Semester ...</option>
+                                                    <option>1</option>
+                                                    <option>2</option>
+                                                    <option>3</option>
+                                                    <option>4</option>
+                                                    <option>5</option>
+                                                    <option>6</option>
+                                                </select>
+                                            </form>
+                                            <button type="button" class="btn btn-sm btn-primary inputCompetence" data-bs-toggle="modal" data-bs-target="#competenceModal">Tambah</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

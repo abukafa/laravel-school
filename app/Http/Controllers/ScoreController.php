@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\score;
+use App\Models\Score;
 use Illuminate\Http\Request;
 
 class ScoreController extends Controller
@@ -113,17 +113,6 @@ class ScoreController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\score  $score
-     * @return \Illuminate\Http\Response
-     */
-    public function show(score $score)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\score  $score
@@ -132,22 +121,13 @@ class ScoreController extends Controller
     public function edit($serial)
     {
         $scores = Score::where('serial', $serial)->get();
+        if ($scores->isEmpty()) {
+            return redirect()->action([self::class, 'index']);
+        }
         return view('assess.edit', [
             'title' => 'Data Nilai',
             'scores' => $scores
         ]); 
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\score  $score
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, score $score)
-    {
-        //
     }
 
     /**
@@ -158,20 +138,9 @@ class ScoreController extends Controller
      */
     public function destroy($id)
     {
-        dd($request);
         $deleted = Score::destroy($id);
         if ($deleted) {
             return back()->with('success', 'Data berhasil dihapus');
-        } else {
-            return back()->with('danger', 'Data gagal dihapus');
-        }
-    }
-
-    public function delete_all($serial)
-    {
-        $deleted = Score::where('serial', $serial)->delete();
-        if ($deleted) {
-            return back()->with('success', 'Semua Data berhasil dihapus');
         } else {
             return back()->with('danger', 'Data gagal dihapus');
         }

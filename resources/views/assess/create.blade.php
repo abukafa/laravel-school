@@ -88,6 +88,7 @@
                                                                 <tr>
                                                                     <td rowspan="3"><div class="mt-2">1</div></td>
                                                                     <td rowspan="3">
+                                                                        <input type="hidden" class="form-control form-control-sm" name="id[]" value="0">
                                                                         <input type="hidden" class="form-control form-control-sm" name="student_id[]" value="">
                                                                         <input type="text" class="form-control form-control-sm" name="student[]" value="Nama Santri">
                                                                     </td>
