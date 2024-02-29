@@ -22,7 +22,7 @@
                                 <div class="row mx-4 mt-4 mb-2">
                                     <div class="col-12 d-flex justify-content-between">
                                         <h4 class="p-0 mt-2">Pelajaran</h4>
-                                        <button type="button" class="btn btn-sm btn-primary inputSubject" data-bs-toggle="modal" data-bs-target="#subjectModal">Tambah</button>
+                                        <button type="button" class="btn btn-sm btn-primary inputSubject {{ auth()->user()->role < 3 ? 'd-none' : '' }}" data-bs-toggle="modal" data-bs-target="#subjectModal">Tambah</button>
                                     </div>
                                 </div>
                             </div>
@@ -35,7 +35,7 @@
                                                 <th scope="col">Group</th>
                                                 <th scope="col">Urutan</th>
                                                 <th scope="col">Pelajaran</th>
-                                                <th class="text-center" scope="col">Opsi</th>
+                                                <th class="text-center {{ auth()->user()->role < 3 ? 'd-none' : '' }}" scope="col">Opsi</th>
                                             </tr>
                                             <tr aria-hidden="true" class="mt-3 d-block table-row-hidden"></tr>
                                         </thead>
@@ -47,7 +47,7 @@
                                                 <td>{{ $item->group }}</td>
                                                 <td>{{ $item->number }}</td>
                                                 <td>{{ $item->name }}</td>
-                                                <td class="text-center">
+                                                <td class="text-center {{ auth()->user()->role < 3 ? 'd-none' : '' }}">
                                                     <div class="action-btns">
                                                         <button class="btn btn-outline-secondary btn-icon btn-rounded editSubject" data-id="{{ $item->id }}" data-bs-toggle="modal" data-bs-target="#subjectModal">
                                                             <span class="far fa-edit"></span>

@@ -63,7 +63,7 @@
                                                 <td>{{ $item->teacher }}</td>
                                                 <td>{{ substr($item->competence_1,0,50) }} ...</td>
                                                 <td class="text-center">
-                                                    <div class="action-btns">
+                                                    <div class="action-btns {{ auth()->user()->role < 3 && auth()->user()->name <> $item->teacher ? 'd-none' : '' }}">
                                                         <button class="btn btn-outline-secondary btn-icon btn-rounded editCompetence" data-id="{{ $item->id }}" data-bs-toggle="modal" data-bs-target="#competenceModal">
                                                             <span class="far fa-edit"></span>
                                                         </button>

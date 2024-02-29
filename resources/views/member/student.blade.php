@@ -17,7 +17,7 @@
         <div class="row mx-4 mt-4 mb-2">
             <div class="col-12 d-flex justify-content-between">
                 <h5 class="mt-2">Data Santri</h5>
-                <a href="/admin/siswa/create" type="button" class="btn btn-primary">Tambah</a>
+                <a href="/admin/siswa/create" type="button" class="btn btn-primary {{ auth()->user()->role < 2 ? 'd-none' : '' }}">Tambah</a>
             </div>
         </div>
 
@@ -46,7 +46,7 @@
                                             <th>NIS</th>
                                             <th>Pic</th>
                                             <th>Nama</th>
-                                            <th>Kelas</th>
+                                            <th>Angkatan</th>
                                             <th class="text-center dt-no-sorting">Opsi</th>
                                         </tr>
                                     </thead>
@@ -63,7 +63,7 @@
                                                 </a>
                                             </td>
                                             <td>{{ $item->name }}</td>
-                                            <td>{{ $item->rumble }}</td>
+                                            <td>{{ $item->registered }}</td>
                                             <td class="text-center">
                                                 <div class="action-btns">
                                                     <a href="/admin/siswa/{{ $item->id }}/edit" class="btn btn-outline-secondary btn-icon btn-rounded">

@@ -17,7 +17,7 @@
         <div class="row mx-4 mt-4 mb-2">
             <div class="col-12 d-flex justify-content-between">
                 <h5>Data Guru</h5>
-                <a href="/admin/guru/create" type="button" class="btn btn-sm btn-primary">Tambah</a>
+                <a href="/admin/guru/create" type="button" class="btn btn-sm btn-primary {{ auth()->user()->role < 2 ? 'd-none' : '' }}">Tambah</a>
             </div>
         </div>
 
@@ -51,7 +51,7 @@
                                             </td>
                                             <td class="text-center"><span class="shadow-none badge badge-{{ $item->active == 1 ? 'primary' : 'danger' }}">{{ $item->active == 1 ? 'Active' : 'Suspend' }}</span></td>
                                             <td class="text-center">
-                                                <div class="action-btns">
+                                                <div class="action-btn">
                                                     <a href="/admin/guru/{{ $item->id }}/edit" class="btn btn-outline-secondary btn-icon btn-rounded">
                                                         <span class="far fa-edit"></span>
                                                     </a>

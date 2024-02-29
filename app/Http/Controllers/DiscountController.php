@@ -15,7 +15,7 @@ class DiscountController extends Controller
      */
     public function index()
     {
-        $discounts = Discount::selectRaw('DISTINCT ids, MAX(year) as year, MAX(name) as name, SUM(amount) as total')->groupBy('ids', 'name')->get();
+        $discounts = Discount::selectRaw('DISTINCT ids, MAX(year) as year, MAX(name) as name, SUM(amount) as total')->groupBy('ids', 'name')->orderBy('year')->orderBy('name')->get();
         return view('payment.discount', [
             'title' => 'Data Potongan',
             'discounts' => $discounts

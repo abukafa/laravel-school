@@ -19,6 +19,7 @@ class PaymentController extends Controller
             ->selectRaw('COUNT(*) AS items')
             ->selectRaw('SUM(amount) AS total')
             ->groupBy('invoice')
+            ->orderByDesc('date')
             ->get();
 
         return view('payment.index', [
@@ -32,7 +33,7 @@ class PaymentController extends Controller
         $billings = Billing::all();
         $students = Student::all();
         $total = 0;
-        $items = Payment::where('invoice', $inv)->get();
+        $items = Payment::where('invoice', $inv)->orderBy('date')->get();
         foreach ($items as $i) {
             $total += $i->amount;
         }
@@ -50,7 +51,7 @@ class PaymentController extends Controller
     {
         $school = School::first();
         $total = 0;
-        $items = Payment::where('invoice', $inv)->get();
+        $items = Payment::where('invoice', $inv)->orderBy('date')->get();
         foreach ($items as $i) {
             $total += $i->amount;
         }
@@ -65,7 +66,7 @@ class PaymentController extends Controller
     public function rekapitulasi(Request $request)
     {
         $year = $request->query('year');
-        $students = $year ? Student::where('registered', $year)->get() : Student::all();
+        $students = $year ? Student::where('registered', $year)->orderBy('name')->get() : Student::orderBy('registered')->orderBy('name')->get();
         $items = collect();
         foreach ($students as $student) {
             $payment = Payment::selectRaw(

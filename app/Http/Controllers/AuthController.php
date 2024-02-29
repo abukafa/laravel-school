@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use DateTime;
+use App\Models\Score;
 use App\Models\School;
 use App\Models\Billing;
 use App\Models\Finance;
@@ -15,10 +16,100 @@ use Illuminate\Support\Facades\Session;
 
 class AuthController extends Controller
 {
-    public function home2()
+    private function calculateAverage($scores, $months)
     {
-        return view('auth.home2', ['title' => 'Beranda Akademis']);
+        $averages = [];
+    
+        foreach ($months as $month) {
+            $filteredScores = $scores->filter(function ($score) use ($month) {
+                return $score->$month !== null;
+            });
+    
+            if ($filteredScores->isNotEmpty()) {
+                // Calculate the average and convert to integer
+                $averages[] = intval($filteredScores->avg($month));
+            } else {
+                // Push null or some default value if you prefer
+                $averages[] = null;
+            }
+        }
+    
+        return $averages;
     }
+    
+    public function home2(Request $request)
+    {
+        $id = $request->query('id');
+        $smt = $request->query('semester');
+        $student = Student::find($id);
+
+        if ($smt) {
+            if ($smt % 2 == 0) {
+                $data['bulan'] = ['Jan', 'Feb', 'Mar', 'Arp', 'May', 'Jun'];
+            }else{
+                $data['bulan'] = ['Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Des'];
+            }
+        }else{
+            $data['bulan'] = ['1st', '2nd', '3rd', '4th', '5th', '6th'];
+        }
+        
+        $data = [
+            'adab' => [],
+            'tahfidzh' => [],
+            'ict' => ['subject' => [], 'value' => []]
+        ];
+    
+        if ($id) {
+            $scores = Score::where('student_id', $id)->where('semester', $smt)->get();
+        
+            foreach ($scores as $score) {
+                if ($score->subject == 'Alquran - Adab') {
+                    $data['adab'] = [
+                        $score->month_1, $score->month_2, $score->month_3, $score->month_4, $score->month_5, $score->month_6
+                    ];
+                }
+                if ($score->subject == 'Alquran - Tahfidzh') {
+                    $data['tahfidzh'] = [
+                        $score->month_1, $score->month_2, $score->month_3, $score->month_4, $score->month_5, $score->month_6
+                    ];
+                }
+                if (strpos($score->subject, 'Multimedia') === 0) {
+                    $data['ict']['subject'][] = substr($score->subject, strpos($score->subject, ' - ') + strlen(' - '));
+                    $data['ict']['value'][] = $score->month_6 === null ? 0 : $score->month_6;
+                }
+            }
+        }
+        
+    
+        // Fetch all scores if $id is not provided
+        else {
+            $scores = Score::where('subject', 'Alquran - Adab')->get();
+            if ($scores) {
+                $data['adab'] = $this->calculateAverage($scores, ['month_1', 'month_2', 'month_3', 'month_4', 'month_5', 'month_6']);
+            }
+            $scores = Score::where('subject', 'Alquran - tahfidzh')->get();
+            if ($scores) {
+                $data['tahfidzh'] = $this->calculateAverage($scores, ['month_1', 'month_2', 'month_3', 'month_4', 'month_5', 'month_6']);
+            }
+            $scores = Score::select('subject', DB::raw('avg(month_6) as average'))
+                ->where('subject', 'like', 'Multimedia%')
+                ->groupBy('subject')
+                ->get();
+            foreach ($scores as $score) {
+                $data['ict']['subject'][] = substr($score->subject, strpos($score->subject, ' - ') + strlen(' - '));
+                $data['ict']['value'][] = round($score->average);
+            }
+        }
+    
+        // dd($data);
+        return view('auth.home2', [
+            'title' => 'Beranda Akademis',
+            'students' => Student::where('graduation', NULL)->orderBy('name')->get(),
+            'name' => optional($student)->nickname ?? 'Semua Data',
+            'data' => $data
+        ]);
+    }
+       
 
     public function home1()
     {

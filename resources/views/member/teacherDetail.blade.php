@@ -165,7 +165,7 @@
                                                 <input type="text" class="form-control form-control" name="note" id="note" value="{{ $teacher ? $teacher->note : '' }}">
                                             </div>
                                             <div class="mb-2">
-                                                <button class="btn btn-primary" type="submit">Simpan</button>
+                                                <button class="btn btn-primary" type="submit" {{ $teacher && auth()->user()->role < 2 && auth()->user()->name <> $teacher->name ? 'disabled' : '' }}>Simpan</button>
                                             </div>
                                         </div>
                                     </div>
