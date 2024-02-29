@@ -17,6 +17,7 @@ class FinanceController extends Controller
             ->selectRaw('COUNT(*) AS items')
             ->selectRaw('SUM(amount) AS total')
             ->groupBy('invoice')
+            ->orderByDesc('date')
             ->get();
 
         return view('finance.index', [

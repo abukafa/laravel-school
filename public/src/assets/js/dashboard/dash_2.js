@@ -204,7 +204,7 @@ window.addEventListener("load", function(){
         }]
         },
         subtitle: {
-          text: '3.7',
+          text: averageWithoutNull(adabData, tahfidzhData).toFixed(1),
           align: 'left',
           margin: 0,
           offsetX: 100,
@@ -216,7 +216,7 @@ window.addEventListener("load", function(){
           }
         },
         title: {
-          text: 'Rata-rata',
+          text: 'Average : ',
           align: 'left',
           margin: 0,
           offsetX: -10,
@@ -235,12 +235,12 @@ window.addEventListener("load", function(){
         },
         series: [{
             name: 'Karakter',
-            data: [16800, 16800, 15500, 14800, 15500, 17000, 21000, 16000, 15000, 17000, 14000, 17000]
+            data: adabData
         }, {
             name: 'Akademis',
-            data: [16500, 17500, 16200, 17300, 16000, 21500, 16000, 17000, 16000, 19000, 18000, 19000]
+            data: tahfidzhData
         }],
-        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+        labels: bulanData,
         xaxis: {
           axisBorder: {
             show: false
@@ -264,7 +264,8 @@ window.addEventListener("load", function(){
         yaxis: {
           labels: {
             formatter: function(value, index) {
-              return (value / 1000) + 'K'
+              // return parseInt(value / 20)
+              return (value / 20).toFixed(1);
             },
             offsetX: -15,
             offsetY: 0,
@@ -375,7 +376,7 @@ window.addEventListener("load", function(){
               },
               itemMargin: {
                 horizontal: 10,
-                vertical: 30
+                vertical: 10
               }
           },
           plotOptions: {
@@ -422,8 +423,8 @@ window.addEventListener("load", function(){
             width: 15,
             colors: '#0e1726'
           },
-          series: [985, 737, 270],
-          labels: ['Apparel', 'Sports', 'Others'],
+          series: ictValueData,
+          labels: ictSubjectData,
     
           responsive: [
             { 

@@ -14,7 +14,7 @@ class StudentController extends Controller
     {
         return view('member.alumni', [
             'title' => 'Data Alumni',
-            'students' => Student::where('graduation', '!=', '')->orderBy('graduation')->get()
+            'students' => Student::where('graduation', '!=', '')->orderBy('graduation')->orderBy('name')->get()
         ]);
     }
 
@@ -22,7 +22,7 @@ class StudentController extends Controller
     {
         return view('member.student', [
             'title' => 'Data Siswa',
-            'students' => Student::whereNull('graduation')->orderBy('rumble')->get()
+            'students' => Student::whereNull('graduation')->orderBy('registered')->orderBy('name')->get()
         ]);
     }
 

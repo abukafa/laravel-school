@@ -18,6 +18,7 @@ class BillingController extends Controller
             ->selectRaw('SUM(CASE WHEN is_monthly = 1 THEN amount ELSE 0 END) AS monthly')
             ->selectRaw('SUM(CASE WHEN is_once = 1 THEN amount ELSE 0 END) AS once')
             ->groupBy('year', 'category')
+            ->orderBy('year')
             ->get();
 
         return view('payment.billing', [

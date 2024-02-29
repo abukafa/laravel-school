@@ -15,7 +15,7 @@ class SavingController extends Controller
     {
         return view('saving.index', [
             'title' => 'Data Tabungan',
-            'savings' => Saving::all(),
+            'savings' => Saving::orderByDesc('date')->get(),
             'students' => Student::all()
         ]);
     }

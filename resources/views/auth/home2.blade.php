@@ -17,12 +17,34 @@
 
             <div class="middle-content container-xxl p-0">
 
-                <div class="row layout-top-spacing">
+                <div class="d-flex flex-row-reverse mt-4 mb-2">
+                    <div class="col-xl-4 ps-xl-3 col-md-6 col-12">
+                        <form action="" method="get" class="d-flex input-group">
+                            <select class="form-select form-select col-4" name="semester">
+                                <option selected value={{ request('semester') }}>Semester {{ request('semester') }}</option>
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                                <option>5</option>
+                                <option>6</option>
+                            </select>
+                            <select class="form-select form-select col-8" name="id" onchange="this.form.submit()">
+                                <option>{{ $name }}</option>
+                                @foreach ($students as $item)
+                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                @endforeach
+                            </select>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="row">
 
                     <div class="col-xl-8 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
                         <div class="widget widget-chart-one p-4">
                             <div class="widget-heading">
-                                <h5 class="">Index Kompetensi</h5>
+                                <h5 class="">Monthly Progress</h5>
                                 <div class="task-action">
                                     <div class="dropdown">
                                         <a class="dropdown-toggle" href="#" role="button" id="renvenue" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -46,7 +68,7 @@
                     <div class="col-xl-4 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
                         <div class="widget widget-chart-two">
                             <div class="widget-heading">
-                                <h5 class="mb-4">Kategori Penilaian</h5>
+                                <h5 class="mb-4">ICT</h5>
                             </div>
                             <div class="widget-content">
                                 <div id="chart-2" class=""></div>
@@ -712,5 +734,24 @@
     <script src="../src/plugins/src/apex/apexcharts.min.js"></script>
     <script src="../src/assets/js/dashboard/dash_2.js"></script>
     <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM SCRIPTS -->
+
+    <script>
+        var adabData = @json($data['adab'] ?? []);
+        var tahfidzhData = @json($data['tahfidzh'] ?? []);
+        var bulanData = @json($data['bulan'] ?? []);
+        var ictSubjectData = @json($data['ict']['subject'] ?? []);
+        var ictValueData = @json($data['ict']['value'] ?? []);
+        function averageWithoutNull(...arrays) {
+            // Flatten the arrays and filter out null values
+            const filteredNumbers = arrays
+                .flat()
+                .filter(value => value !== null);
+            // Calculate the sum of numbers
+            const sum = filteredNumbers.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+            // Calculate the average
+            const average = sum / filteredNumbers.length;
+            return average;
+        }
+    </script>
     
 @endsection
