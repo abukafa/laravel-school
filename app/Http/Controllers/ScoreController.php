@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Score;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ScoreController extends Controller
 {
@@ -17,7 +18,7 @@ class ScoreController extends Controller
         $year = $request->query('year');
         $semester = $request->query('semester');
 
-        $scores = Score::select('serial', 'registered', 'semester', 'competence_id', 'subject')
+        $scores = Score::select('serial', 'registered', 'semester', 'competence_id', 'subject', DB::raw('MAX(created_at) as created_at'))
             ->selectRaw('COUNT(competence_id) AS count')
             ->groupBy('serial', 'registered', 'semester', 'competence_id', 'subject');
 
@@ -127,7 +128,7 @@ class ScoreController extends Controller
         return view('assess.edit', [
             'title' => 'Data Nilai',
             'scores' => $scores
-        ]); 
+        ]);
     }
 
     /**

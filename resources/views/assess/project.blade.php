@@ -20,7 +20,7 @@
                 <div class="d-flex align-items-center">
                     <button type="button" class="btn btn-sm btn-primary inputProject" data-bs-toggle="modal" data-bs-target="#projectModal">Tambah</button>
                 </div>
-                
+
             </div>
         </div>
 
@@ -55,7 +55,7 @@
                                     </thead>
                                     <tbody>
 
-                                        @foreach ($projects as $index => $item)    
+                                        @foreach ($projects as $index => $item)
                                         <tr>
                                             <td>{{ $loop->index + 1 }}</td>
                                             <td>{{ $item->student }}</td>
@@ -63,7 +63,7 @@
                                             <td>{{ $item->name }}</td>
                                             <td>{{ $item->item }}</td>
                                             <td>{{ $item->result }}</td>
-                                            <td>{{ $item->created_at }}</td>
+                                            <td>{{ substr($item->created_at, 0, 10) }}</td>
                                             <td class="text-center">
                                                 <div class="action-btns">
                                                     <button class="btn btn-outline-secondary btn-icon btn-rounded editProject" data-id="{{ $item->id }}" data-bs-toggle="modal" data-bs-target="#projectModal">
@@ -163,11 +163,11 @@
     <!-- BEGIN PAGE LEVEL SCRIPTS -->
     <script src="{{ asset('src/plugins/src/table/datatable/datatables.js') }}"></script>
     <script src="{{ asset('src/plugins/src/table/datatable/button-ext/dataTables.buttons.min.js') }}"></script>
-    <script src="{{ asset('src/plugins/src/table/datatable/button-ext/jszip.min.js') }}"></script>    
+    <script src="{{ asset('src/plugins/src/table/datatable/button-ext/jszip.min.js') }}"></script>
     <script src="{{ asset('src/plugins/src/table/datatable/button-ext/buttons.html5.min.js') }}"></script>
     <script src="{{ asset('src/plugins/src/table/datatable/button-ext/buttons.print.min.js') }}"></script>
     <script src="{{ asset('src/plugins/src/table/datatable/custom_miscellaneous.js') }}"></script>
-    <!-- END PAGE LEVEL SCRIPTS -->     
+    <!-- END PAGE LEVEL SCRIPTS -->
 
     <script>
         document.getElementById('student_id').addEventListener('change', function() {
@@ -210,5 +210,5 @@
             });
         });
     </script>
-    
+
 @endsection

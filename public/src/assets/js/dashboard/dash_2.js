@@ -7,19 +7,19 @@ window.addEventListener("load", function(){
     ParsedObject = getParseObject;
 
     if (ParsedObject.settings.layout.darkMode) {
-      
+
       var Theme = 'dark';
-  
+
       Apex.tooltip = {
           theme: Theme
       }
-  
+
       /**
           ==============================
           |    @Options Charts Script   |
           ==============================
       */
-      
+
       /*
           =============================
               Daily Sales | Options
@@ -45,17 +45,17 @@ window.addEventListener("load", function(){
         },
         colors: ['#e2a03f', '#e0e6ed'],
         series: [{
-            name: 'Sales',
-            data: [44, 55, 41, 67]
+            name: 'End Of Month',
+            data: quranMonth6Data
         },{
-            name: 'Last Week',
-            data: [13, 23, 20, 13]
+            name: 'Last Month',
+            data: quranMonth5Data
         }],
         xaxis: {
             labels: {
                 show: false,
             },
-            categories: ['Adab', 'Tahsin', 'Tajwid', 'Tahfidz'],
+            categories: quranSubjectData,
             crosshairs: {
             show: false
             }
@@ -88,7 +88,7 @@ window.addEventListener("load", function(){
             right: 0,
             bottom: -40,
             left: 0
-            }, 
+            },
         },
         responsive: [
             {
@@ -104,7 +104,7 @@ window.addEventListener("load", function(){
             },
         ],
       }
-      
+
       /*
           =============================
               Total Orders | Options
@@ -137,9 +137,9 @@ window.addEventListener("load", function(){
         },
         series: [{
           name: 'Sales',
-          data: [28, 40, 36, 52, 38, 60, 38, 52, 36, 40]
+          data: sikapData
         }],
-        labels: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'],
+        labels: ['1', '2', '3', '4', '5', '6'],
         yaxis: {
           min: 0
         },
@@ -149,7 +149,7 @@ window.addEventListener("load", function(){
             right: 0,
             bottom: 0,
             left: 0
-          }, 
+          },
         },
         tooltip: {
           x: {
@@ -159,7 +159,7 @@ window.addEventListener("load", function(){
         },
         colors: ['#00ab55']
       }
-      
+
       /*
           =================================
               Revenue Monthly | Options
@@ -283,7 +283,7 @@ window.addEventListener("load", function(){
               lines: {
                   show: true
               }
-          },   
+          },
           yaxis: {
               lines: {
                   show: false,
@@ -295,7 +295,7 @@ window.addEventListener("load", function(){
             bottom: 0,
             left: 5
           },
-        }, 
+        },
         legend: {
           position: 'top',
           horizontalAlign: 'right',
@@ -312,12 +312,12 @@ window.addEventListener("load", function(){
             onClick: undefined,
             offsetX: -5,
             offsetY: 0
-          },    
+          },
           itemMargin: {
             horizontal: 10,
             vertical: 20
           }
-          
+
         },
         tooltip: {
           theme: Theme,
@@ -348,7 +348,7 @@ window.addEventListener("load", function(){
           },
         }]
       }
-      
+
       /*
           ==================================
               Sales By Category | Options
@@ -425,23 +425,23 @@ window.addEventListener("load", function(){
           },
           series: ictValueData,
           labels: ictSubjectData,
-    
+
           responsive: [
-            { 
+            {
               breakpoint: 1440, options: {
                 chart: {
                   width: 325
                 },
               }
             },
-            { 
+            {
               breakpoint: 1199, options: {
                 chart: {
                   width: 380
                 },
               }
             },
-            { 
+            {
               breakpoint: 575, options: {
                 chart: {
                   width: 320
@@ -454,17 +454,17 @@ window.addEventListener("load", function(){
     } else {
 
       var Theme = 'dark';
-  
+
       Apex.tooltip = {
           theme: Theme
       }
-  
+
       /**
           ==============================
           |    @Options Charts Script   |
           ==============================
       */
-      
+
       /*
           =============================
               Daily Sales | Options
@@ -533,7 +533,7 @@ window.addEventListener("load", function(){
             right: 0,
             bottom: -40,
             left: 0
-            }, 
+            },
         },
         responsive: [
             {
@@ -549,7 +549,7 @@ window.addEventListener("load", function(){
             },
         ],
       }
-      
+
       /*
           =============================
               Total Orders | Options
@@ -595,7 +595,7 @@ window.addEventListener("load", function(){
             right: 0,
             bottom: 0,
             left: 0
-          }, 
+          },
         },
         tooltip: {
           x: {
@@ -605,7 +605,7 @@ window.addEventListener("load", function(){
         },
         colors: ['#00ab55']
       }
-      
+
       /*
           =================================
               Revenue Monthly | Options
@@ -728,7 +728,7 @@ window.addEventListener("load", function(){
               lines: {
                   show: true
               }
-          },   
+          },
           yaxis: {
               lines: {
                   show: false,
@@ -740,7 +740,7 @@ window.addEventListener("load", function(){
             bottom: 0,
             left: 5
           },
-        }, 
+        },
         legend: {
           position: 'top',
           horizontalAlign: 'right',
@@ -757,12 +757,12 @@ window.addEventListener("load", function(){
             onClick: undefined,
             offsetX: -5,
             offsetY: 0
-          },    
+          },
           itemMargin: {
             horizontal: 10,
             vertical: 20
           }
-          
+
         },
         tooltip: {
           theme: Theme,
@@ -793,7 +793,7 @@ window.addEventListener("load", function(){
           },
         }]
       }
-      
+
       /*
           ==================================
               Sales By Category | Options
@@ -870,23 +870,23 @@ window.addEventListener("load", function(){
           },
           series: [985, 737, 270],
           labels: ['Apparel', 'Sports', 'Others'],
-    
+
           responsive: [
-            { 
+            {
               breakpoint: 1440, options: {
                 chart: {
                   width: 325
                 },
               }
             },
-            { 
+            {
               breakpoint: 1199, options: {
                 chart: {
                   width: 380
                 },
               }
             },
-            { 
+            {
               breakpoint: 575, options: {
                 chart: {
                   width: 320
@@ -896,15 +896,15 @@ window.addEventListener("load", function(){
           ],
       }
     }
-    
-  
+
+
   /**
       ==============================
       |    @Render Charts Script    |
       ==============================
   */
-  
-  
+
+
   /*
       ============================
           Daily Sales | Render
@@ -912,7 +912,7 @@ window.addEventListener("load", function(){
   */
   var d_2C_1 = new ApexCharts(document.querySelector("#daily-sales"), d_2options1);
   d_2C_1.render();
-  
+
   /*
       ============================
           Total Orders | Render
@@ -920,7 +920,7 @@ window.addEventListener("load", function(){
   */
   var d_2C_2 = new ApexCharts(document.querySelector("#total-orders"), d_2options2);
   d_2C_2.render();
-  
+
   /*
       ================================
           Revenue Monthly | Render
@@ -930,9 +930,9 @@ window.addEventListener("load", function(){
       document.querySelector("#revenueMonthly"),
       options1
   );
-  
+
   chart1.render();
-  
+
   /*
       =================================
           Sales By Category | Render
@@ -942,23 +942,23 @@ window.addEventListener("load", function(){
       document.querySelector("#chart-2"),
       options
   );
-  
+
   chart.render();
-  
+
   /*
       =============================================
           Perfect Scrollbar | Recent Activities
       =============================================
   */
   const ps = new PerfectScrollbar(document.querySelector('.mt-container-ra'));
-  
+
   // const topSellingProduct = new PerfectScrollbar('.widget-table-three .table-scroll table', {
   //   wheelSpeed:.5,
   //   swipeEasing:!0,
   //   minScrollbarLength:40,
   //   maxScrollbarLength:100,
   //   suppressScrollY: true
-  
+
   // });
 
 
@@ -970,7 +970,7 @@ window.addEventListener("load", function(){
      * |     @Re_Render | Re render all the necessary JS when clicked to switch/toggle theme           |
      * =================================================================================================
      */
-  
+
   document.querySelector('.theme-toggle').addEventListener('click', function() {
 
     // console.log(localStorage);
@@ -1119,13 +1119,13 @@ window.addEventListener("load", function(){
           }
         }
       })
-      
-      
+
+
     }
 
   })
-  
-  
+
+
   } catch(e) {
       console.log(e);
   }

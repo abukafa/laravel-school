@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use DateTime;
 use App\Models\Score;
+use App\Models\Saving;
 use App\Models\School;
 use App\Models\Billing;
 use App\Models\Finance;
 use App\Models\Payment;
+use App\Models\Project;
 use App\Models\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -19,12 +21,12 @@ class AuthController extends Controller
     private function calculateAverage($scores, $months)
     {
         $averages = [];
-    
+
         foreach ($months as $month) {
             $filteredScores = $scores->filter(function ($score) use ($month) {
                 return $score->$month !== null;
             });
-    
+
             if ($filteredScores->isNotEmpty()) {
                 // Calculate the average and convert to integer
                 $averages[] = intval($filteredScores->avg($month));
@@ -33,35 +35,66 @@ class AuthController extends Controller
                 $averages[] = null;
             }
         }
-    
+
         return $averages;
     }
-    
+
     public function home2(Request $request)
     {
         $id = $request->query('id');
         $smt = $request->query('semester');
         $student = Student::find($id);
 
-        if ($smt) {
+        $data = [
+            'bulan' => [],
+            'adab' => [],
+            'tahfidzh' => [],
+            'sikap' => [],
+            'tabungan' => [],
+            'saldo' => [],
+            'ict' => ['subject' => [], 'value' => []],
+            'quran' => ['subject' => [], 'month_5' => [], 'month_6' => []],
+        ];
+
+        if (!$smt) {
+            $data['bulan'] = ['1st', '2nd', '3rd', '4th', '5th', '6th'];
+        }else{
             if ($smt % 2 == 0) {
                 $data['bulan'] = ['Jan', 'Feb', 'Mar', 'Arp', 'May', 'Jun'];
             }else{
                 $data['bulan'] = ['Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Des'];
             }
-        }else{
-            $data['bulan'] = ['1st', '2nd', '3rd', '4th', '5th', '6th'];
         }
-        
-        $data = [
-            'adab' => [],
-            'tahfidzh' => [],
-            'ict' => ['subject' => [], 'value' => []]
-        ];
-    
+
+        $projects = Project::all();
+
+        $history = Score::select('serial', 'registered', 'semester', 'competence_id', 'subject')
+            ->selectRaw('COUNT(competence_id) AS count')
+            ->fromSub(function ($query) {
+                $query->select('serial', 'registered', 'semester', 'competence_id', 'subject', 'id')
+                    ->from('scores')
+                    ->orderBy('id', 'desc');
+                    // ->limit(10);
+            }, 'subquery')
+            ->groupBy('serial', 'registered', 'semester', 'competence_id', 'subject')
+            ->get();
+
+        $savings = Saving::select('name', 'ids')
+            ->selectRaw('SUM(debit) AS debit')
+            ->selectRaw('SUM(credit) AS credit')
+            ->groupBy('name', 'ids')
+            ->get();
+
+        $totalSaving = 0;
+        if ($savings) {
+            foreach ($savings as $i) {
+                $totalSaving += ($i->credit - $i->debit);
+            }
+        }
+
         if ($id) {
             $scores = Score::where('student_id', $id)->where('semester', $smt)->get();
-        
+
             foreach ($scores as $score) {
                 if ($score->subject == 'Alquran - Adab') {
                     $data['adab'] = [
@@ -73,23 +106,35 @@ class AuthController extends Controller
                         $score->month_1, $score->month_2, $score->month_3, $score->month_4, $score->month_5, $score->month_6
                     ];
                 }
+                if ($score->subject == 'Tsaqofah - Sikap') {
+                    $data['sikap'] = [
+                        $score->month_1, $score->month_2, $score->month_3, $score->month_4, $score->month_5, $score->month_6
+                    ];
+                }
                 if (strpos($score->subject, 'Multimedia') === 0) {
                     $data['ict']['subject'][] = substr($score->subject, strpos($score->subject, ' - ') + strlen(' - '));
                     $data['ict']['value'][] = $score->month_6 === null ? 0 : $score->month_6;
                 }
+                if (strpos($score->subject, 'Alquran') === 0) {
+                    $data['quran']['subject'][] = substr($score->subject, strpos($score->subject, ' - ') + strlen(' - '));
+                    $data['quran']['month_5'][] = $score->month_5 === null ? 0 : $score->month_5;
+                    $data['quran']['month_6'][] = $score->month_6 === null ? 0 : $score->month_6;
+                }
             }
-        }
-        
-    
+
         // Fetch all scores if $id is not provided
-        else {
+        }else{
             $scores = Score::where('subject', 'Alquran - Adab')->get();
             if ($scores) {
                 $data['adab'] = $this->calculateAverage($scores, ['month_1', 'month_2', 'month_3', 'month_4', 'month_5', 'month_6']);
             }
-            $scores = Score::where('subject', 'Alquran - tahfidzh')->get();
+            $scores = Score::where('subject', 'Alquran - Tahfidzh')->get();
             if ($scores) {
                 $data['tahfidzh'] = $this->calculateAverage($scores, ['month_1', 'month_2', 'month_3', 'month_4', 'month_5', 'month_6']);
+            }
+            $scores = Score::where('subject', 'Tsaqofah - Sikap')->get();
+            if ($scores) {
+                $data['sikap'] = $this->calculateAverage($scores, ['month_1', 'month_2', 'month_3', 'month_4', 'month_5', 'month_6']);
             }
             $scores = Score::select('subject', DB::raw('avg(month_6) as average'))
                 ->where('subject', 'like', 'Multimedia%')
@@ -99,17 +144,30 @@ class AuthController extends Controller
                 $data['ict']['subject'][] = substr($score->subject, strpos($score->subject, ' - ') + strlen(' - '));
                 $data['ict']['value'][] = round($score->average);
             }
+            $scores = Score::select('subject', DB::raw('avg(month_5) as month_5'), DB::raw('avg(month_6) as month_6'))
+                ->where('subject', 'like', 'Alquran%')
+                ->groupBy('subject')
+                ->get();
+            foreach ($scores as $score) {
+                $data['quran']['subject'][] = substr($score->subject, strpos($score->subject, ' - ') + strlen(' - '));
+                $data['quran']['month_5'][] = round($score->month_5);
+                $data['quran']['month_6'][] = round($score->month_6);
+            }
         }
-    
+
         // dd($data);
         return view('auth.home2', [
             'title' => 'Beranda Akademis',
             'students' => Student::where('graduation', NULL)->orderBy('name')->get(),
             'name' => optional($student)->nickname ?? 'Semua Data',
+            'history' => $history,
+            'projects' => $projects,
+            'savings' => $savings,
+            'totalSaving' => $totalSaving,
             'data' => $data
         ]);
     }
-       
+
 
     public function home1()
     {
