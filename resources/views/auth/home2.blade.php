@@ -329,8 +329,8 @@
                                 <li class="list-group-item">
                                     <div class="media">
                                         <div class="me-3">
-                                            <img alt="avatar" src="{{ file_exists(public_path('storage/profile/' . $item->ids . '.png'))
-                                            ? asset('storage/profile/' . $item->ids . '.png')
+                                            <img alt="avatar" src="{{ file_exists(public_path('storage/member/' . $item->ids . '.png'))
+                                            ? asset('storage/member/' . $item->ids . '.png')
                                             : asset('/src/assets/img/no.png') }}" class="img-fluid rounded-circle">
                                         </div>
                                         <div class="media-body">

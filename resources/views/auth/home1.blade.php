@@ -337,16 +337,15 @@
                                                 <span class="avatar-title">+{{ $totalPayment['yearly_person']-3 }}</span>
                                             </div>
                                         @endif
-                                        @php $count = 0 @endphp
-                                        @foreach ($studentPayment as $item)
-                                            @if ($count < 3)
-                                                @if ($item['yearly_percent'] < 100)
-                                                    <div class="avatar translateY-axis">
-                                                        <img alt="avatar" src="{{ $item['image'] ? asset('storage/member/' . $item['image']) : '/src/assets/img/no.png' }}"/>
-                                                    </div>
-                                                    @php $count++ @endphp
-                                                @endif
-                                            @endif
+                                        @php
+                                            $yearlyFiltered = collect($studentPayment)->filter(function ($item) {
+                                                return $item['yearly_percent'] < 100;
+                                            })->take(3);
+                                        @endphp
+                                        @foreach ($yearlyFiltered as $item)
+                                            <div class="avatar translateY-axis">
+                                                <img alt="avatar" src="{{ $item['image'] ? asset('storage/member/' . $item['image']) : '/src/assets/img/no.png' }}"/>
+                                            </div>
                                         @endforeach
                                     </div>
                                 </div>
@@ -407,16 +406,15 @@
                                                 <span class="avatar-title">+{{ $totalPayment['monthly_person']-3 }}</span>
                                             </div>
                                         @endif
-                                        @php $count=0 @endphp
-                                        @foreach ($studentPayment as $item)
-                                            @if ($count < 3)
-                                                @if ($item['monthly_percent'] < 100)
-                                                    <div class="avatar translateY-axis">
-                                                        <img alt="avatar" src="{{ $item['image'] ? asset('storage/member/' . $item['image']) : '/src/assets/img/no.png' }}"/>
-                                                    </div>
-                                                    @php $count++ @endphp
-                                                @endif
-                                            @endif
+                                        @php
+                                            $monthlyFiltered = collect($studentPayment)->filter(function ($item) {
+                                                return $item['monthly_percent'] < 100;
+                                            })->take(3);
+                                        @endphp
+                                        @foreach ($monthlyFiltered as $item)
+                                            <div class="avatar translateY-axis">
+                                                <img alt="avatar" src="{{ $item['image'] ? asset('storage/member/' . $item['image']) : '/src/assets/img/no.png' }}"/>
+                                            </div>
                                         @endforeach
                                     </div>
                                 </div>

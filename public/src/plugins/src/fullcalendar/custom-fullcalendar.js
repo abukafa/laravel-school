@@ -30,6 +30,8 @@ document.addEventListener('DOMContentLoaded', function() {
     var getModalUpdateBtnEl = document.querySelector('.btn-update-event');
     var getFooterEventEl = document.querySelector('.foot-event');
     var getFooterDeleteEl = document.querySelector('.foot-delete');
+    var alterStartDate = document.querySelector('#alter_start_date');
+    var alterEndDate = document.querySelector('#alter_end_date');
     var calendarsEvents = {
         Learning: 'primary',
         Activity: 'success',
@@ -84,12 +86,14 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Calendar AddEvent fn.
+    var currentDate = new Date();
+    var dd = String(currentDate.getDate()).padStart(2, '0');
+    var mm = String(currentDate.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var yyyy = currentDate.getFullYear();
+    var combineDate = `${yyyy}-${mm}-${dd}T00:00:00`;
+    alterStartDate.value = combineDate;
+    alterEndDate.value = combineDate;
     var calendarAddEvent = function() {
-        var currentDate = new Date();
-        var dd = String(currentDate.getDate()).padStart(2, '0');
-        var mm = String(currentDate.getMonth() + 1).padStart(2, '0'); //January is 0!
-        var yyyy = currentDate.getFullYear();
-        var combineDate = `${yyyy}-${mm}-${dd}T00:00:00`;
         getModalFormEl.action = '/admin/kalendar/';
         getModalAddBtnEl.style.display = 'block';
         getModalUpdateBtnEl.style.display = 'none';

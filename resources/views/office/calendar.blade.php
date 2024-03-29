@@ -22,6 +22,13 @@
 
             <div class="middle-content container-xxl p-0">
 
+                <div class="row mx-4 mt-4 mb-2">
+                    <div class="col-12 d-flex justify-content-between">
+                        <h5 class="mt-2">kalendar</h5>
+                        <button type="button" class="btn btn-primary inputAcoount" data-bs-toggle="modal" data-bs-target="#alterModal">Tambah</button>
+                    </div>
+                </div>
+
                 <div class="row layout-top-spacing layout-spacing" id="cancel-row">
 
                     <!-- FLASH ALERT -->
@@ -129,6 +136,88 @@
                                         <button type="submit" class="btn btn-danger btn-delete-event" onclick="return confirm('Apakah anda yakin?')">Delete</button>
                                     </form>
                                 </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Alternative Input Modal -->
+                <div class="modal fade" id="alterModal" tabindex="-1" aria-labelledby="alterModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="alterModalLabel">Tambah </h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <form id="event-form" action="/admin/kalendar" method="post">
+                                <input type="hidden" name="_method" value="">
+                                <div class="modal-body">
+                                    <div class="row">
+                                        @csrf
+                                        <div class="col-md-12">
+                                            <div class="">
+                                                <label class="form-label">Judul</label>
+                                                <input name="title" type="text" class="form-control" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12 mt-2">
+                                            <div class="">
+                                                <label class="form-label">Deskripsi</label>
+                                                <input name="description" type="text" class="form-control" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12 mt-2">
+                                            <div class="">
+                                                <label class="form-label">Tanggal Awal</label>
+                                                <input id="alter_start_date" name="start_date" type="text" class="form-control">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12 mt-2">
+                                            <div class="">
+                                                <label class="form-label">Tanggal Akhir</label>
+                                                <input id="alter_end_date" name="end_date" type="text" class="form-control">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12">
+
+                                            <div class="d-flex mt-4">
+                                                <div class="n-chk">
+                                                    <div class="form-check form-check-primary form-check-inline">
+                                                        <input class="form-check-input" type="radio" name="remark" value="Learning" name="remark">
+                                                        <label class="form-check-label" for="remark" name="remark">Learning</label>
+                                                    </div>
+                                                </div>
+                                                <div class="n-chk">
+                                                    <div class="form-check form-check-warning form-check-inline">
+                                                        <input class="form-check-input" type="radio" name="remark" value="Project" name="remark">
+                                                        <label class="form-check-label" for="remark" name="remark">Project</label>
+                                                    </div>
+                                                </div>
+                                                <div class="n-chk">
+                                                    <div class="form-check form-check-success form-check-inline">
+                                                        <input class="form-check-input" type="radio" name="remark" value="Activity" name="remark" checked>
+                                                        <label class="form-check-label" for="remark" name="remark">Activity</label>
+                                                    </div>
+                                                </div>
+                                                <div class="n-chk">
+                                                    <div class="form-check form-check-danger form-check-inline">
+                                                        <input class="form-check-input" type="radio" name="remark" value="Important" name="remark">
+                                                        <label class="form-check-label" for="remark" name="remark">Important</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer foot-event">
+                                    <button type="button" class="btn" data-bs-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary btn-add-event">Tambah</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
