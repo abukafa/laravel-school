@@ -58,14 +58,14 @@
                                         <div class="col-md-12">
                                             <div class="">
                                                 <label class="form-label">Judul</label>
-                                                <input id="title" name="title" type="text" class="form-control">
+                                                <input id="title" name="title" type="text" class="form-control" required>
                                             </div>
                                         </div>
 
                                         <div class="col-md-12 mt-2">
                                             <div class="">
                                                 <label class="form-label">Deskripsi</label>
-                                                <input id="description" name="description" type="text" class="form-control">
+                                                <input id="description" name="description" type="text" class="form-control" required>
                                             </div>
                                         </div>
 
@@ -167,7 +167,6 @@
         // var f1 = flatpickr(document.getElementById('end'));
 
         let eventLists = {!! json_encode($events) !!};
-        console.log(eventLists);
     </script>
 
 @endsection
