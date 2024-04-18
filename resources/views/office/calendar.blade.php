@@ -72,7 +72,7 @@
                                         <div class="col-md-12 mt-2">
                                             <div class="">
                                                 <label class="form-label">Deskripsi</label>
-                                                <input id="description" name="description" type="text" class="form-control" required>
+                                                <textarea id="description" name="description" type="text" class="form-control" cols="30" rows="5"></textarea>
                                             </div>
                                         </div>
 
@@ -100,15 +100,15 @@
                                                     </div>
                                                 </div>
                                                 <div class="n-chk">
-                                                    <div class="form-check form-check-warning form-check-inline">
-                                                        <input class="form-check-input" type="radio" name="remark" value="Project" id="remark" name="remark">
-                                                        <label class="form-check-label" for="remark" name="remark">Project</label>
-                                                    </div>
-                                                </div>
-                                                <div class="n-chk">
                                                     <div class="form-check form-check-success form-check-inline">
                                                         <input class="form-check-input" type="radio" name="remark" value="Activity" id="remark" name="remark" checked>
                                                         <label class="form-check-label" for="remark" name="remark">Activity</label>
+                                                    </div>
+                                                </div>
+                                                <div class="n-chk">
+                                                    <div class="form-check form-check-warning form-check-inline">
+                                                        <input class="form-check-input" type="radio" name="remark" value="Project" id="remark" name="remark" disabled>
+                                                        <label class="form-check-label" for="remark" name="remark">Project</label>
                                                     </div>
                                                 </div>
                                                 <div class="n-chk">
@@ -163,7 +163,7 @@
                                         <div class="col-md-12 mt-2">
                                             <div class="">
                                                 <label class="form-label">Deskripsi</label>
-                                                <input name="description" type="text" class="form-control" required>
+                                                <textarea name="description" type="text" class="form-control" cols="30" rows="5"></textarea>
                                             </div>
                                         </div>
 
@@ -191,15 +191,15 @@
                                                     </div>
                                                 </div>
                                                 <div class="n-chk">
-                                                    <div class="form-check form-check-warning form-check-inline">
-                                                        <input class="form-check-input" type="radio" name="remark" value="Project" name="remark">
-                                                        <label class="form-check-label" for="remark" name="remark">Project</label>
-                                                    </div>
-                                                </div>
-                                                <div class="n-chk">
                                                     <div class="form-check form-check-success form-check-inline">
                                                         <input class="form-check-input" type="radio" name="remark" value="Activity" name="remark" checked>
                                                         <label class="form-check-label" for="remark" name="remark">Activity</label>
+                                                    </div>
+                                                </div>
+                                                <div class="n-chk">
+                                                    <div class="form-check form-check-warning form-check-inline">
+                                                        <input class="form-check-input" type="radio" name="remark" value="Project" name="remark" disabled>
+                                                        <label class="form-check-label" for="remark" name="remark">Project</label>
                                                     </div>
                                                 </div>
                                                 <div class="n-chk">

@@ -23,7 +23,7 @@
             <div class="middle-content container-xxl p-0">
                 <div class="layout-top-spacing">
                     <div class="row layout-spacing">
-                        
+
                         <!-- FLASH ALERT -->
                         @if (session()->has('success') || session()->has('danger'))
                         <div class="col-12">
@@ -57,8 +57,8 @@
                                             <li class="contacts-block__item">
                                                 {{ $student ? $student->rumble : '.. kelas ..' }}
                                             </li>
-                                        </ul> 
-                                    </div>            
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -146,6 +146,26 @@
                                             <div class="col-md-4 mb-4">
                                                 <label for="ambition" class="form-label">Cita-cita</label>
                                                 <input type="text" class="form-control form-control" name="ambition" id="ambition" value="{{ $student ? $student->ambition : '' }}">
+                                            </div>
+                                            <div class="col-md-4 mb-4">
+                                                <label for="role" class="form-label">Role</label>
+                                                <input type="text" class="form-control form-control" name="role" id="role" value="{{ $student ? $student->role : '' }}">
+                                            </div>
+                                            <div class="col-md-8 mb-4">
+                                                <label for="skills" class="form-label">Skills</label>
+                                                <input type="text" class="form-control form-control" name="skills" id="skills" value="{{ $student ? $student->skills : '' }}">
+                                            </div>
+                                            <div class="col-md-4 mb-4">
+                                                <label for="own_phone" class="form-label">Phone</label>
+                                                <input type="text" class="form-control form-control" name="own_phone" id="own_phone" value="{{ $student ? $student->own_phone : '' }}">
+                                            </div>
+                                            <div class="col-md-4 mb-4">
+                                                <label for="email" class="form-label">Email</label>
+                                                <input type="text" class="form-control form-control" name="email" id="email" value="{{ $student ? $student->own_phone : '' }}">
+                                            </div>
+                                            <div class="col-md-4 mb-4">
+                                                <label for="instagram" class="form-label">Instagram</label>
+                                                <input type="text" class="form-control form-control" name="instagram" id="instagram" value="{{ $student ? $student->own_phone : '' }}">
                                             </div>
                                             <hr>
                                             <div class="col-md-4 mb-4">
@@ -264,7 +284,7 @@
             </div>
         </div>
     </div>
-    
+
     <!-- BEGIN PAGE LEVEL SCRIPTS -->
     <script src="{{ asset('src/plugins/src/global/vendors.min.js') }}"></script>
     <script src="{{ asset('src/plugins/src/flatpickr/flatpickr.js') }}"></script>

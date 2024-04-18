@@ -20,6 +20,7 @@ use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\CalendarController;
 use App\Http\Controllers\DiscountController;
 use App\Http\Controllers\CompetenceController;
+use App\Http\Controllers\TaskController;
 
 /*
 |--------------------------------------------------------------------------
@@ -53,9 +54,10 @@ Route::get('/admin/siswa/asesmen/{amy}', [StudentController::class, 'dataAsesmen
 
 Route::resource('/data/pelajaran', SubjectController::class)->middleware('auth');
 Route::resource('/data/kompetensi', CompetenceController::class)->middleware('auth');
-Route::resource('/data/proyek', ProjectController::class)->middleware('auth');
+Route::resource('/data/project', ProjectController::class)->middleware('auth');
+Route::resource('/data/task', TaskController::class)->middleware('auth');
+Route::post('/data/task/acc/{id}', [TaskController::class, 'acc'])->middleware('auth');
 
-// Route::resource('/data/nilai', ScoreController::class)->middleware('auth');
 Route::get('/data/nilai', [ScoreController::class, 'index'])->middleware('auth');
 Route::get('/data/nilai/create', [ScoreController::class, 'create'])->middleware('auth');
 Route::get('/data/nilai/{num}/edit', [ScoreController::class, 'edit'])->middleware('auth');

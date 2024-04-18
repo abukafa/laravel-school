@@ -9,6 +9,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('src/plugins/css/dark/table/datatable/dt-global_style.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('src/plugins/css/dark/table/datatable/custom_dt_miscellaneous.css') }}">
     <!-- END PAGE LEVEL CUSTOM STYLES -->
+    <link rel="stylesheet" type="text/css" href="{{ asset('src/plugins/src/flatpickr/flatpickr.css') }}">
 
 @section('content')
 
@@ -16,9 +17,9 @@
 
         <div class="row mx-4 mt-4 mb-2">
             <div class="col-12 d-flex justify-content-between">
-                <h5 class="mt-2">Data Proyek</h5>
+                <h5 class="mt-2">Data Project</h5>
                 <div class="d-flex align-items-center">
-                    <button type="button" class="btn btn-sm btn-primary inputProject" data-bs-toggle="modal" data-bs-target="#projectModal">Tambah</button>
+                    <button type="button" class="btn btn-sm btn-primary inputProject" data-bs-toggle="modal" data-bs-target="#projectModal" onclick="newData()">Tambah</button>
                 </div>
 
             </div>
@@ -44,12 +45,10 @@
                                     <thead>
                                         <tr>
                                             <th>No</th>
-                                            <th>Nama</th>
-                                            <th>Semester</th>
-                                            <th>Proyek</th>
-                                            <th>Item</th>
-                                            <th>Hasil</th>
-                                            <th>Dibuat</th>
+                                            <th>Subjek</th>
+                                            <th>Tema</th>
+                                            <th>Deadline</th>
+                                            <th>Status</th>
                                             <th>Opsi</th>
                                         </tr>
                                     </thead>
@@ -58,18 +57,18 @@
                                         @foreach ($projects as $index => $item)
                                         <tr>
                                             <td>{{ $loop->index + 1 }}</td>
-                                            <td>{{ $item->student }}</td>
-                                            <td>{{ $item->semester }}</td>
-                                            <td>{{ $item->name }}</td>
-                                            <td>{{ $item->item }}</td>
-                                            <td>{{ $item->result }}</td>
-                                            <td>{{ substr($item->created_at, 0, 10) }}</td>
+                                            <td>{{ $item->subject }}</td>
+                                            <td>{{ $item->theme }}</td>
+                                            <td>{{ $item->end_date }}</td>
+                                            <td class="text-center d-none d-sm-table-cell">
+                                                <span class="badge badge-light-{{ $item->status == 'In Progress' ? 'primary' : ($item->status == 'Complited' ? 'success' : ($item->status == 'On Hold' ? 'warning' : ($item->status == 'Cancelled' ? 'danger' : 'secondary'))) }}">{{ $item->status }}</span>
+                                            </td>
                                             <td class="text-center">
                                                 <div class="action-btns">
-                                                    <button class="btn btn-outline-secondary btn-icon btn-rounded editProject" data-id="{{ $item->id }}" data-bs-toggle="modal" data-bs-target="#projectModal">
+                                                    <button class="btn btn-outline-secondary btn-icon btn-rounded editProject" onclick="showData({{ $item->id }})" data-bs-toggle="modal" data-bs-target="#projectModal">
                                                         <span class="far fa-edit"></span>
                                                     </button>
-                                                    <form action="/data/proyek/{{ $item->id }}" method="POST" class="d-inline">
+                                                    <form action="/data/project/{{ $item->id }}" method="POST" class="d-inline">
                                                         @csrf
                                                         @method('delete')
                                                         <button type="submit" class="btn btn-outline-danger btn-icon btn-rounded" onclick="return confirm('Apakah anda yakin?')"><i class="far fa-trash-alt"></i></button>
@@ -93,7 +92,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="projectModalLabel"></h5>
+                    <h5 class="modal-title" id="projectModalLabel">Project Plan</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                         <i class="far fa-times-circle text-white"></i><span class="icon-name"></span>
                     </button>
@@ -103,47 +102,55 @@
                     <input type="hidden" name="_method" id="methodField" value="">
                     <div class="modal-body">
                         <div class="row mb-3">
-                            <label for="student_id" class="col-sm-3 col-form-label"><p>Peserta</p></label>
+                            <label for="start_date" class="col-sm-3 col-form-label"><p>Tanggal</p></label>
                             <div class="col-sm-9">
-                                <select class="form-select" name="student_id" id="student_id" required>
-                                    <option selected disabled value="">Pilih...</option>
-                                    @foreach ($students as $item)
-                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                    @endforeach
-                                </select>
-                                <input type="hidden" class="form-control" name="student" id="student">
+                            <input type="date" class="form-control" name="start_date" id="start_date" required>
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <label for="semester" class="col-sm-3 col-form-label"><p>Semester</p></label>
+                            <label for="end_date" class="col-sm-3 col-form-label"><p>Deadline</p></label>
                             <div class="col-sm-9">
-                                <select type="text" class="form-select" name="semester" id="semester" required>
-                                    <option selected disabled value="">Pilih...</option>
-                                    <option>1</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
-                                    <option>5</option>
-                                    <option>6</option>
-                                </select>
+                            <input type="date" class="form-control" name="end_date" id="end_date" required>
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <label for="name" class="col-sm-3 col-form-label"><p>Proyek</p></label>
+                            <label for="subject" class="col-sm-3 col-form-label"><p>Subjek</p></label>
                             <div class="col-sm-9">
-                            <input type="text" class="form-control" name="name" id="name" required>
+                            <select type="text" class="form-select" name="subject" id="subject" required>
+                                <option selected disabled value="">Pilih...</option>
+                                <option>Alquran</option>
+                                <option>Tsaqofah</option>
+                                <option>Multimedia</option>
+                                <option>Informatika</option>
+                                <option>Literasi</option>
+                                <option>Leadership</option>
+                                <option>Social Media</option>
+                                <option>Entrepreneurship</option>
+                                <option>Public Speaking</option>
+                            </select>
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <label for="item" class="col-sm-3 col-form-label"><p>Item</p></label>
+                            <label for="theme" class="col-sm-3 col-form-label"><p>Tema</p></label>
                             <div class="col-sm-9">
-                            <input type="text" class="form-control" name="item" id="item" required>
+                            <input type="text" class="form-control" name="theme" id="theme" required>
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <label for="result" class="col-sm-3 col-form-label"><p>Hasil</p></label>
+                            <label for="description" class="col-sm-3 col-form-label"><p>Deskripsi</p></label>
                             <div class="col-sm-9">
-                            <input type="text" class="form-control" name="result" id="result" required>
+                            <textarea type="text" class="form-control" name="description" id="description" cols="30" rows="5"></textarea>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="status" class="col-sm-3 col-form-label"><p>Status</p></label>
+                            <div class="col-sm-9">
+                            <select type="text" class="form-select" name="status" id="status" required>
+                                <option>In Progress</option>
+                                <option>Completed</option>
+                                <option>On Hold</option>
+                                <option>Cancelled</option>
+                            </select>
                             </div>
                         </div>
                     </div>
@@ -169,46 +176,44 @@
     <script src="{{ asset('src/plugins/src/table/datatable/custom_miscellaneous.js') }}"></script>
     <!-- END PAGE LEVEL SCRIPTS -->
 
+    <script src="{{ asset('src/plugins/src/flatpickr/flatpickr.js') }}"></script>
+    <!-- END PAGE LEVEL SCRIPTS -->
     <script>
-        document.getElementById('student_id').addEventListener('change', function() {
-            document.getElementById('student').value = this.options[this.selectedIndex].text;
-        });
-        document.querySelectorAll('.editProject').forEach(function(element) {
-            element.addEventListener('click', function() {
-                const id = this.dataset.id;
-                document.getElementById('projectModalLabel').innerHTML = 'Edit Data <b>Project</b>';
-                document.querySelector('.modal-content form').setAttribute('action', '/data/proyek/' + id);
-                var xhr = new XMLHttpRequest();
-                xhr.open('GET', '/data/proyek/' + id);
-                xhr.onload = function() {
-                    if (xhr.status === 200) {
-                        var data = JSON.parse(xhr.responseText);
-                        document.getElementById('student_id').value = data.project.student_id;
-                        document.getElementById('student').value = data.project.student;
-                        document.getElementById('semester').value = data.project.semester;
-                        document.getElementById('name').value = data.project.name;
-                        document.getElementById('item').value = data.project.item;
-                        document.getElementById('result').value = data.project.result;
-                        document.getElementById('methodField').value = 'PATCH';
-                    }
-                };
-                xhr.send();
-            });
-        });
+        var f1 = flatpickr(document.getElementById('start_date'));
+        var f1 = flatpickr(document.getElementById('end_date'));
 
-        document.querySelectorAll('.inputProject').forEach(function(element) {
-            element.addEventListener('click', function() {
-                document.getElementById('projectModalLabel').innerHTML = 'Input Data <b>Project</b>';
-                document.querySelector('.modal-content form').setAttribute('action', '/data/proyek');
-                document.getElementById('student_id').value = '';
-                document.getElementById('student').value = '';
-                document.getElementById('semester').value = '';
-                document.getElementById('name').value = '';
-                document.getElementById('item').value = '';
-                document.getElementById('result').value = '';
-                document.getElementById('methodField').value = '';
-            });
-        });
+        function showData(id) {
+            console.log(id);
+            document.getElementById('projectModalLabel').innerHTML = 'Edit Data <b>Project</b>';
+            document.querySelector('.modal-content form').setAttribute('action', '/data/project/' + id);
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', '/data/project/' + id);
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    var data = JSON.parse(xhr.responseText);
+                    document.getElementById('start_date').value = data.project.start_date;
+                    document.getElementById('end_date').value = data.project.end_date;
+                    document.getElementById('subject').value = data.project.subject;
+                    document.getElementById('theme').value = data.project.theme;
+                    document.getElementById('description').value = data.project.description;
+                    document.getElementById('status').value = data.project.status;
+                    document.getElementById('methodField').value = 'PATCH';
+                }
+            };
+            xhr.send();
+        };
+
+        function newData() {
+            document.getElementById('projectModalLabel').innerHTML = 'Input Data <b>Project</b>';
+            document.querySelector('.modal-content form').setAttribute('action', '/data/project');
+            document.getElementById('start_date').value = new Date().toISOString().slice(0,10);
+            document.getElementById('end_date').value = '';
+            document.getElementById('subject').value = '';
+            document.getElementById('theme').value = '';
+            document.getElementById('description').value = '';
+            document.getElementById('status').value = 'In Progress';
+            document.getElementById('methodField').value = '';
+        }
     </script>
 
 @endsection

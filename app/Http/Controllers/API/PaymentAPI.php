@@ -21,15 +21,15 @@ class PaymentAPI extends Controller
         $payments = Payment::create([
             'invoice' => $request->invoice,
             'date' => $request->date,
-            'nis' => $request->nis,
+            'period' => $request->period,
+            'ids' => $request->ids,
             'name' => $request->name,
-            'guardian' => $request->guardian,
-            'period_month' => $request->period_month,
-            'period_year' => $request->period_year,
+            'category' => $request->category,
             'account' => $request->account,
-            'remark' => $request->remark,
-            'description' => $request->description,
+            'billing' => $request->billing,
             'amount' => $request->amount,
+            'is_once' => $request->is_once,
+            'is_monthly' => $request->is_monthly,
             'admin' => $request->admin
         ]);
         return response()->json([
@@ -48,15 +48,15 @@ class PaymentAPI extends Controller
     {
         $payment->invoice = $request->invoice;
         $payment->date = $request->date;
-        $payment->nis = $request->nis;
+        $payment->period = $request->period;
+        $payment->ids = $request->ids;
         $payment->name = $request->name;
-        $payment->guardian = $request->guardian;
-        $payment->period_month = $request->period_month;
-        $payment->period_year = $request->period_year;
+        $payment->category = $request->category;
         $payment->account = $request->account;
-        $payment->remark = $request->remark;
-        $payment->description = $request->description;
+        $payment->billing = $request->billing;
         $payment->amount = $request->amount;
+        $payment->is_once = $request->is_once;
+        $payment->is_monthly = $request->is_monthly;
         $payment->admin = $request->admin;
         $payment->save();
         return response()->json([

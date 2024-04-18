@@ -37,9 +37,6 @@ class StudentAPI extends Controller
             'rumble' => $request->rumble,
             'birth_place' => $request->birth_place,
             'birth_date' => $request->birth_date,
-            'child_num' => $request->child_num,
-            'family_status' => $request->family_status,
-            'sibling_num' => $request->sibling_num,
             'address' => $request->address,
             'hamlet' => $request->hamlet,
             'village' => $request->village,
@@ -49,33 +46,28 @@ class StudentAPI extends Controller
             'hobby' => $request->hobby,
             'sport' => $request->sport,
             'ambition' => $request->ambition,
-            'height' => $request->height,
-            'weight' => $request->weight,
-            'distance' => $request->distance,
-            'time' => $request->time,
+            'role' => $request->role,
+            'skills' => $request->skills,
+            'own_phone' => $request->own_phone,
+            'email' => $request->email,
+            'password' => $request->password,
+            'instagram' => $request->instagram,
             'father' => $request->father,
-            'father_birth_place' => $request->father_birth_place,
-            'father_birth_date' => $request->father_birth_date,
-            'father_education' => $request->father_education,
+            'father_birth' => $request->father_birth,
             'father_note' => $request->father_note,
             'mother' => $request->mother,
-            'mother_birth_place' => $request->mother_birth_place,
-            'mother_birth_date' => $request->mother_birth_date,
-            'mother_education' => $request->mother_education,
+            'mother_birth' => $request->mother_birth,
             'mother_note' => $request->mother_note,
+            'phone' => $request->phone,
             'job' => $request->job,
             'income' => $request->income,
-            'phone' => $request->phone,
-            'guardian' => $request->guardian,
-            'guardian_relationship' => $request->guardian_relationship,
-            'guardian_phone' => $request->guardian_phone,
-            'illness' => $request->illness,
-            'performance' => $request->performance,
-            'photo' => $request->photo,
+            'image' => $request->image,
+            'payment_category' => $request->payment_category,
+            'registered' => $request->registered,
             'graduation' => $request->graduation,
             'next_school' => $request->next_school,
             'next_school_address' => $request->next_school_address,
-            'last_activity' => $request->last_activity
+            'note' => $request->note
         ]);
         return response()->json([
             'data' => $students
@@ -104,7 +96,6 @@ class StudentAPI extends Controller
      */
     public function update(Request $request, student $student)
     {
-        $student->name = $request->name;
         $student->nis = $request->nis;
         $student->name = $request->name;
         $student->nick_name = $request->nick_name;
@@ -112,9 +103,6 @@ class StudentAPI extends Controller
         $student->rumble = $request->rumble;
         $student->birth_place = $request->birth_place;
         $student->birth_date = $request->birth_date;
-        $student->child_num = $request->child_num;
-        $student->family_status = $request->family_status;
-        $student->sibling_num = $request->sibling_num;
         $student->address = $request->address;
         $student->hamlet = $request->hamlet;
         $student->village = $request->village;
@@ -124,33 +112,28 @@ class StudentAPI extends Controller
         $student->hobby = $request->hobby;
         $student->sport = $request->sport;
         $student->ambition = $request->ambition;
-        $student->height = $request->height;
-        $student->weight = $request->weight;
-        $student->distance = $request->distance;
-        $student->time = $request->time;
+        $student->role = $request->role;
+        $student->skills = $request->skills;
+        $student->own_phone = $request->own_phone;
+        $student->email = $request->email;
+        $student->password = $request->password;
+        $student->instagram = $request->instagram;
         $student->father = $request->father;
-        $student->father_birth_place = $request->father_birth_place;
-        $student->father_birth_date = $request->father_birth_date;
-        $student->father_education = $request->father_education;
+        $student->father_birth = $request->father_birth;
         $student->father_note = $request->father_note;
         $student->mother = $request->mother;
-        $student->mother_birth_place = $request->mother_birth_place;
-        $student->mother_birth_date = $request->mother_birth_date;
-        $student->mother_education = $request->mother_education;
+        $student->mother_birth = $request->mother_birth;
         $student->mother_note = $request->mother_note;
+        $student->phone = $request->phone;
         $student->job = $request->job;
         $student->income = $request->income;
-        $student->phone = $request->phone;
-        $student->guardian = $request->guardian;
-        $student->guardian_relationship = $request->guardian_relationship;
-        $student->guardian_phone = $request->guardian_phone;
-        $student->illness = $request->illness;
-        $student->performance = $request->performance;
-        $student->photo = $request->photo;
+        $student->image = $request->image;
+        $student->payment_category = $request->payment_category;
+        $student->registered = $request->registered;
         $student->graduation = $request->graduation;
         $student->next_school = $request->next_school;
         $student->next_school_address = $request->next_school_address;
-        $student->last_activity = $request->last_activity;
+        $student->note = $request->note;
         $student->save();
 
         return response()->json([

@@ -36,7 +36,8 @@ class UserAPI extends Controller
             'password' => Hash::make($request->password),
             'division' => $request->division,
             'position' => $request->position,
-            'role' => $request->role
+            'role' => $request->role,
+            'image' => $request->image,
         ]);
         return response()->json([
             'data' => $users
@@ -71,6 +72,7 @@ class UserAPI extends Controller
         $user->division = $request->division;
         $user->position = $request->position;
         $user->role = $request->role;
+        $user->image = $request->image;
         $user->save();
 
         return response()->json([

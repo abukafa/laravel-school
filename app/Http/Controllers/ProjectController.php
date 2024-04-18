@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Event;
 use App\Models\Project;
 use App\Models\Student;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProjectController extends Controller
 {
@@ -15,8 +17,8 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        return view('assess.project', [
-            'title' => 'Data Proyek',
+        return view('project.plan', [
+            'title' => 'Data Project',
             'projects' => Project::all(),
             'students' => Student::where('graduation', null)->get()
         ]);
@@ -30,6 +32,14 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
+        Event::create([
+            'title' => $request->theme,
+            'description' => $request->description,
+            'start_date' => $request->start_date,
+            'end_date' => $request->end_date,
+            'remark' => 'Project',
+        ]);
+
         $data = $request->all();
         $saved = Project::create($data);
         if($saved){
@@ -60,17 +70,48 @@ class ProjectController extends Controller
      * @param  \App\Models\project  $project
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, project $project, $id)
+    public function update(Request $request, $id)
     {
-        $project = Project::find($id);
-        $data = $request->all();
-        $updated = $project->update($data);
-        if($updated){
-            return back()->with('success', 'Data berhasil diperbarui');
-        }else{
+        // Data untuk Event
+        $eventData = [
+            'title' => $request->theme,
+            'description' => $request->description,
+            'start_date' => $request->start_date,
+            'end_date' => $request->end_date,
+            'remark' => 'Project',
+        ];
+
+        // Mencari Event berdasarkan description
+        $event = Event::where('description', $request->description)->first();
+
+        // Menggunakan transaksi database
+        DB::beginTransaction();
+
+        try {
+            if ($event) {
+                // Jika Event sudah ada, update data Event
+                $event->update($eventData);
+            } else {
+                // Jika Event belum ada, buat Event baru
+                Event::create($eventData);
+            }
+
+            // Update data Project
+            $project = Project::find($id);
+            $updated = $project->update($request->all());
+
+            if ($updated) {
+                DB::commit(); // Commit transaksi jika berhasil
+                return back()->with('success', 'Data berhasil diperbarui');
+            } else {
+                throw new \Exception('Data gagal diperbarui');
+            }
+        } catch (\Exception $e) {
+            DB::rollback(); // Rollback transaksi jika terjadi kesalahan
             return back()->with('danger', 'Data gagal diperbarui');
         }
     }
+
 
     /**
      * Remove the specified resource from storage.

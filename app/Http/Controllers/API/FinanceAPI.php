@@ -15,19 +15,18 @@ class FinanceAPI extends Controller
             'data' => $finances
         ]);
     }
-    
+
     public function store(Request $request)
     {
         $finances = Finance::create([
             'invoice' => $request->invoice,
             'date' => $request->date,
-            'period_year' => $request->period_year,
             'vendor' => $request->vendor,
             'account' => $request->account,
             'remark' => $request->remark,
             'description' => $request->description,
-            'debit' => $request->debit,
-            'credit' => $request->credit,
+            'amount' => $request->amount,
+            'admin' => $request->admin,
             'admin' => $request->admin
         ]);
         return response()->json([
@@ -41,25 +40,23 @@ class FinanceAPI extends Controller
             'data' => $finance
         ]);
     }
-    
+
     public function update(Request $request, finance $finance)
     {
         $finance->invoice = $request->invoice;
         $finance->date = $request->date;
-        $finance->period_year = $request->period_year;
         $finance->vendor = $request->vendor;
         $finance->account = $request->account;
         $finance->remark = $request->remark;
         $finance->description = $request->description;
-        $finance->debit = $request->debit;
-        $finance->credit = $request->credit;
+        $finance->amount = $request->amount;
         $finance->admin = $request->admin;
         $finance->save();
         return response()->json([
             'data' => $finance
         ]);
     }
-    
+
     public function destroy(finance $finance)
     {
         $finance->delete();

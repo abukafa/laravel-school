@@ -15,17 +15,18 @@ class BillingAPI extends Controller
             'data' => $billings
         ]);
     }
-    
+
     public function store(Request $request)
     {
         $billings = Billing::create([
-            'period_year' => $request->period_year,
-            'class' => $request->class,
+            'year' => $request->year,
+            'category' => $request->category,
             'account' => $request->account,
-            'remark' => $request->remark,
-            'description' => $request->description,
+            'name' => $request->name,
             'amount' => $request->amount,
-            'admin' => $request->admin
+            'is_once' => $request->is_once,
+            'is_monthly' => $request->is_monthly,
+            'note' => $request->note,
         ]);
         return response()->json([
             'data' => $billings
@@ -37,22 +38,23 @@ class BillingAPI extends Controller
             'data' => $billing
         ]);
     }
-    
+
     public function update(Request $request, billing $billing)
     {
-        $billing->period_year = $request->period_year;
-        $billing->class = $request->class;
+        $billing->year = $request->year;
+        $billing->category = $request->category;
         $billing->account = $request->account;
-        $billing->remark = $request->remark;
-        $billing->description = $request->description;
+        $billing->name = $request->name;
         $billing->amount = $request->amount;
-        $billing->admin = $request->admin;
+        $billing->is_once = $request->is_once;
+        $billing->is_monthly = $request->is_monthly;
+        $billing->note = $request->note;
         $billing->save();
         return response()->json([
             'data' => $billing
         ]);
     }
-    
+
     public function destroy(billing $billing)
     {
         $billing->delete();

@@ -197,7 +197,6 @@ document.addEventListener('DOMContentLoaded', function() {
     //     var setModalStartDateValue = getModalStartDateEl.value;
     //     var setModalEndDateValue = getModalEndDateEl.value;
     //     var getModalCheckedRadioBtnValue = (getModalCheckedRadioBtnEl !== null) ? getModalCheckedRadioBtnEl.value : '';
-
     //     calendar.addEvent({
     //         id: uuidv4(),
     //         title: getTitleValue,
@@ -208,24 +207,19 @@ document.addEventListener('DOMContentLoaded', function() {
     //     })
     //     myModal.hide()
     // })
-
-
-
     // Update Event
     // getModalUpdateBtnEl.addEventListener('click', function() {
     //     var getPublicID = this.dataset.fcEventPublicId;
     //     var getTitleUpdatedValue = getModalTitleEl.value;
     //     var getEvent = calendar.getEventById(getPublicID);
     //     var getModalUpdatedCheckedRadioBtnEl = document.querySelector('input[name="event-level"]:checked');
-
     //     var getModalUpdatedCheckedRadioBtnValue = (getModalUpdatedCheckedRadioBtnEl !== null) ? getModalUpdatedCheckedRadioBtnEl.value : '';
-
     //     getEvent.setProp('title', getTitleUpdatedValue);
     //     getEvent.setExtendedProp('calendar', getModalUpdatedCheckedRadioBtnValue);
     //     myModal.hide()
     // })
-
     // Calendar Renderation
+
     calendar.render();
 
     var myModal = new bootstrap.Modal(document.getElementById('exampleModal'))

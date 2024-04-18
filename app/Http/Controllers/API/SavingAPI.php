@@ -15,17 +15,16 @@ class SavingAPI extends Controller
             'data' => $savings
         ]);
     }
-    
+
     public function store(Request $request)
     {
         $savings = Saving::create([
+            'invoice' => $request->invoice,
             'date' => $request->date,
-            'period_year' => $request->period_year,
-            'nis' => $request->nis,
+            'ids' => $request->ids,
             'name' => $request->name,
-            'guardian' => $request->guardian,
-            'debit' => $request->debit,
             'credit' => $request->credit,
+            'debit' => $request->debit,
             'note' => $request->note,
             'admin' => $request->admin
         ]);
@@ -40,16 +39,15 @@ class SavingAPI extends Controller
             'data' => $saving
         ]);
     }
-    
+
     public function update(Request $request, saving $saving)
     {
+        $saving->invoice = $request->invoice;
         $saving->date = $request->date;
-        $saving->period_year = $request->period_year;
-        $saving->nis = $request->nis;
+        $saving->ids = $request->ids;
         $saving->name = $request->name;
-        $saving->guardian = $request->guardian;
-        $saving->debit = $request->debit;
         $saving->credit = $request->credit;
+        $saving->debit = $request->debit;
         $saving->note = $request->note;
         $saving->admin = $request->admin;
         $saving->save();

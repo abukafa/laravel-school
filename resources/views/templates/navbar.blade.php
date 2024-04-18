@@ -317,41 +317,46 @@
                     </li>
 
                     <li class="menu menu-heading">
-                        <div class="heading"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-minus"><line x1="5" y1="12" x2="19" y2="12"></line></svg><span>ASESMEN</span></div>
+                        <div class="heading"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-minus"><line x1="5" y1="12" x2="19" y2="12"></line></svg><span>ASSESSMENT</span></div>
                     </li>
-
-                    <li class="menu {{ $title == 'Data Pelajaran' ? 'active' : '' }}">
-                        <a href="/data/pelajaran" aria-expanded="false" class="dropdown-toggle">
-                            <div class="">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-map"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"></polygon><line x1="8" y1="2" x2="8" y2="18"></line><line x1="16" y1="6" x2="16" y2="22"></line></svg>
-                                <span>Pelajaran</span>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="menu {{ $title == 'Data Kompetensi' ? 'active' : '' }}">
-                        <a href="/data/kompetensi" aria-expanded="false" class="dropdown-toggle">
-                            <div class="">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
-                                <span>Kompetensi</span>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="menu {{ $title == 'Data Nilai' || $title == 'Data Personal' ? 'active' : '' }}">
-                        <a href="#penilaian" data-bs-toggle="collapse" aria-expanded="{{ $title == 'Data Nilai' || $title == 'Data Personal' ? 'true' : 'false' }}" class="dropdown-toggle">
+                    <li class="menu {{ $title == 'Data Pelajaran' || $title == 'Data Kompetensi' || $title == 'Data Nilai' ? 'active' : '' }}">
+                        <a href="#academic" data-bs-toggle="collapse" aria-expanded="{{ $title == 'Data Pelajaran' || $title == 'Data Kompetensi' || $title == 'Data Nilai' ? 'true' : 'false' }}" class="dropdown-toggle">
                             <div class="">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-pen-tool"><path d="M12 19l7-7 3 3-7 7-3-3z"></path><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path><path d="M2 2l7.586 7.586"></path><circle cx="11" cy="11" r="2"></circle></svg>
-                                <span>Penilaian</span>
+                                <span>Academic</span>
                             </div>
                             <div>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg>
                             </div>
                         </a>
-                        <ul class="collapse submenu list-unstyled {{ $title == 'Data Nilai' || $title == 'Data Proyek' ? 'show' : '' }}" id="penilaian" data-bs-parent="#accordionExample">
+                        <ul class="collapse submenu list-unstyled {{ $title == 'Data Pelajaran' || $title == 'Data Kompetensi' || $title == 'Data Nilai' ? 'show' : '' }}" id="academic" data-bs-parent="#accordionExample">
+                            <li class="{{ $title == 'Data Pelajaran' ? 'active' : '' }}">
+                                <a href="/data/pelajaran"> Pelajaran </a>
+                            </li>
+                            <li class="{{ $title == 'Data Kompetensi' ? 'active' : '' }}">
+                                <a href="/data/kompetensi"> Kompetensi </a>
+                            </li>
                             <li class="{{ $title == 'Data Nilai' ? 'active' : '' }}">
                                 <a href="/data/nilai"> Nilai </a>
                             </li>
-                            <li class="{{ $title == 'Data Proyek' ? 'active' : '' }}">
-                                <a href="/data/proyek"> Proyek </a>
+                        </ul>
+                    </li>
+                    <li class="menu {{ $title == 'Data Project' || $title == 'Data Task' ? 'active' : '' }}">
+                        <a href="#project" data-bs-toggle="collapse" aria-expanded="{{ $title == 'Data Project' || $title == 'Data Task' ? 'true' : 'false' }}" class="dropdown-toggle">
+                            <div class="">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-map"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"></polygon><line x1="8" y1="2" x2="8" y2="18"></line><line x1="16" y1="6" x2="16" y2="22"></line></svg>
+                                <span>Project</span>
+                            </div>
+                            <div>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                            </div>
+                        </a>
+                        <ul class="collapse submenu list-unstyled {{ $title == 'Data Project' || $title == 'Data Task' ? 'show' : '' }}" id="project" data-bs-parent="#accordionExample">
+                            <li class="{{ $title == 'Data Project' ? 'active' : '' }}">
+                                <a href="/data/project"> Plan </a>
+                            </li>
+                            <li class="{{ $title == 'Data Task' ? 'active' : '' }}">
+                                <a href="/data/task"> Task </a>
                             </li>
                         </ul>
                     </li>

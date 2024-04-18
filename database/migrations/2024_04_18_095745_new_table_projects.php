@@ -13,14 +13,16 @@ return new class extends Migration
      */
     public function up()
     {
+        Schema::dropIfExists('projects');
+
         Schema::create('projects', function (Blueprint $table) {
             $table->id();
-            $table->integer('student_id');
-            $table->string('student');
-            $table->integer('semester');
-            $table->string('name');
-            $table->string('item');
-            $table->integer('result');
+            $table->string('subject', 255);
+            $table->string('theme', 255);
+            $table->text('description')->nullable();
+            $table->date('start_date');
+            $table->date('end_date')->nullable();
+            $table->enum('status', ['In Progress', 'Completed', 'On Hold', 'Cancelled']);
             $table->timestamps();
         });
     }
