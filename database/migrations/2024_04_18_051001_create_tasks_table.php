@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('project_id')->constrained('projects');
             $table->string('project_name');
-            $table->foreignId('student_id')->constrained('students');
+            $table->integer('student_id');
             $table->string('student_name');
             $table->integer('semester');
             $table->string('name', 255);

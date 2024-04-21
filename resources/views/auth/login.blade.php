@@ -17,23 +17,23 @@
     <div class="auth-container d-flex">
 
         <div class="container mx-auto align-self-center">
-    
+
             <div class="row">
-    
+
                 <div class="col-6 d-lg-flex d-none h-100 my-auto top-0 start-0 text-center justify-content-center flex-column">
                     <div class="auth-cover-bg-image"></div>
                     <div class="auth-overlay"></div>
-                        
+
                     <div class="auth-cover">
-    
+
                         <div class="position-relative">
-    
+
                             <img src="../src/assets/img/auth-cover.svg" alt="auth-img">
-    
+
                             <h4 class="mt-5 text-white font-weight-bolder px-2">Aplikasi Managemen Sekolah</h4>
                             <p class="text-white px-2">{{ $school->name }}</p>
                         </div>
-                        
+
                     </div>
 
                 </div>
@@ -41,7 +41,7 @@
                 <div class="col-xxl-4 col-xl-5 col-lg-5 col-md-8 col-12 d-flex flex-column align-self-center ms-lg-auto me-lg-0 mx-auto">
                     <div class="card">
                         <div class="card-body">
-    
+
                             <div class="row">
                                 <div class="col-md-12 mb-5 d-flex align-items-center">
                                     <img src="{{ $school->logo ? asset('storage/logo.png') : '/src/assets/img/logo.png' }}" alt="auth-img" width="100" class="img-fluid">
@@ -50,14 +50,14 @@
                                         <p>Masukan nama pengguna</p>
                                     </div>
                                 </div>
-                                
+
                                 @if(session()->has('loginError'))
                                 <div class="col-md-12">
                                     <div class="alert alert-arrow-right alert-icon-right alert-light-danger mb-4" role="alert">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-alert-circle"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12" y2="16"></line></svg>
-                                        <strong>Login Gagal..</strong> Silahkan coba lagi..
-                                    </div> 
-                                </div> 
+                                        <strong>Login Gagal..</strong> {{ session()->get('loginError') }}
+                                    </div>
+                                </div>
                                 @endif
 
                                 <form action="/login" method="post">
@@ -84,14 +84,14 @@
                                             </div>
                                         </div>
                                     </div>
-                                    
+
                                     <div class="col-12">
                                         <div class="mb-4">
                                             <button type="submit" class="btn btn-secondary w-100">Masuk</button>
                                         </div>
                                     </div>
                                 </form>
-                                
+
                                 <div class="col-12">
                                     <div class="">
                                         <div class="seperator">
@@ -104,15 +104,15 @@
                                         </div>
                                     </div>
                                 </div>
-                                
+
                             </div>
-                            
+
                         </div>
                     </div>
                 </div>
-                
+
             </div>
-            
+
         </div>
 
     </div>
