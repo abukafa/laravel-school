@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use DateTime;
+use App\Models\User;
 use App\Models\Score;
 use App\Models\Saving;
 use App\Models\School;
@@ -373,6 +374,20 @@ class AuthController extends Controller
             'username' => 'required',
             'password' => 'required'
         ]);
+
+        // Menggunakan first() untuk mendapatkan objek user
+        $findUser = User::where('username', $credentials['username'])->first();
+
+        // Memeriksa apakah user ditemukan
+        if (!$findUser) {
+            return back()->with('loginError', 'Username not found!');
+        }
+
+        // Memeriksa apakah user memiliki role 0
+        if ($findUser->role == 0) {
+            return back()->with('loginError', 'You are Not allowed!');
+        }
+
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
             $school = School::first();

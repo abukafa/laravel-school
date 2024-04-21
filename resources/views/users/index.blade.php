@@ -69,11 +69,11 @@
                                                     <span class="text-{{ $user->role == 5 ? 'warning' : ($user->role == 4 ? 'danger' : ($user->role == 3 ? 'secondary' : ($user->role == 2 ? 'info' : 'success'))) }}">{{ $user->division }}</span>
                                                 </td>
                                                 <td class="text-center d-none d-sm-table-cell">
-                                                    <span class="badge badge-light-{{ $user->role == 5 ? 'warning' : ($user->role == 4 ? 'danger' : ($user->role == 3 ? 'secondary' : ($user->role == 2 ? 'info' : 'success'))) }}">{{ $user->role == 5 ? 'Maintainer' : ($user->role == 1 ? 'User' : ($user->role == 2 ? 'Administrator' : ($user->role == 3 ? 'Supervisor' : 'Auditor'))) }}</span>
+                                                    <span class="badge badge-light-{{ $user->role == 5 ? 'warning' : ($user->role == 4 ? 'danger' : ($user->role == 3 ? 'secondary' : ($user->role == 2 ? 'info' : 'success'))) }}">{{ $user->role == 5 ? 'Maintainer' : ($user->role == 4 ? 'Auditor' : ($user->role == 3 ? 'Supervisor' : ($user->role == 2 ? 'Administrator' : 'User'))) }}</span>
                                                 </td>
                                                 <td class="text-center">
                                                     <div class="action-btns">
-                                                        <button class="btn btn-outline-secondary btn-icon btn-rounded editUser" data-id="{{ $user->id }}" data-role="{{ $user->role }}" data-bs-toggle="modal" data-bs-target="#userModal" {{ session('user.role') < $user->role ? 'disabled' : '' }}>
+                                                        <button class="btn btn-outline-secondary btn-icon btn-rounded editUser {{ $user->role == 0 ? 'd-none' : '' }}" data-id="{{ $user->id }}" data-role="{{ $user->role }}" data-bs-toggle="modal" data-bs-target="#userModal" {{ session('user.role') < $user->role ? 'disabled' : '' }}>
                                                             <span class="far fa-edit"></span>
                                                         </button>
                                                         <form action="/pengguna/{{ $user->id }}" method="POST" class="d-inline">
