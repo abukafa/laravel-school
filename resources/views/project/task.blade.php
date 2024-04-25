@@ -206,7 +206,7 @@
                         <div class="row mb-3">
                             <label for="teacher_id" class="col-sm-3 col-form-label"><p>Mentor</p></label>
                             <div class="col-sm-9">
-                            <select type="text" class="form-select" name="teacher_id" id="teacher_id" required>
+                            <select type="text" class="form-select" name="teacher_id" id="teacher_id" onchange="accepter(this.value)" required>
                                 <option selected disabled value="">Pilih...</option>
                                 @foreach ($teachers as $teacher)
                                     <option value="{{ $teacher->id }}">{{ $teacher->name }}</option>
@@ -218,12 +218,13 @@
                         <div class="row mb-3">
                             <label for="accepted" class="col-sm-3 col-form-label"><p>Accepted</p></label>
                             <div class="col-sm-9">
-                            <select type="text" class="form-select" name="accepted" id="accepted" required>
+                            <select type="text" class="form-select" name="accepted" id="accepted" onchange="statusAccepted(this.value)" required>
                                 <option selected disabled value="">Pilih...</option>
                                 <option value="1">Yes</option>
                                 <option value="0">No</option>
                             </select>
-                            </div>
+                            <input type="hidden" class="form-control" name="status" id="status_acceptation" value="In Progress">
+                        </div>
                         </div>
                         <div class="row mb-3">
                             <label for="review" class="col-sm-3 col-form-label"><p>Review</p></label>
@@ -264,17 +265,12 @@
             xhr.onreadystatechange = function() {
                 if (xhr.readyState === 4 && xhr.status === 200) {
                     var data = JSON.parse(xhr.responseText);
-                    console.log(data.project);
                     document.getElementById('project_name').value = data.project.subject + ' - ' + data.project.theme;
                     document.getElementById('deadline').value = data.project.end_date;
                 }
             };
             xhr.open('GET', '/data/project/' + id, true);
             xhr.send();
-        });
-
-        document.getElementById('student_id').addEventListener('change', function() {
-            document.getElementById('student_name').value = this.options[this.selectedIndex].text;
         });
 
         function showData(id) {
@@ -319,6 +315,22 @@
                 }
             };
             xhr.send();
+        };
+
+        function accepter(id) {
+            const selectedOption = event.target.options[id];
+            const teacher_name = selectedOption.text;
+
+            document.getElementById('teacher_name').value = teacher_name;
+        };
+
+        function statusAccepted(accept) {
+            console.log(accept);
+            if (accept == 1) {
+                document.getElementById('status_acceptation').value = 'Completed'
+            }else{
+                document.getElementById('status_acceptation').value = 'In Progress'
+            }
         };
 
         function newData() {
