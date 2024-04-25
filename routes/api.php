@@ -30,6 +30,8 @@ use App\Http\Controllers\API\CompetenceAPI;
 
 Route::post('register', [AuthAPI::class, 'register']);
 Route::post('login', [AuthAPI::class, 'login']);
+Route::get('list/student', [StudentAPI::class, 'index']);
+Route::get('list/user', [UserAPI::class, 'index']);
 
 Route::middleware('auth:sanctum')->group(function (){
     Route::post('logout', [AuthAPI::class, 'logout']);

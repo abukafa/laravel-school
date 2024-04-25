@@ -161,11 +161,11 @@
                                             </div>
                                             <div class="col-md-4 mb-4">
                                                 <label for="email" class="form-label">Email</label>
-                                                <input type="text" class="form-control form-control" name="email" id="email" value="{{ $student ? $student->own_phone : '' }}">
+                                                <input type="text" class="form-control form-control" name="email" id="email" value="{{ $student ? $student->email : '' }}">
                                             </div>
                                             <div class="col-md-4 mb-4">
                                                 <label for="instagram" class="form-label">Instagram</label>
-                                                <input type="text" class="form-control form-control" name="instagram" id="instagram" value="{{ $student ? $student->own_phone : '' }}">
+                                                <input type="text" class="form-control form-control" name="instagram" id="instagram" value="{{ $student ? $student->instagram : '' }}">
                                             </div>
                                             <hr>
                                             <div class="col-md-4 mb-4">
