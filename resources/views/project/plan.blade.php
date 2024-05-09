@@ -45,10 +45,10 @@
                                     <thead>
                                         <tr>
                                             <th>No</th>
-                                            <th>Subjek</th>
+                                            <th class="d-none d-md-table-cell">Subjek</th>
                                             <th>Tema</th>
-                                            <th>Deadline</th>
-                                            <th>Status</th>
+                                            <th class="d-none d-md-table-cell">Deadline</th>
+                                            <th class="d-none d-sm-table-cell">Status</th>
                                             <th>Opsi</th>
                                         </tr>
                                     </thead>
@@ -57,9 +57,9 @@
                                         @foreach ($projects as $index => $item)
                                         <tr>
                                             <td>{{ $loop->index + 1 }}</td>
-                                            <td>{{ $item->subject }}</td>
+                                            <td class="d-none d-md-table-cell">{{ $item->subject }}</td>
                                             <td>{{ $item->theme }}</td>
-                                            <td>{{ $item->end_date }}</td>
+                                            <td class="d-none d-md-table-cell">{{ $item->end_date }}</td>
                                             <td class="text-center d-none d-sm-table-cell">
                                                 <span class="badge badge-light-{{ $item->status == 'In Progress' ? 'primary' : ($item->status == 'Complited' ? 'success' : ($item->status == 'On Hold' ? 'warning' : ($item->status == 'Cancelled' ? 'danger' : 'secondary'))) }}">{{ $item->status }}</span>
                                             </td>
@@ -68,7 +68,7 @@
                                                     <button class="btn btn-outline-secondary btn-icon btn-rounded editProject" onclick="showData({{ $item->id }})" data-bs-toggle="modal" data-bs-target="#projectModal">
                                                         <span class="far fa-edit"></span>
                                                     </button>
-                                                    <form action="/data/project/{{ $item->id }}" method="POST" class="d-inline">
+                                                    <form action="/data/project/{{ $item->id }}" method="POST" class="d-inline {{ (auth()->user()->role < 5) ? 'd-none' : '' }}">
                                                         @csrf
                                                         @method('delete')
                                                         <button type="submit" class="btn btn-outline-danger btn-icon btn-rounded" onclick="return confirm('Apakah anda yakin?')"><i class="far fa-trash-alt"></i></button>

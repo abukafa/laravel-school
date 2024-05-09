@@ -45,9 +45,9 @@
                                         <tr>
                                             <th>No</th>
                                             <th>Nama</th>
-                                            <th>Project</th>
-                                            <th>Task</th>
-                                            <th>Status</th>
+                                            <th class="d-none d-xl-table-cell">Project</th>
+                                            <th class="d-none d-lg-table-cell">Task</th>
+                                            <th class="d-none d-md-table-cell">Status</th>
                                             <th>Opsi</th>
                                         </tr>
                                     </thead>
@@ -57,9 +57,9 @@
                                         <tr>
                                             <td>{{ $loop->index + 1 }}</td>
                                             <td>{{ $item->student_name }}</td>
-                                            <td>{{ $item->project_name }}</td>
-                                            <td>{{ $item->name }}</td>
-                                            <td class="text-center d-none d-sm-table-cell">
+                                            <td class="d-none d-xl-table-cell">{{ $item->project_name }}</td>
+                                            <td class="d-none d-lg-table-cell">{{ $item->name }}</td>
+                                            <td class="text-center d-none d-md-table-cell">
                                                 <span class="badge badge-light-{{ $item->status == 'In Progress' ? 'primary' : ($item->status == 'Complited' ? 'success' : ($item->status == 'On Hold' ? 'warning' : ($item->status == 'Cancelled' ? 'danger' : 'secondary'))) }}">{{ $item->status }}</span>
                                             </td>
                                             <td class="text-center">
@@ -226,6 +226,15 @@
                             <input type="hidden" class="form-control" name="status" id="status_acceptation" value="In Progress">
                         </div>
                         </div>
+                        <div class="row mb-3 d-none" id="rateRange">
+                            <label for="review" class="col-sm-3 col-form-label"><p>Rating</p></label>
+                            <div class="col-sm-7 col-9">
+                                <input type="range" class="form-range pt-4" min="0" max="5" id="customRange3">
+                            </div>
+                            <div class="col-sm-2 col-3">
+                                <input type="text" class="form-control" name="rate" id="rate" readonly>
+                            </div>
+                        </div>
                         <div class="row mb-3">
                             <label for="review" class="col-sm-3 col-form-label"><p>Review</p></label>
                             <div class="col-sm-9">
@@ -310,8 +319,15 @@
                     document.getElementById('teacher_id').value = data.task.teacher_id;
                     document.getElementById('teacher_name').value = data.task.teacher_name;
                     document.getElementById('accepted').value = data.task.accepted;
+                    document.getElementById('rate').value = data.task.rate;
+                    document.getElementById('customRange3').value = data.task.rate;
                     document.getElementById('review').value = data.task.review;
                     document.getElementById('methodField').value = 'PATCH';
+                    if (data.task.accepted == 1) {
+                        document.getElementById('rateRange').classList.remove("d-none");
+                    }else{
+                        document.getElementById('rateRange').classList.add("d-none");
+                    }
                 }
             };
             xhr.send();
@@ -325,13 +341,18 @@
         };
 
         function statusAccepted(accept) {
-            console.log(accept);
             if (accept == 1) {
+                document.getElementById('rateRange').classList.remove("d-none");
                 document.getElementById('status_acceptation').value = 'Completed'
             }else{
+                document.getElementById('rateRange').classList.add("d-none");
                 document.getElementById('status_acceptation').value = 'In Progress'
             }
         };
+
+        document.getElementById("customRange3").addEventListener("input", function() {
+            document.getElementById("rate").value = this.value;
+        });
 
         function newData() {
             document.getElementById('taskModalLabel').innerHTML = 'Input Data <b>task</b>';
