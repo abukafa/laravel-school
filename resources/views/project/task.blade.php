@@ -43,25 +43,21 @@
                                 <table id="html5-extension" class="table dt-table-hover" style="width:100%">
                                     <thead>
                                         <tr>
-                                            <th>No</th>
-                                            <th>Nama</th>
-                                            <th class="d-none d-xl-table-cell">Project</th>
-                                            <th class="d-none d-lg-table-cell">Task</th>
-                                            <th class="d-none d-md-table-cell">Status</th>
+                                            <th>Tanggal</th>
                                             <th>Opsi</th>
+                                            <th>Nama</th>
+                                            <th>ID</th>
+                                            <th>Project</th>
+                                            <th>Task</th>
+                                            <th>Status</th>
+                                            <th class="{{ (auth()->user()->role < 5) ? 'd-none' : '' }}">Delete</th>
                                         </tr>
                                     </thead>
                                     <tbody>
 
                                         @foreach ($tasks as $index => $item)
                                         <tr>
-                                            <td>{{ $loop->index + 1 }}</td>
-                                            <td>{{ $item->student_name }}</td>
-                                            <td class="d-none d-xl-table-cell">{{ $item->project_name }}</td>
-                                            <td class="d-none d-lg-table-cell">{{ $item->name }}</td>
-                                            <td class="text-center d-none d-md-table-cell">
-                                                <span class="badge badge-light-{{ $item->status == 'In Progress' ? 'primary' : ($item->status == 'Complited' ? 'success' : ($item->status == 'On Hold' ? 'warning' : ($item->status == 'Cancelled' ? 'danger' : 'secondary'))) }}">{{ $item->status }}</span>
-                                            </td>
+                                            <td>{{ $item->date }}</td>
                                             <td class="text-center">
                                                 <div class="action-btns">
                                                     <a href="{{ $item->link }}" target="_blank" class="btn btn-outline-secondary btn-icon btn-rounded">
@@ -74,6 +70,21 @@
                                                         <span class="far fa-thumbs-up"></span>
                                                     </a>
                                                 </div>
+                                                <span class="d-none">{{ $item->accepted }}</span>
+                                            </td>
+                                            <td>{{ $item->student_name }}</td>
+                                            <td>{{ $item->id }}</td>
+                                            <td>{{ $item->project_name }}</td>
+                                            <td>{{ $item->name }}</td>
+                                            <td>
+                                                <span class="badge badge-light-{{ $item->status == 'In Progress' ? 'primary' : ($item->status == 'Complited' ? 'success' : ($item->status == 'On Hold' ? 'warning' : ($item->status == 'Cancelled' ? 'danger' : 'secondary'))) }}">{{ $item->status }}</span>
+                                            </td>
+                                            <td class="text-center {{ (auth()->user()->role < 5) ? 'd-none' : '' }}">
+                                                <form action="/data/task/{{ $item->id }}" method="POST" class="d-inline">
+                                                    @csrf
+                                                    @method('delete')
+                                                    <button type="submit" class="btn btn-outline-danger btn-icon btn-rounded" onclick="return confirm('Apakah anda yakin?')"><i class="far fa-trash-alt"></i></button>
+                                                </form>
                                             </td>
                                         </tr>
                                         @endforeach

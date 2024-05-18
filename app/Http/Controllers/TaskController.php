@@ -115,6 +115,11 @@ class TaskController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $deleted = Task::destroy($id);
+        if($deleted){
+            return back()->with('success', 'Data berhasil dihapus');
+        }else{
+            return back()->with('danger', 'Data gagal dihapus');
+        }
     }
 }
