@@ -8,8 +8,6 @@
 
     <link rel="stylesheet" type="text/css" href="{{ asset('src/plugins/css/dark/table/datatable/dt-global_style.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('src/plugins/css/dark/table/datatable/custom_dt_miscellaneous.css') }}">
-    <!-- END PAGE LEVEL CUSTOM STYLES -->
-    <link rel="stylesheet" type="text/css" href="{{ asset('src/plugins/src/flatpickr/flatpickr.css') }}">
 
 @section('content')
 
@@ -49,8 +47,9 @@
                                             <th>ID</th>
                                             <th>Project</th>
                                             <th>Task</th>
+                                            <th>Rates</th>
                                             <th>Status</th>
-                                            <th class="{{ (auth()->user()->role < 5) ? 'd-none' : '' }}">Delete</th>
+                                            <th>Edit</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -61,12 +60,12 @@
                                             <td class="text-center">
                                                 <div class="action-btns">
                                                     <a href="{{ $item->link }}" target="_blank" class="btn btn-outline-secondary btn-icon btn-rounded">
-                                                        <span class="far fa-eye"></span>
+                                                        <span class="far fa-bell"></span>
                                                     </a>
-                                                    <a class="btn btn-outline-secondary btn-icon btn-rounded edittask" onclick="showData({{ $item->id }})" data-bs-toggle="modal" data-bs-target="#taskModal">
-                                                        <span class="far fa-edit"></span>
+                                                    <a href="https://member.jazmedia.site/?tasks={{ $item->id }}" target="_blank" class="btn btn-outline-secondary btn-icon btn-rounded">
+                                                        <span class="far fa-bookmark"></span>
                                                     </a>
-                                                    <a class="btn btn{{ $item->accepted ? '' : '-outline' }}-primary btn-icon btn-rounded edittask" onclick="accData({{ $item->id }})" data-bs-toggle="modal" data-bs-target="#accTaskModal">
+                                                    <a class="btn btn{{ $item->accepted ? '' : '-outline' }}-primary btn-icon btn-rounded accTask" onclick="accData({{ $item->id }})" data-task-id="{{ $item->id }}" data-bs-toggle="modal" data-bs-target="#accTaskModal">
                                                         <span class="far fa-thumbs-up"></span>
                                                     </a>
                                                 </div>
@@ -75,12 +74,18 @@
                                             <td>{{ $item->student_name }}</td>
                                             <td>{{ $item->id }}</td>
                                             <td>{{ $item->project_name }}</td>
-                                            <td>{{ $item->name }}</td>
+                                            <td id="taskName-{{ $item->id }}">{{ $item->name }}</td>
+                                            <td>
+                                                <span class="far fa-star" id="taskRate-{{ $item->id }}"> {{ $item->rate }}</span>
+                                            </td>
                                             <td>
                                                 <span class="badge badge-light-{{ $item->status == 'In Progress' ? 'primary' : ($item->status == 'Complited' ? 'success' : ($item->status == 'On Hold' ? 'warning' : ($item->status == 'Cancelled' ? 'danger' : 'secondary'))) }}">{{ $item->status }}</span>
                                             </td>
-                                            <td class="text-center {{ (auth()->user()->role < 5) ? 'd-none' : '' }}">
-                                                <form action="/data/task/{{ $item->id }}" method="POST" class="d-inline">
+                                            <td class="text-center">
+                                                <a class="btn btn-outline-secondary btn-icon btn-rounded editTask" onclick="showData({{ $item->id }})" data-bs-toggle="modal" data-bs-target="#taskModal">
+                                                    <span class="far fa-edit"></span>
+                                                </a>
+                                                <form action="/data/task/{{ $item->id }}" method="POST" class="d-inline {{ (auth()->user()->role < 5) ? 'd-none' : '' }}">
                                                     @csrf
                                                     @method('delete')
                                                     <button type="submit" class="btn btn-outline-danger btn-icon btn-rounded" onclick="return confirm('Apakah anda yakin?')"><i class="far fa-trash-alt"></i></button>
@@ -164,7 +169,7 @@
                         <div class="row mb-3">
                             <label for="date" class="col-sm-3 col-form-label"><p>Tanggal</p></label>
                             <div class="col-sm-9">
-                            <input type="date" class="form-control" name="date" id="date" required>
+                            <input type="text" class="form-control" name="date" id="dateTask" required>
                             </div>
                         </div>
                         <div class="row mb-3">
@@ -240,7 +245,7 @@
                         <div class="row mb-3 d-none" id="rateRange">
                             <label for="review" class="col-sm-3 col-form-label"><p>Rating</p></label>
                             <div class="col-sm-7 col-9">
-                                <input type="range" class="form-range pt-4" min="0" max="5" id="customRange3">
+                                <input type="range" class="form-range pt-4" min="0" max="5" id="customRange3" oninput="rateSlider(this.value)">
                             </div>
                             <div class="col-sm-2 col-3">
                                 <input type="text" class="form-control" name="rate" id="rate" readonly>
@@ -273,12 +278,7 @@
     <script src="{{ asset('src/plugins/src/table/datatable/button-ext/buttons.print.min.js') }}"></script>
     <script src="{{ asset('src/plugins/src/table/datatable/custom_miscellaneous.js') }}"></script>
     <!-- END PAGE LEVEL SCRIPTS -->
-
-    <script src="{{ asset('src/plugins/src/flatpickr/flatpickr.js') }}"></script>
-    <!-- END PAGE LEVEL SCRIPTS -->
     <script>
-        var f1 = flatpickr(document.getElementById('date'));
-
         document.getElementById('project_id').addEventListener('change', function() {
             var id = this.value;
             var xhr = new XMLHttpRequest();
@@ -295,13 +295,13 @@
 
         function showData(id) {
             document.getElementById('taskModalLabel').innerHTML = 'Edit Data <b>task</b>';
-            document.querySelector('.modal-taskModal form').setAttribute('action', '/data/task/' + id);
+            var form = document.querySelector('.modal-taskModal form');
+            form.setAttribute('action', '/data/task/' + id);
             var xhr = new XMLHttpRequest();
             xhr.open('GET', '/data/task/' + id);
             xhr.onload = function() {
                 if (xhr.status === 200) {
                     var data = JSON.parse(xhr.responseText);
-                    console.log(data);
                     document.getElementById('project_id').value = data.task.project_id;
                     document.getElementById('project_name').value = data.task.project_name;
                     document.getElementById('student_id').value = data.task.student_id;
@@ -309,7 +309,7 @@
                     document.getElementById('semester').value = data.task.semester;
                     document.getElementById('name').value = data.task.name;
                     document.getElementById('description').value = data.task.description;
-                    document.getElementById('date').value = data.task.date;
+                    document.getElementById('dateTask').value = data.task.date;
                     document.getElementById('deadline').value = data.task.deadline;
                     document.getElementById('status').value = data.task.status;
                     document.getElementById('link').value = data.task.link;
@@ -317,16 +317,42 @@
                 }
             };
             xhr.send();
+
+            form.onsubmit = function(event) {
+                event.preventDefault();
+                var formData = new FormData(form);
+                var csrfToken = form.querySelector('input[name="_token"]').value;
+                formData.append('_token', csrfToken);
+                var actionUrl = '/data/task/' + id;
+                var xhrUpdate = new XMLHttpRequest();
+                xhrUpdate.open('POST', actionUrl);
+                xhrUpdate.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+                xhrUpdate.onload = function() {
+                    if (xhrUpdate.status === 200) {
+                        document.getElementById('taskName-' + id).innerHTML = document.getElementById('name').value;
+                    }else{
+                        alert('Failed to update data: ' + xhrUpdate.statusText);
+                    }
+                    var modal = document.querySelector('#taskModal');
+                    var modalInstance = bootstrap.Modal.getInstance(modal);
+                    modalInstance.hide();
+                };
+                xhrUpdate.onerror = function() {
+                    console.error('Request error');
+                    alert('Request error');
+                };
+                xhrUpdate.send(formData);
+            };
         };
 
         function accData(id) {
-            document.querySelector('.modal-accTaskModal form').setAttribute('action', '/data/task/acc/' + id);
+            var form = document.querySelector('.modal-accTaskModal form');
+            form.setAttribute('action', '/data/task/acc/' + id);
             var xhr = new XMLHttpRequest();
             xhr.open('GET', '/data/task/' + id);
             xhr.onload = function() {
                 if (xhr.status === 200) {
                     var data = JSON.parse(xhr.responseText);
-                    console.log(data);
                     document.getElementById('teacher_id').value = data.task.teacher_id;
                     document.getElementById('teacher_name').value = data.task.teacher_name;
                     document.getElementById('accepted').value = data.task.accepted;
@@ -342,16 +368,49 @@
                 }
             };
             xhr.send();
+
+            form.onsubmit = function(event) {
+                event.preventDefault();
+                var formData = new FormData(form);
+                var csrfToken = form.querySelector('input[name="_token"]').value;
+                formData.append('_token', csrfToken);
+                var actionUrl = '/data/task/acc/' + id;
+                var xhrUpdate = new XMLHttpRequest();
+                xhrUpdate.open('POST', actionUrl);
+                xhrUpdate.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+                xhrUpdate.onload = function() {
+                    if (xhrUpdate.status === 200) {
+                        var clickedButton = document.querySelector('.accTask[data-task-id="' + id + '"]');
+                        var accepted = document.getElementById('accepted').value;
+                        document.getElementById('taskRate-' + id).innerHTML = ' ' + document.getElementById('rate').value;
+                        if (clickedButton) {
+                            clickedButton.classList.remove(accepted == true ? 'btn-outline-primary' : 'btn-primary');
+                            clickedButton.classList.add(accepted == true ? 'btn-primary' : 'btn-outline-primary');
+                        }
+                    } else {
+                        alert('Failed to update data: ' + xhrUpdate.statusText);
+                    }
+                    var modal = document.querySelector('#accTaskModal');
+                    var modalInstance = bootstrap.Modal.getInstance(modal);
+                    modalInstance.hide();
+                };
+                xhrUpdate.onerror = function() {
+                    console.error('Request error');
+                    alert('Request error');
+                };
+                xhrUpdate.send(formData);
+            };
         };
 
         function accepter(id) {
             const selectedOption = event.target.options[id];
             const teacher_name = selectedOption.text;
-
             document.getElementById('teacher_name').value = teacher_name;
         };
 
         function statusAccepted(accept) {
+            document.getElementById('rate').value = 0
+            document.getElementById('customRange3').value = 0
             if (accept == 1) {
                 document.getElementById('rateRange').classList.remove("d-none");
                 document.getElementById('status_acceptation').value = 'Completed'
@@ -361,9 +420,9 @@
             }
         };
 
-        document.getElementById("customRange3").addEventListener("input", function() {
-            document.getElementById("rate").value = this.value;
-        });
+        function rateSlider(rate) {
+            document.getElementById("rate").value = rate;
+        };
 
         function newData() {
             document.getElementById('taskModalLabel').innerHTML = 'Input Data <b>task</b>';
