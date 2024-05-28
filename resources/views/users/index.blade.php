@@ -44,7 +44,7 @@
                                                 <th scope="col">Name</th>
                                                 <th scope="col" class="d-none d-md-table-cell">Role</th>
                                                 <th class="text-center d-none d-sm-table-cell" scope="col">Access</th>
-                                                <th class="text-center" scope="col"></th>
+                                                <th class="text-center" scope="col">Option</th>
                                             </tr>
                                             <tr aria-hidden="true" class="mt-3 d-block table-row-hidden"></tr>
                                         </thead>
