@@ -32,6 +32,32 @@ class CustomServiceProvider extends ServiceProvider
                 return $initials;
             };
         });
+
+        // Register grade conversion function
+        $this->app->singleton('convertToGrade', function ($app) {
+            return function ($score) {
+                switch (true) {
+                    case ($score >= 90):
+                        return 'A';
+                    case ($score >= 85):
+                        return 'A-';
+                    case ($score >= 80):
+                        return 'B';
+                    case ($score >= 75):
+                        return 'B-';
+                    case ($score >= 70):
+                        return 'C';
+                    case ($score >= 65):
+                        return 'C-';
+                    case ($score >= 60):
+                        return 'D';
+                    case ($score >= 55):
+                        return 'D-';
+                    default:
+                        return 'E'; // Default grade for scores less than 60
+                }
+            };
+        });
     }
 
     public function boot()

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Score;
+use App\Models\School;
+use App\Models\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -145,5 +147,33 @@ class ScoreController extends Controller
         } else {
             return back()->with('danger', 'Data gagal dihapus');
         }
+    }
+
+    public function rapor(Request $request)
+    {
+        $rapor = Score::select('student_id', 'semester')
+            ->distinct()
+            ->get();
+
+        return view('assess.rapor', [
+            'title' => 'Data Rapor',
+            'students' => Student::all(),
+            'rapors' => $rapor
+        ]);
+    }
+
+    public function rapor_view($semester, $ids)
+    {
+        $scores = Score::where('student_id', $ids)->where('semester', $semester)->get();
+
+        // ddd($scores);
+
+        return view('assess.rapor_view', [
+            'title' => 'Data Rapor',
+            'semester' => $semester,
+            'school' => School::first(),
+            'student' => Student::find($ids),
+            'scores' => $scores
+        ]);
     }
 }

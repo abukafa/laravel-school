@@ -63,6 +63,8 @@ Route::get('/data/nilai/create', [ScoreController::class, 'create'])->middleware
 Route::get('/data/nilai/{num}/edit', [ScoreController::class, 'edit'])->middleware('auth');
 Route::post('/data/nilai', [ScoreController::class, 'store'])->middleware('auth');
 Route::get('/data/destroy/nilai/{id}', [ScoreController::class, 'destroy'])->middleware('auth');
+Route::get('/data/rapor', [ScoreController::class, 'rapor'])->middleware('auth');
+Route::get('/data/rapor/{num}/{ids}', [ScoreController::class, 'rapor_view'])->middleware('auth');
 
 Route::get('/data/kompetensi/semester/{id}', [CompetenceController::class, 'findBySemester'])->middleware('auth');
 
