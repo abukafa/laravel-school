@@ -157,14 +157,19 @@ class ScoreController extends Controller
 
         return view('assess.rapor', [
             'title' => 'Data Rapor',
-            'students' => Student::all(),
+            'students' => Student::orderBy('registered')->get(),
             'rapors' => $rapor
         ]);
     }
 
     public function rapor_view($semester, $ids)
     {
-        $scores = Score::where('student_id', $ids)->where('semester', $semester)->get();
+        $scores = Score::where('student_id', $ids)
+            ->join('competences', 'competences.id', '=', 'scores.competence_id')
+            ->join('subjects', 'subjects.id', '=', 'competences.subject_id')
+            ->where('scores.semester', $semester)
+            ->orderBy('subjects.number')
+            ->get();
 
         // ddd($scores);
 

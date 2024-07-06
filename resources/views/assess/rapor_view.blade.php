@@ -57,7 +57,6 @@
                                                                     <thead class="text-center">
                                                                         <tr>
                                                                             <th>SUBJECT</th>
-                                                                            <th>ITEM</th>
                                                                             <th colspan="2">SCORE</th>
                                                                             <th>DESCRIPTION</th>
                                                                         </tr>
@@ -68,11 +67,15 @@
                                                                             $subject = explode('-', $item->subject);
                                                                         @endphp
                                                                         <tr>
-                                                                            <td>{{ trim($subject[0]) }}</td>
-                                                                            <td>{{ trim($subject[1]) }}</td>
+                                                                            <td>
+                                                                                <div class="media-body align-self-center">
+                                                                                    <h6 class="mb-0">{{ trim($subject[0]) }}</h6>
+                                                                                    <span>{{ trim($subject[1]) }}</span>
+                                                                                </div>
+                                                                            </td>
                                                                             <td>{{ $item->month_6 }}</td>
                                                                             <td>{{ app('convertToGrade')($item->month_6) }}</td>
-                                                                            <td style="word-wrap: break-word;">{{ ucfirst($item->competence_1) . $item->competence_2 }}</td>
+                                                                            <td style="word-wrap: break-word;">{{ ($item->is_ok_1 ? 'Mampu ' : 'Belum mampu ') . $item->competence_1 . ($item->is_ok_2 ? '. Mampu ' : '. Belum mampu ') . $item->competence_2 }}</td>
                                                                         </tr>
                                                                         @endforeach
                                                                     </tbody>
