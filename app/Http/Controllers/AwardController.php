@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Project;
+use App\Models\Award;
 use App\Models\Student;
-use App\Models\Task;
 use App\Models\Teacher;
 use Illuminate\Http\Request;
 
-class TaskController extends Controller
+class AwardController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,12 +16,14 @@ class TaskController extends Controller
      */
     public function index()
     {
-        return view('project.task', [
-            'title' => 'Data Task',
-            'tasks' => Task::all(),
-            'projects' => Project::all(),
-            'teachers' => Teacher::all(),
-            'students' => Student::where('graduation', null)->get()
+        $awards = Award::orderBy('date', 'DESC')->get();
+        $teachers = Teacher::select('name')->orderBy('name')->get();
+        $students = Student::select('id', 'name', 'registered')->orderBy('name')->get();
+        return view('assess.award', [
+            'title' => 'Data Penghargaan',
+            'awards' => $awards,
+            'mentors' => $teachers,
+            'names' => $students
         ]);
     }
 
@@ -35,7 +36,7 @@ class TaskController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
-        $saved = Task::create($data);
+        $saved = Award::create($data);
         if($saved){
             return back()->with('success', 'Data berhasil disimpan');
         }else{
@@ -51,21 +52,10 @@ class TaskController extends Controller
      */
     public function show($id)
     {
-        $task = Task::find($id);
+        $award = Award::find($id);
         return response()->json([
-            'task' => $task
+            'award' => $award
         ]);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
     }
 
     /**
@@ -77,19 +67,8 @@ class TaskController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $task = Task::find($id);
-        $updated = $task->update($request->all());
-        if($updated){
-            return back()->with('success', 'Data berhasil disimpan');
-        }else{
-            return back()->with('danger', 'Data gagal disimpan');
-        }
-    }
-
-    public function acc(Request $request, $id)
-    {
-        $task = Task::find($id);
-        $updated = $task->update($request->all());
+        $award = Award::find($id);
+        $updated = $award->update($request->all());
         if($updated){
             return back()->with('success', 'Data berhasil disimpan');
         }else{
@@ -105,7 +84,7 @@ class TaskController extends Controller
      */
     public function destroy($id)
     {
-        $deleted = Task::destroy($id);
+        $deleted = Award::destroy($id);
         if($deleted){
             return back()->with('success', 'Data berhasil dihapus');
         }else{

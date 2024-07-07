@@ -2,7 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\TaskController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\AwardController;
 use App\Http\Controllers\ScoreController;
 use App\Http\Controllers\AssessController;
 use App\Http\Controllers\LessonController;
@@ -20,7 +22,6 @@ use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\CalendarController;
 use App\Http\Controllers\DiscountController;
 use App\Http\Controllers\CompetenceController;
-use App\Http\Controllers\TaskController;
 
 /*
 |--------------------------------------------------------------------------
@@ -65,6 +66,8 @@ Route::post('/data/nilai', [ScoreController::class, 'store'])->middleware('auth'
 Route::get('/data/destroy/nilai/{id}', [ScoreController::class, 'destroy'])->middleware('auth');
 Route::get('/data/rapor', [ScoreController::class, 'rapor'])->middleware('auth');
 Route::get('/data/rapor/{num}/{ids}', [ScoreController::class, 'rapor_view'])->middleware('auth');
+
+Route::resource('/data/award', AwardController::class)->middleware('auth');
 
 Route::get('/data/kompetensi/semester/{id}', [CompetenceController::class, 'findBySemester'])->middleware('auth');
 
