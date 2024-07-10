@@ -2,7 +2,7 @@
 
     <link rel="stylesheet" type="text/css" href="{{ asset('src/assets/css/light/apps/invoice-add.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('src/assets/css/dark/apps/invoice-add.css') }}">
-    
+
 @section('content')
 
     <!--  BEGIN CONTENT AREA  -->
@@ -11,7 +11,7 @@
             <div class="middle-content container-xxl p-0">
                 <div class="row invoice layout-top-spacing layout-spacing">
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                    
+
                     <!-- FLASH ALERT -->
                     @if (session()->has('success') || session()->has('danger'))
                     <div class="alert alert-icon-left alert-light-{{ session('success') ? 'success' : 'danger' }} alert-dismissible fade show mb-4" role="alert">
@@ -47,8 +47,8 @@
                                                         </div>
                                                         <div class="col-md-3">
                                                             <label for="competence_id" class="form-label">Pelajaran</label>
-                                                            <input class="form-control" name="competence_id" id="competence_id" value="{{ $scores[0]->competence_id }}" readonly>
-                                                            <input type="hidden" class="form-control" name="subject" id="subject" value="{{ $scores[0]->subject }}">
+                                                            <input type="hidden" class="form-control" name="competence_id" id="competence_id" value="{{ $scores[0]->competence_id }}">
+                                                            <input class="form-control" name="subject" id="subject" value="{{ $scores[0]->subject }}" readonly>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -66,7 +66,7 @@
                                                             </thead>
                                                             <tbody id="table-form">
                                                                 @foreach ($scores as $i => $item)
-                                                                
+
                                                                 <tr>
                                                                     <td style="vertical-align: middle !important;">{{ $i + 1 }}</td>
                                                                     <td>
@@ -117,7 +117,7 @@
                                                                             <input class="form-check-input" type="checkbox" name="is_ok_3[]" id="is_ok_3" value="1" {{ $item->is_ok_3 ? 'checked' : '' }}>
                                                                         </div>
                                                                     </td>
-                                                                </tr>                                                            
+                                                                </tr>
 
                                                                 @endforeach
                                                             </tbody>
@@ -154,7 +154,7 @@
 
     <!-- BEGIN PAGE LEVEL SCRIPTS -->
     <script src="{{ asset('src/plugins/src/global/vendors.min.js') }}"></script>
-    <!-- END PAGE LEVEL SCRIPTS -->     
+    <!-- END PAGE LEVEL SCRIPTS -->
     <script>
         document.getElementById('tombol-simpan').addEventListener('click', function() {
             const isOk1Elements = document.querySelectorAll('[name="is_ok_1[]"]');

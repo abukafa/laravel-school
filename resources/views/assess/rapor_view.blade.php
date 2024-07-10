@@ -75,7 +75,7 @@
                                                                             </td>
                                                                             <td>{{ $item->month_6 }}</td>
                                                                             <td>{{ app('convertToGrade')($item->month_6) }}</td>
-                                                                            <td style="word-wrap: break-word;">{{ ($item->is_ok_1 ? 'Mampu ' : 'Belum mampu ') . $item->competence_1 . ($item->is_ok_2 ? '. Mampu ' : '. Belum mampu ') . $item->competence_2 }}</td>
+                                                                            <td style="word-wrap: break-word;">{{ ($item->competence_1 == '' ? '' : ($item->is_ok_1 == true ? 'Mampu ' : 'Belum mampu ') . $item->competence_1) . ($item->competence_2 == '' ? '' : ($item->is_ok_2 == true ? '. Mampu ' : '. Belum mampu ') . $item->competence_2) . ($item->competence_3 == '' ? '' : ($item->is_ok_3 == true ? '. Mampu ' : '. Belum mampu ') . $item->competence_3) }}</td>
                                                                         </tr>
                                                                         @endforeach
                                                                     </tbody>
