@@ -112,7 +112,7 @@ class AuthController extends Controller
                         $score->month_1, $score->month_2, $score->month_3, $score->month_4, $score->month_5, $score->month_6
                     ];
                 }
-                if (strpos($score->subject, 'Multimedia') === 0) {
+                if (strpos($score->subject, 'Multimedia') === 0 || strpos($score->subject, 'Informatika') === 0) {
                     $data['ict']['subject'][] = substr($score->subject, strpos($score->subject, ' - ') + strlen(' - '));
                     $data['ict']['value'][] = $score->month_6 === null ? 0 : $score->month_6;
                 }
@@ -200,12 +200,16 @@ class AuthController extends Controller
             // }
             // KHUSUS ARM ==========================
             if ($amount->count() > 0) {
-                $monthlyPaymentByMonth[$i]['Syahriyah'] = $amount->where('billing_group', 'SPP')->first()['totalPayment'] ? $amount->where('billing_group', 'SPP')->first()['totalPayment'] + $amount->where('billing_group', 'Asrama')->first()['totalPayment'] : 0;
+                $syahriyahTotal = $amount->where('billing_group', 'SPP')->first()['totalPayment'] ?? 0;
+                $asramaTotal = $amount->where('billing_group', 'Asrama')->first()['totalPayment'] ?? 0;
+
+                $monthlyPaymentByMonth[$i]['Syahriyah'] = $syahriyahTotal + $asramaTotal;
                 $monthlyPaymentByMonth[$i]['Makan'] = $amount->where('billing_group', 'Makan')->first()['totalPayment'] ?? 0;
             } else {
                 $monthlyPaymentByMonth[$i]['Syahriyah'] = 0;
                 $monthlyPaymentByMonth[$i]['Makan'] = 0;
             }
+
         }
 
         // data gabungan - History input

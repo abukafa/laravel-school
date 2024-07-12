@@ -19,13 +19,30 @@
     <link rel="stylesheet" href="{{ asset('src/plugins/src/font-icons/fontawesome/css/fontawesome.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('src/assets/css/light/components/font-icons.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('src/assets/css/dark/components/font-icons.css') }}">
+    <style>
+        /* ----- CHANGE THE SCROLL BAR DESIGN ----- */
+        ::-webkit-scrollbar{
+            width: 10px;
+            border-radius: 25px;
+        }
+        ::-webkit-scrollbar-track{
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb{
+            background: #ccc;
+            border-radius: 30px;
+        }
+        ::-webkit-scrollbar-thumb:hover{
+            background: #bbb;
+        }
+    </style>
 
 </head>
 <body class="layout-boxed">
-    
-    
+
+
     @yield('body')
-    
+
 
     <!-- BEGIN GLOBAL MANDATORY SCRIPTS -->
     <script src="{{ asset('src/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
@@ -33,6 +50,6 @@
     <script src="{{ asset('src/plugins/src/mousetrap/mousetrap.min.js') }}"></script>
     <script src="{{ asset('layouts/vertical-dark-menu/app.js') }}"></script>
     <!-- END GLOBAL MANDATORY SCRIPTS -->
-    
+
 </body>
 </html>
