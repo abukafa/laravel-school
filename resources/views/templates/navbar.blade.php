@@ -284,23 +284,6 @@
                                 </li>
                             </ul>
                         </li>
-
-                        <li class="menu {{ $title == 'Data Tabungan' ? 'active' : '' }}">
-                            <a href="#tabungan" data-bs-toggle="collapse" aria-expanded="{{ $title == 'Data Tabungan' ? 'true' : 'false' }}" class="dropdown-toggle">
-                                <div class="">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-dollar-sign"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
-                                    <span>Tabungan</span>
-                                </div>
-                                <div>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg>
-                                </div>
-                            </a>
-                            <ul class="collapse submenu list-unstyled {{ $title == 'Data Tabungan' ? 'show' : '' }}" id="tabungan" data-bs-parent="#accordionExample">
-                                <li class="{{ $title == 'Data Tabungan' ? 'active' : '' }}">
-                                    <a href="/admin/tabungan"> Entri </a>
-                                </li>
-                            </ul>
-                        </li>
                     @endif
 
                     <li class="menu menu-heading">
@@ -314,6 +297,23 @@
                                 <span>Kalendar</span>
                             </div>
                         </a>
+                    </li>
+
+                    <li class="menu {{ $title == 'Data Tabungan' ? 'active' : '' }}">
+                        <a href="#tabungan" data-bs-toggle="collapse" aria-expanded="{{ $title == 'Data Tabungan' ? 'true' : 'false' }}" class="dropdown-toggle">
+                            <div class="">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-dollar-sign"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                                <span>Tabungan</span>
+                            </div>
+                            <div>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                            </div>
+                        </a>
+                        <ul class="collapse submenu list-unstyled {{ $title == 'Data Tabungan' ? 'show' : '' }}" id="tabungan" data-bs-parent="#accordionExample">
+                            <li class="{{ $title == 'Data Tabungan' ? 'active' : '' }}">
+                                <a href="/admin/tabungan"> Entri </a>
+                            </li>
+                        </ul>
                     </li>
 
                     <li class="menu {{ $title == 'Data Pelajaran' || $title == 'Data Kompetensi' || $title == 'Data Nilai' || $title == 'Data Rapor' || $title == 'Data Penghargaan' ? 'active' : '' }}">
