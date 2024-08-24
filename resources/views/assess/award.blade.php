@@ -67,7 +67,7 @@
                                                 </td>
                                                 <td class="text-center {{ auth()->user()->role < 3 ? 'd-none' : '' }}">
                                                     <div class="action-btns">
-                                                        <a href="https://member.jazmedia.site/academy/awards/{{ strtolower($item->subject) }}/{{ $item->id }}" target="_blank" class="btn btn-outline-secondary btn-icon btn-rounded">
+                                                        <a href="https://jazacademy.id/academy/awards/{{ strtolower($item->subject) }}/{{ $item->id }}" target="_blank" class="btn btn-outline-secondary btn-icon btn-rounded">
                                                             <span class="far fa-eye"></span>
                                                         </a>
                                                         <button class="btn btn-outline-secondary btn-icon btn-rounded editAward" onclick="showData({{ $item->id }})" data-bs-toggle="modal" data-bs-target="#awardModal">
