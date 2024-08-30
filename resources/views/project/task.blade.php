@@ -191,6 +191,24 @@
                             </div>
                         </div>
                         <div class="row mb-3">
+                            <label for="media" class="col-sm-3 col-form-label"><p>Media</p></label>
+                            <div class="col-sm-9">
+                                <select type="text" class="form-select" name="media" id="media">
+                                    <option selected disabled value="">Pilih...</option>
+                                    <option>Google Drive</option>
+                                    <option>Youtube</option>
+                                    <option>Instagram</option>
+                                    <option>Tiktok</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="embed" class="col-sm-3 col-form-label"><p>Embed</p></label>
+                            <div class="col-sm-9">
+                                <textarea type="text" class="form-control" name="embed" id="embed" cols="30" rows="3"></textarea>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
                             <label for="link" class="col-sm-3 col-form-label"><p>Link Task</p></label>
                             <div class="col-sm-9">
                                 <input type="text" class="form-control" name="link" id="link">
@@ -312,6 +330,8 @@
                     document.getElementById('dateTask').value = data.task.date;
                     document.getElementById('deadline').value = data.task.deadline;
                     document.getElementById('status').value = data.task.status;
+                    document.getElementById('media').value = data.task.media;
+                    document.getElementById('embed').value = data.task.embed;
                     document.getElementById('link').value = data.task.link;
                     document.getElementById('methodField').value = 'PATCH';
                 }
