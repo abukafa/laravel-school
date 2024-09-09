@@ -62,7 +62,7 @@
                                                     <a href="{{ $item->link }}" target="_blank" class="btn btn-outline-secondary btn-icon btn-rounded">
                                                         <span class="far fa-bell"></span>
                                                     </a>
-                                                    <a href="https://jazacademy.id/?tasks={{ $item->id }}" target="_blank" class="btn btn-outline-secondary btn-icon btn-rounded">
+                                                    <a href="{{ env('APP_URL') . (($item->media == 'Instagram' || $item->media == 'Tiktok') ? '?instagram=true' : '') . '#' . $item->id }}" target="_blank" class="btn btn-outline-secondary btn-icon btn-rounded">
                                                         <span class="far fa-bookmark"></span>
                                                     </a>
                                                     <a class="btn btn{{ $item->accepted ? '' : '-outline' }}-primary btn-icon btn-rounded accTask" onclick="accData({{ $item->id }})" data-task-id="{{ $item->id }}" data-bs-toggle="modal" data-bs-target="#accTaskModal">
