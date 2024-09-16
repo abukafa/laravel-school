@@ -62,7 +62,7 @@
                                                     <a href="{{ $item->link }}" target="_blank" class="btn btn-outline-secondary btn-icon btn-rounded">
                                                         <span class="far fa-bell"></span>
                                                     </a>
-                                                    <a href="{{ env('APP_URL') . (($item->media == 'Instagram' || $item->media == 'Tiktok') ? '?instagram=true' : '') . '#' . $item->id }}" target="_blank" class="btn btn-outline-secondary btn-icon btn-rounded">
+                                                    <a href="https://jazacademy.id{{ (($item->media == 'Instagram' || $item->media == 'Tiktok') ? '/instagram' : '') . '?creator=' . $item->id }}" target="_blank" class="btn btn-outline-secondary btn-icon btn-rounded">
                                                         <span class="far fa-bookmark"></span>
                                                     </a>
                                                     <a class="btn btn{{ $item->accepted ? '' : '-outline' }}-primary btn-icon btn-rounded accTask" onclick="accData({{ $item->id }})" data-task-id="{{ $item->id }}" data-bs-toggle="modal" data-bs-target="#accTaskModal">
@@ -122,7 +122,9 @@
                                 <select type="text" class="form-select" name="project_id" id="project_id" required>
                                     <option selected disabled value="">Pilih...</option>
                                     @foreach ($projects as $project)
-                                        <option value="{{ $project->id }}">{{ $project->subject . ' - ' . $project->theme }}</option>
+                                        @if ($project->status == 'In Progress')
+                                            <option value="{{ $project->id }}">{{ $project->subject . ' - ' . $project->theme }}</option>
+                                        @endif
                                     @endforeach
                                 </select>
                                 <input type="hidden" class="form-control" name="project_name" id="project_name">
