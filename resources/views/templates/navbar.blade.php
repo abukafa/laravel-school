@@ -326,7 +326,10 @@
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg>
                             </div>
                         </a>
-                        <ul class="collapse submenu list-unstyled {{ $title == 'Data Pelajaran' || $title == 'Data Kompetensi' || $title == 'Data Nilai' || $title == 'Data Rapor' || $title == 'Data Penghargaan' ? 'show' : '' }}" id="academic" data-bs-parent="#accordionExample">
+                        <ul class="collapse submenu list-unstyled {{ $title == 'Data Kursus' || $title == 'Data Pelajaran' || $title == 'Data Kompetensi' || $title == 'Data Nilai' || $title == 'Data Rapor' || $title == 'Data Penghargaan' ? 'show' : '' }}" id="academic" data-bs-parent="#accordionExample">
+                            <li class="{{ $title == 'Data Kursus' ? 'active' : '' }}">
+                                <a href="/data/kursus"> Kursus </a>
+                            </li>
                             <li class="{{ $title == 'Data Pelajaran' ? 'active' : '' }}">
                                 <a href="/data/pelajaran"> Pelajaran </a>
                             </li>

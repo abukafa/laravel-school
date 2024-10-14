@@ -27,59 +27,67 @@
                                     <div class="invoice-content">
                                         <div class="invoice-detail-body">
                                             <div class="text-center mt-0 mb-4">
-                                                <h5>Input Potongan Tagihan</h5>
+                                                <h5>Input Data Kursus</h5>
                                             </div>
-                                            <form action="/admin/potongan" method="POST">
+                                            <form action="/data/kursus{{ $item ? '/' . $item->id : '' }}" method="POST">
                                                 <div class="invoice-detail-header">
                                                     <div class="row g-3">
                                                         @csrf
-                                                        <div class="col-md-6">
-                                                            <label for="ids" class="form-label">Santri</label>
-                                                            <select type="text" class="form-control" id="ids" name="ids" required>
-                                                                @if ($items)
-                                                                    <option value="{{ optional($items->first())->ids }}">{{ optional($items->first())->name }}</option>
-                                                                @else
-                                                                    <option selected disabled value="">Pilih...</option>
-                                                                @endif
-                                                                @foreach ($students as $student)
-                                                                    @if ($student->unit <> 'Pembayaran')
-                                                                        <option value="{{ $student->id }}">{{ $student->nis . ' - ' . $student->name }}</option>
-                                                                    @endif
-                                                                @endforeach
-                                                            </select>
-                                                            <input type="hidden" class="form-control" name="name" id="name">
+                                                        @if($item)
+                                                            @method('PUT') <!-- Gantikan metode POST dengan PUT jika $item ada -->
+                                                        @endif
+                                                        <div class="col-md-8">
+                                                            <label for="ids" class="form-label">Nama Kursus</label>
+                                                            <input type="text" class="form-control" name="name" id="name" value="{{ $items && $items->first() ? $items->first()->name : '' }}" {{ $items ? 'readonly' : 'required' }}>
                                                         </div>
-                                                        <div class="col-md-3">
-                                                            <label for="year" class="form-label">Tahun</label>
-                                                            <input type="text" class="form-control" name="year" id="year" value="{{ $items && $items->first() ? $items->first()->year : app('periode') }}" required>
+                                                        <div class="col-md-4">
+                                                            <label for="year" class="form-label">Subjek</label>
+                                                            @if ($items && $items->first())
+                                                                <input type="text" class="form-control" name="subject" id="subject" value="{{ $items->first()->subject }}" readonly>
+                                                            @else
+                                                                <select class="form-select" name="subject" id="subject" required>
+                                                                    <option selected>Pilih...</option>
+                                                                    @foreach ($subjects as $subject)
+                                                                        <option>{{ $subject }}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                            @endif
                                                         </div>
-                                                        <div class="col-md-3">
-                                                            <label for="year" class="form-label">Kategori</label>
-                                                            <input type="text" class="form-control" name="category" id="payment_category" value="{{ $items && $items->first() ? $items->first()->payment_category : '' }}" required>
+                                                        <div class="col-md-8">
+                                                            <label for="year" class="form-label">Keterangan</label>
+                                                            <input type="text" class="form-control" name="note" id="note" value="{{ $items && $items->first() ? $items->first()->note : '' }}"  {{ $items ? 'readonly' : 'required' }}>
                                                         </div>
-                                                        <div class="col-md-6">
-                                                            <label for="idb" class="form-label">Pembayaran</label>
-                                                            <select class="form-select" id="idb" required>
-                                                                <option selected disabled value="">Pilih...</option>
-                                                            </select>
-                                                            <input type="hidden" class="form-control" id="account" name="account" value="{{ $items && $items->first() ? $items->first()->account : '' }}">
-                                                            <input type="hidden" class="form-control" id="billing" name="billing" value="{{ $items && $items->first() ? $items->first()->billing : '' }}">
+                                                        <div class="col-md-4">
+                                                            <label for="year" class="form-label">Author</label>
+                                                            <input type="text" class="form-control" name="author" id="author" value="{{ $items && $items->first() ? $items->first()->author : '' }}"  {{ $items ? 'readonly' : 'required' }}>
                                                         </div>
-                                                        <div class="col-md-6 mb-2">
-                                                            <label for="amount" class="form-label">Jumlah</label>
-                                                            <input type="number" class="form-control" name="amount" id="amount" required>
+
+                                                        <div class="col-md-8">
+                                                            <label for="idb" class="form-label">Judul</label>
+                                                            <input type="text" class="form-control" id="title" name="title" value="{{ $item ? $item->title : '' }}" required>
+                                                        </div>
+                                                        <div class="col-md-4 mb-2">
+                                                            <label for="amount" class="form-label">Bab</label>
+                                                            <input type="text" class="form-control" name="section" id="section" value="{{ $items && $items->first() ? $items->first()->section : '' }}" required>
                                                         </div>
                                                         <div class="col-md-12">
-                                                            <label for="year" class="form-label">Keterangan</label>
-                                                            <input type="text" class="form-control" name="note" id="note" required>
-                                                            <input type="hidden" class="form-control" value="{{ session('user.name') }}" name="admin" id="admin">
+                                                            <label for="year" class="form-label">Deskripsi</label>
+                                                            <textarea class="form-control" name="description" id="description" >{{ $item ? $item->description : '' }}</textarea>
+                                                        </div>
+                                                        <div class="col-md-8">
+                                                            <label for="idb" class="form-label">URL Video</label>
+                                                            <input type="text" class="form-control" id="video_url" name="video_url" value="{{ $item ? $item->video_url : 'https://' }}" required>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <label for="idb" class="form-label">Durasi Video</label>
+                                                            <input type="text" class="form-control" id="video_duration" name="video_duration" value="{{ $item ? $item->video_duration : '00.00' }}">
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <br>
                                                 <div class="text-center mt-4">
                                                     <button type="submit" class="btn btn-primary me-1">Simpan</button>
-                                                    <a href="/admin/potongan" class="btn btn-secondary ms-1">Kembali</a>
+                                                    <a href="/data/kursus" class="btn btn-secondary ms-1">Kembali</a>
                                                 </div>
                                             </form>
                                             <div class="invoice-detail-items">
@@ -87,30 +95,32 @@
                                                     <table class="table item-table align-middle">
                                                         <thead class="mb-2">
                                                             <tr>
-                                                                <th>No</th>
-                                                                <th>Tagihan</th>
-                                                                <th class="text-right w-25">Potongan</th>
-                                                                <th>Keterangan</th>
+                                                                <th>Bab</th>
+                                                                <th>Judul</th>
+                                                                <th>Durasi</th>
                                                                 <th>Opsi</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            @foreach ($items as $i => $item)
-                                                                <tr>
-                                                                    <td>{{ $i+1 }}</td>
-                                                                    <td>{{ $item->billing }}</td>
-                                                                    <td>{{ $item->amount }}</td>
-                                                                    <td>{{ $item->note }}</td>
-                                                                    <td>
-                                                                        <form action="/admin/potongan/{{ $item->id }}" method="POST" class="d-inline">
-                                                                            @csrf
-                                                                            @method('delete')
-                                                                            <button type="submit" class="btn btn-outline-danger btn-sm btn-icon btn-rounded" onclick="return confirm('Apakah anda yakin?')"><i class="far fa-trash-alt"></i></button>
-                                                                        </form>
-                                                                    </td>
-                                                                </tr>
-                                                            @endforeach
-
+                                                            @if ($items !== null)
+                                                                @foreach ($items as $i => $item)
+                                                                    <tr>
+                                                                        <td>{{ $item->section }}</td>
+                                                                        <td>{{ $item->title }}</td>
+                                                                        <td>{{ $item->video_duration }}</td>
+                                                                        <td>
+                                                                            <a href="/data/kursus/{{ $item->id }}/editItem" class="btn btn-outline-secondary btn-icon btn-rounded editSubject">
+                                                                                <span class="far fa-edit"></span>
+                                                                            </a>
+                                                                            <form action="/data/kursus/{{ $item->id }}" method="POST" class="d-inline">
+                                                                                @csrf
+                                                                                @method('delete')
+                                                                                <button type="submit" class="btn btn-outline-danger btn-sm btn-icon btn-rounded" onclick="return confirm('Apakah anda yakin?')"><i class="far fa-trash-alt"></i></button>
+                                                                            </form>
+                                                                        </td>
+                                                                    </tr>
+                                                                @endforeach
+                                                            @endif
                                                         </tbody>
                                                     </table>
                                                 </div>
